@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class FightFieldStateController : MonoBehaviour, IPointerUpHandler, IPointerDownHandler {
+public class FightFieldStateController : MonoBehaviour/*, IPointerUpHandler, IPointerDownHandler*/ {
 
     [SerializeField] private bool IsSelfField;
     [SerializeField] private Ship[] shipsMassive;
@@ -31,20 +31,20 @@ public class FightFieldStateController : MonoBehaviour, IPointerUpHandler, IPoin
 
     private void Start() {
         mainCamera = ServiceManager.GetInstance().GetMainCamera();
-        CalculateFieldPoints();
+        CalculateFieldPointsAndBorders();
         spritesFightPoolController = SpritesFightPoolController.GetInstance();
     }
 
-    public void OnPointerUp(PointerEventData eventData) {
-        Vector2 tapPos = mainCamera.ScreenToWorldPoint(eventData.position);
-        if(!IsSelfField) {
-            CalculateTapEnemyCellData(tapPos);
-        }
-    }
+    //public void OnPointerUp(PointerEventData eventData) {
+    //    Vector2 tapPos = mainCamera.ScreenToWorldPoint(eventData.position);
+    //    if(!IsSelfField) {
+    //        CalculateTapEnemyCellData(tapPos);
+    //    }
+    //}
 
-    public void OnPointerDown(PointerEventData eventData) {
+    //public void OnPointerDown(PointerEventData eventData) {
 
-    }
+    //}
 
     public float[] GetFieldBorders() {
         return bordersMassive;
@@ -56,7 +56,13 @@ public class FightFieldStateController : MonoBehaviour, IPointerUpHandler, IPoin
         return letterPoints[tapCellPoint.number];
     }
 
-    private void CalculateFieldPoints() {
+    public void HitByShipAttackZone(Vector2[] points) {
+        for(int i = 0;i < points.Length;i++) {
+            HitEnemyCellByPos(points[i]);
+        }
+    }
+
+    private void CalculateFieldPointsAndBorders() {
         fieldPointsToHit = new Dictionary<char, Dictionary<int, Vector2>>();
         fieldPoints = new Dictionary<char, Dictionary<int, Vector2>>();
         lettersYPos = new Dictionary<char, float>();
@@ -72,20 +78,22 @@ public class FightFieldStateController : MonoBehaviour, IPointerUpHandler, IPoin
         float cellSizeDelta = fieldXSize / 10;
         for(int i = 0; i < 10; i++) {
             float cellsYPos = yMax - (cellSizeDelta * i + cellSizeDelta / 2);
+            Dictionary<int, Vector2> letterPointsToHit = new Dictionary<int, Vector2>();
             Dictionary<int, Vector2> letterPoints = new Dictionary<int, Vector2>();
             for(int k = 0; k < 10; k++) {
+                letterPointsToHit.Add(k + 1, new Vector2(cellSizeDelta * k + cellSizeDelta / 2 + xMin, cellsYPos));
                 letterPoints.Add(k + 1, new Vector2(cellSizeDelta * k + cellSizeDelta / 2 + xMin, cellsYPos));
             }
-            fieldPointsToHit.Add(fieldLettersMassive[i], letterPoints);
+            fieldPointsToHit.Add(fieldLettersMassive[i], letterPointsToHit);
             fieldPoints.Add(fieldLettersMassive[i], letterPoints);
             lettersYPos.Add(fieldLettersMassive[i], cellsYPos);
         }
     }
 
-    private void CalculateTapEnemyCellData(Vector2 tapPosition) {
-        CellPointPos tapCellData = SearchTapCellData(tapPosition,fieldPointsToHit);
+    private void HitEnemyCellByPos(Vector2 pointPosition) {
+        CellPointPos tapCellData = SearchTapCellData(pointPosition,fieldPointsToHit);
         Dictionary<int, Vector2> letterPoints = fieldPointsToHit[tapCellData.letter];
-        if(tapCellData.number != 0) {
+        if(tapCellData.number > 0) {
             Vector2 tapCellPosition = letterPoints[tapCellData.number];
             letterPoints.Remove(tapCellData.number);
             bool IsHit = CheckIsShipHit(new CellPointPos(tapCellData.letter, tapCellData.number));
@@ -101,30 +109,22 @@ public class FightFieldStateController : MonoBehaviour, IPointerUpHandler, IPoin
         char tapCellLetter = ' ';
         int tapCellNumber = 0;
         Dictionary<int, Vector2> letterPoints;
-        for(int i = 0;i < fieldLettersMassive.Length;i++) {
-            if(Mathf.Abs(tapPosition.y - lettersYPos[fieldLettersMassive[i]]) < 0.5f) {
-                tapCellLetter = fieldLettersMassive[i];
-            }
+        if(tapPosition.x < bordersMassive[0] || tapPosition.x > bordersMassive[1] 
+            || tapPosition.y < bordersMassive[2] || tapPosition.y > bordersMassive[3]) {
+            return new CellPointPos('a', -1);
         }
 
-        //foreach(char yPosLetter in lettersYPos.Keys) {
-        //    if(Mathf.Abs(tapPosition.y - lettersYPos[yPosLetter]) < 0.5f) {
-        //        tapCellLetter = yPosLetter;
-        //    }
-        //}
+        foreach(char yPosLetter in lettersYPos.Keys) {
+            if(Mathf.Abs(tapPosition.y - lettersYPos[yPosLetter]) < 0.5f) {
+                tapCellLetter = yPosLetter;
+            }
+        }
         letterPoints = fieldPointsDict[tapCellLetter];
         foreach(int cellNumber in letterPoints.Keys) {
             if(Mathf.Abs(tapPosition.x - letterPoints[cellNumber].x) < 0.5f) {
                 tapCellNumber = cellNumber;
             }
         }
-        if(tapCellNumber == 0) {
-            foreach(int cellNumber in letterPoints.Keys) {
-                Debug.Log(letterPoints[cellNumber].x + "  " + cellNumber); // Приходит 0 с массива по выстрелам, а не клеткам
-            }
-            Debug.Log(tapPosition.x);
-        }
-
         return new CellPointPos(tapCellLetter, tapCellNumber);
     }
 

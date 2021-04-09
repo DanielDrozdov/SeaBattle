@@ -19,7 +19,7 @@ internal class Ship : MonoBehaviour
     }
 
     private void OnMouseDown() {
-        ServiceManager.GetInstance().SetNewShipAttackZone(shipAttackZone.gameObject);
+        ServiceManager.GetInstance().SetNewShipAttackZone(shipAttackZone.gameObject,shipPoints.Count);
     }
 
     private void OnMouseUp() {

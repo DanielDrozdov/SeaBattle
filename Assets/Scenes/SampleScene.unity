@@ -1370,7 +1370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fightFieldStateController: {fileID: 562115121}
   zoneMoveKeyPoint: {fileID: 1313006770}
-  fieldScale: {x: 3, y: 3}
+  cellsCount: {x: 3, y: 3}
 --- !u!212 &1683232753
 SpriteRenderer:
   m_ObjectHideFlags: 0
