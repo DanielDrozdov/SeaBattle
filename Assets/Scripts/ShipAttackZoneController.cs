@@ -44,26 +44,22 @@ public class ShipAttackZoneController : MonoBehaviour {
 
     private void OnMouseUp() {
         SetZonePostionOnNearestCell(dragPosition);
-        Vector2[] attackPositions = GetEnemyAttackCells();
-        fightFieldStateController.HitByShipAttackZone(attackPositions);
+        Vector2[] attackPositions = GetEnemyAttackCellsPositions();
+        List<Vector2> avaliableToAttackPositions = fightFieldStateController.GetAvaliableCellsByVectorMassive(attackPositions);
+        Vector2[] randomHitCells = ChooseRandomHitCells(avaliableToAttackPositions);
+        fightFieldStateController.HitByShipAttackZone(randomHitCells);
     }
 
-    private Vector2[] GetEnemyAttackCells() {
-        Dictionary<int, Vector2> attackCells = new Dictionary<int, Vector2>();
-        int choosesCellsCount = (int)ServiceManager.GetInstance().GetLastActivatedShipCellsCount();
-        Vector2[] hitCells = new Vector2[choosesCellsCount];
+    private Vector2[] GetEnemyAttackCellsPositions() {
+        Vector2[] attackCells = new Vector2[(int)(cellsCount.y * cellsCount.x)];
         Vector2 keyPos = zoneMoveKeyPoint.position;
         int curSortCellNumber = 0;
         for(int i = 0; i < cellsCount.y; i++) {
             for(int k = 0; k < cellsCount.x; k++) {
-                attackCells.Add(curSortCellNumber++, new Vector2(keyPos.x + k, keyPos.y - i));
+                attackCells[curSortCellNumber++]= new Vector2(keyPos.x + k, keyPos.y - i);
             }
         }
-        for(int i = 0; i < choosesCellsCount; i++) {
-            hitCells[i] = RecursiveFindRandomAttackCell(attackCells);
-        }
-
-        return hitCells;
+        return attackCells;
     }
 
     private void SetZonePostionOnNearestCell(Vector2 tapDragPosition) {
@@ -72,15 +68,37 @@ public class ShipAttackZoneController : MonoBehaviour {
         lastMovePointPos = transform.position;
     }
 
-    private Vector2 RecursiveFindRandomAttackCell(Dictionary<int, Vector2> attackCells) {
-        int rndAttackCellNumber = Random.Range(0, attackCells.Count);
-        Vector2 cellPos;
-        if(attackCells.ContainsKey(rndAttackCellNumber)) {
-            cellPos = attackCells[rndAttackCellNumber];
-            attackCells.Remove(rndAttackCellNumber);
-        } else {
-            cellPos = RecursiveFindRandomAttackCell(attackCells);
+    private Vector2[] ChooseRandomHitCells(List<Vector2> attackCells) {
+        int choosesCellsCount = (int)ServiceManager.GetInstance().GetLastActivatedShipCellsCount();
+        Vector2[] hitCells = new Vector2[choosesCellsCount];
+        Vector2[] cellsPos = new Vector2[choosesCellsCount];
+        int[] randomCellsNumbers = GetRandomValues(attackCells.Count);
+        for(int i = 0; i < cellsPos.Length; i++) {
+            hitCells[i] = attackCells[randomCellsNumbers[i]];
         }
-        return cellPos;
+        return hitCells;
+    }
+
+    private int[] GetRandomValues(int attackCellsCount) {
+        int choosesCellsCount = (int)ServiceManager.GetInstance().GetLastActivatedShipCellsCount();
+        int[] values = new int[choosesCellsCount];
+
+        for(int i = 0; i < choosesCellsCount; i++) {
+            
+            int nextValue;
+            do {
+                nextValue = Random.Range(0, attackCellsCount);
+            } while(ContainsValue(values, i, nextValue));
+
+            values[i] = nextValue;
+        }
+        return values;
+    }
+
+    private bool ContainsValue(int[] values, int endIndex, int valueToFind) {
+        for(int i = 0; i < endIndex; i++) {
+            if(values[i] == valueToFind) return true;
+        }
+        return false;
     }
 }

@@ -8,8 +8,10 @@ internal class Ship : MonoBehaviour
     [SerializeField] private ShipAttackZoneController shipAttackZone;
     [HideInInspector] public List<CellPointPos> shipPoints;
     [HideInInspector] public List<CellPointPos> shipHitPoints;
+    private SpriteRenderer spriteRenderer;
 
     private void Awake() {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         shipPoints = new List<CellPointPos>();
         shipHitPoints = new List<CellPointPos>();
         for(int i = 0; i < shipPointsMassive.Length; i++) {
@@ -18,11 +20,11 @@ internal class Ship : MonoBehaviour
         }
     }
 
-    private void OnMouseDown() {
-        ServiceManager.GetInstance().SetNewShipAttackZone(shipAttackZone.gameObject,shipPoints.Count);
+    private void OnMouseUp() {
+        ServiceManager.GetInstance().SetNewShipAttackZone(shipAttackZone.gameObject, shipPoints.Count);
     }
 
-    private void OnMouseUp() {
-        ServiceManager.GetInstance().ResetLastShipAttackZone(shipAttackZone.gameObject);
+    public void DestroyShip() {
+        spriteRenderer.enabled = true;
     }
 }

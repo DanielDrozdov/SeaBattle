@@ -29,17 +29,12 @@ public class ServiceManager : MonoBehaviour
         return lastShipCellsCount;
     }
 
-    public void ResetLastShipAttackZone(GameObject shipAttackZone) {
-        if(shipAttackZone == lastActivatedShipAttackZone) {
-            return;
-        }
-        lastActivatedShipAttackZone.SetActive(false);
-        lastShipCellsCount = 0;
-    }
-
     public void SetNewShipAttackZone(GameObject shipAttackZone,float shipCellsCount) {
-        shipAttackZone.SetActive(true);
+        if(lastActivatedShipAttackZone != null) {
+            lastActivatedShipAttackZone.SetActive(false);
+        }
         lastActivatedShipAttackZone = shipAttackZone;
+        shipAttackZone.SetActive(true);
         lastShipCellsCount = shipCellsCount;
     }
 }

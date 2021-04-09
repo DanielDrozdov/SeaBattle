@@ -35,19 +35,22 @@ public class FightFieldStateController : MonoBehaviour/*, IPointerUpHandler, IPo
         spritesFightPoolController = SpritesFightPoolController.GetInstance();
     }
 
-    //public void OnPointerUp(PointerEventData eventData) {
-    //    Vector2 tapPos = mainCamera.ScreenToWorldPoint(eventData.position);
-    //    if(!IsSelfField) {
-    //        CalculateTapEnemyCellData(tapPos);
-    //    }
-    //}
-
-    //public void OnPointerDown(PointerEventData eventData) {
-
-    //}
-
     public float[] GetFieldBorders() {
         return bordersMassive;
+    }
+
+    public List<Vector2> GetAvaliableCellsByVectorMassive(Vector2[] posMassive) {
+        List<Vector2> avaliableCells = new List<Vector2>();
+        for(int i = 0; i < posMassive.Length;i++) {
+            Vector2 pos = posMassive[i];
+            CellPointPos tapCellPoint = SearchTapCellData(pos, fieldPointsToHit);
+            if(tapCellPoint.number <= 0) {
+                continue;
+            }
+            Dictionary<int, Vector2> letterPoints = fieldPoints[tapCellPoint.letter];
+            avaliableCells.Add(letterPoints[tapCellPoint.number]);
+        }
+        return avaliableCells;
     }
 
     public Vector2 GetNearestCellPos(Vector2 tapPos) {
@@ -136,6 +139,7 @@ public class FightFieldStateController : MonoBehaviour/*, IPointerUpHandler, IPo
                     if(!IsSelfField) {
                         curShipPoints.RemoveAt(k);
                         if(curShipPoints.Count == 0) {
+                            shipsList[i].DestroyShip();
                             HitShip(shipsList[i].shipPoints);
                         }
                     }
