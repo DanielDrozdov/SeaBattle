@@ -46,6 +46,9 @@ public class ShipAttackZoneController : MonoBehaviour {
         SetZonePostionOnNearestCell(dragPosition);
         Vector2[] attackPositions = GetEnemyAttackCellsPositions();
         List<Vector2> avaliableToAttackPositions = fightFieldStateController.GetAvaliableCellsByVectorMassive(attackPositions);
+        if(avaliableToAttackPositions.Count == 0) {
+            return;
+        }
         Vector2[] randomHitCells = ChooseRandomHitCells(avaliableToAttackPositions);
         fightFieldStateController.HitByShipAttackZone(randomHitCells);
     }
@@ -82,6 +85,9 @@ public class ShipAttackZoneController : MonoBehaviour {
     private int[] GetRandomValues(int attackCellsCount) {
         int choosesCellsCount = (int)ServiceManager.GetInstance().GetLastActivatedShipCellsCount();
         int[] values = new int[choosesCellsCount];
+        if(choosesCellsCount > attackCellsCount) {
+            choosesCellsCount = attackCellsCount;
+        }
 
         for(int i = 0; i < choosesCellsCount; i++) {
             
