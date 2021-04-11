@@ -27,11 +27,11 @@ public class FightFieldStateController : MonoBehaviour/*, IPointerUpHandler, IPo
         for(int i = 0;i < shipsMassive.Length;i++) {
             shipsList.Add(shipsMassive[i]);
         }
+        CalculateFieldPointsAndBorders();
     }
 
     private void Start() {
         mainCamera = ServiceManager.GetInstance().GetMainCamera();
-        CalculateFieldPointsAndBorders();
         spritesFightPoolController = SpritesFightPoolController.GetInstance();
     }
 

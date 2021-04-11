@@ -66,8 +66,8 @@ public class ShipAttackZoneController : MonoBehaviour {
     }
 
     private void SetZonePostionOnNearestCell(Vector2 tapDragPosition) {
-        Vector2 pos = fightFieldStateController.GetNearestCellPos(tapDragPosition - (Vector2)keyPointOffSet);
-        transform.position = new Vector3(pos.x, pos.y, transform.position.z) + keyPointOffSet;
+        Vector2 pos = fightFieldStateController.GetNearestCellPos(tapDragPosition + (Vector2)keyPointOffSet);
+        transform.position = new Vector3(pos.x, pos.y, transform.position.z) - keyPointOffSet;
         lastMovePointPos = transform.position;
     }
 

@@ -8,8 +8,8 @@ public class SpritesFightPoolController : MonoBehaviour
     [SerializeField] private GameObject NothingInCellSprite;
     private Queue<GameObject> hitCrossSpritesPool;
     private Queue<GameObject> nothingInCellSpritesPool;
-    private readonly int hitCrossSpritesCount = 20;
-    private readonly int nothingInCellSpritesCount = 80;
+    private readonly int hitCrossSpritesCount = 40;
+    private readonly int nothingInCellSpritesCount = 160;
 
     private static SpritesFightPoolController Instance;
 
