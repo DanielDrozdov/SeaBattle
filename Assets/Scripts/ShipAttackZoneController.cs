@@ -45,7 +45,7 @@ public class ShipAttackZoneController : MonoBehaviour {
     private void OnMouseUp() {
         SetZonePostionOnNearestCell(dragPosition);
         Vector2[] attackPositions = GetEnemyAttackCellsPositions();
-        List<Vector2> avaliableToAttackPositions = fightFieldStateController.GetAvaliableCellsByVectorMassive(attackPositions);
+        List<Vector2> avaliableToAttackPositions = fightFieldStateController.GetAvaliableCellsToHitByVectorMassive(attackPositions);
         if(avaliableToAttackPositions.Count == 0) {
             return;
         }
