@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SelectShipController : MonoBehaviour
 {
-    private FightFieldStateController fightFieldStateController;
+    private SelectShipFieldController selectShipField;
     [SerializeField] private Transform zoneMoveKeyPoint;
     [SerializeField] private Vector2 cellsCount;
     private Camera mainCamera;
@@ -27,7 +27,7 @@ public class SelectShipController : MonoBehaviour
 
     private void Start() {
         mainCamera = ServiceManager.GetInstance().GetMainCamera();
-        fightFieldStateController = SelectShipFieldController.GetInstance().GetGameFieldStateController();
+        selectShipField = SelectShipFieldController.GetInstance();
         shipArea = SelectShipFieldController.GetInstance().GetShipArea((int)cellsCount.x);
         startPos = transform.position;
         keyPointOffSet = zoneMoveKeyPoint.position - transform.position;
@@ -77,7 +77,7 @@ public class SelectShipController : MonoBehaviour
     }
 
     private void SetZonePostionOnNearestCell(Vector2 tapDragPosition,GameObject gameObject) {
-        Vector2 pos = fightFieldStateController.GetNearestCellPos(tapDragPosition + (Vector2)keyPointOffSet);
+        Vector2 pos = selectShipField.GetNearestCellPos(tapDragPosition + (Vector2)keyPointOffSet);
         gameObject.transform.position = new Vector3(pos.x, pos.y, transform.position.z) - keyPointOffSet;
     }
 

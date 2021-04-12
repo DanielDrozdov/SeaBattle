@@ -4,18 +4,16 @@ using UnityEngine;
 
 public class GameFieldStateController : MonoBehaviour {
 
-    [SerializeField] private bool IsSelfField;
+    [SerializeField] protected bool IsSelfField;
     [SerializeField] private Ship[] shipsMassive;
 
-    private Dictionary<char, Dictionary<int, Vector2>> fieldPointsToHit;
-    private Dictionary<char, Dictionary<int, Vector2>> fieldPoints;
-    private Dictionary<char, float> lettersYPos;
-    private List<Ship> shipsList;
-    private char[] fieldLettersMassive = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j' };
+    protected Dictionary<char, Dictionary<int, Vector2>> fieldPointsToHit;
+    protected Dictionary<char, Dictionary<int, Vector2>> fieldPoints;
+    protected Dictionary<char, float> lettersYPos;
+    protected List<Ship> shipsList;
+    protected char[] fieldLettersMassive = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j' };
 
-    private SpritesFightPoolController spritesFightPoolController;
-
-    private float[] bordersMassive;
+    protected float[] bordersMassive;
 
     private void Awake() {
         shipsList = new List<Ship>();
@@ -24,11 +22,16 @@ public class GameFieldStateController : MonoBehaviour {
             shipsList.Add(shipsMassive[i]);
         }
         CalculateFieldPointsAndBorders();
+        AddAwakeActions();
     }
 
     private void Start() {
-        spritesFightPoolController = SpritesFightPoolController.GetInstance();
+        AddStartActions();
     }
+
+    internal virtual void AddStartActions() { }
+
+    internal virtual void AddAwakeActions() { }
 
     public float[] GetFieldBorders() {
         return bordersMassive;
@@ -40,7 +43,7 @@ public class GameFieldStateController : MonoBehaviour {
         return letterPoints[tapCellPoint.number];
     }
 
-    private void CalculateFieldPointsAndBorders() {
+    protected void CalculateFieldPointsAndBorders() {
         fieldPointsToHit = new Dictionary<char, Dictionary<int, Vector2>>();
         fieldPoints = new Dictionary<char, Dictionary<int, Vector2>>();
         lettersYPos = new Dictionary<char, float>();
@@ -68,7 +71,7 @@ public class GameFieldStateController : MonoBehaviour {
         }
     }
 
-    private CellPointPos SearchTapCellData(Vector2 tapPosition, Dictionary<char, Dictionary<int, Vector2>> fieldPointsDict) {
+    protected CellPointPos SearchTapCellData(Vector2 tapPosition, Dictionary<char, Dictionary<int, Vector2>> fieldPointsDict) {
         char tapCellLetter = ' ';
         int tapCellNumber = 0;
         Dictionary<int, Vector2> letterPoints;
@@ -91,7 +94,7 @@ public class GameFieldStateController : MonoBehaviour {
         return new CellPointPos(tapCellLetter, tapCellNumber);
     }
 
-    private int[] CalculateHitShipCellsBorder(List<CellPointPos> shipPoints) {
+    protected int[] CalculateHitShipCellsBorder(List<CellPointPos> shipPoints) {
         int minNumber = shipPoints[0].number, maxNumber = shipPoints[0].number;
         char minLetter = shipPoints[0].letter, maxLetter = shipPoints[0].letter;
         for(int i = 0; i < shipPoints.Count; i++) {
@@ -119,7 +122,7 @@ public class GameFieldStateController : MonoBehaviour {
 }
 
 [System.Serializable]
-struct CellPointPos {
+public struct CellPointPos {
     public char letter;
     public int number;
     public CellPointPos(char letter, int number) {

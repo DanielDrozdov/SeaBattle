@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-internal class Ship : MonoBehaviour
+public class Ship : MonoBehaviour
 {
     [SerializeField] private CellPointPos[] shipPointsMassive;
     [SerializeField] private ShipAttackZoneController shipAttackZone;

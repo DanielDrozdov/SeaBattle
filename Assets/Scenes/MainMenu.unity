@@ -903,7 +903,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 55ad2c588905b8c4fa39930d9ba21442, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.29803923}
   m_FlipX: 0
@@ -1055,7 +1055,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 2ff5c02777037e746a221d8b11052e78, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1489,20 +1489,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3076840117884972207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3076840117884972211}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d919e7462ce18324491429b4c36e0f82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsSelfField: 0
-  shipsMassive: []
 --- !u!224 &3076840117884972208
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1564,7 +1550,6 @@ GameObject:
   - component: {fileID: 3076840117884972202}
   - component: {fileID: 3076840117884972205}
   - component: {fileID: 3076840117884972204}
-  - component: {fileID: 3076840117884972207}
   - component: {fileID: 3076840117884972209}
   - component: {fileID: 3076840117884972212}
   m_Layer: 0
@@ -1586,6 +1571,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32e1f9203982112409740dc7af170163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsSelfField: 0
+  shipsMassive: []
   fourCellShipArea: {fileID: 1388202230}
 --- !u!4 &3076840119566028838
 Transform:
