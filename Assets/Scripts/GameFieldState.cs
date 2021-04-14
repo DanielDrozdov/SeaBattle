@@ -2,26 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameFieldStateController : MonoBehaviour {
+public class GameFieldState : MonoBehaviour {
 
-    [SerializeField] protected bool IsSelfField;
-    [SerializeField] private Ship[] shipsMassive;
+    [SerializeField] protected bool IsSelfField;   
 
     protected Dictionary<char, Dictionary<int, Vector2>> fieldPointsToHit;
     protected Dictionary<char, Dictionary<int, Vector2>> fieldPoints;
     protected Dictionary<char, float> lettersYPos;
-    protected List<Ship> shipsList;
     protected char[] fieldLettersMassive = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j' };
 
+    protected List<Ship> shipsList;
     protected float[] bordersMassive;
 
-    private void Awake() {
-        shipsList = new List<Ship>();
-
-        for(int i = 0; i < shipsMassive.Length; i++) {
-            shipsList.Add(shipsMassive[i]);
-        }
+    private void Awake() {    
         CalculateFieldPointsAndBorders();
+        shipsList = new List<Ship>();
         AddAwakeActions();
     }
 
@@ -41,6 +36,10 @@ public class GameFieldStateController : MonoBehaviour {
         CellPointPos tapCellPoint = SearchTapCellData(tapPos, fieldPoints);
         Dictionary<int, Vector2> letterPoints = fieldPoints[tapCellPoint.letter];
         return letterPoints[tapCellPoint.number];
+    }
+
+    public Vector2 GetPosByCellPoint(CellPointPos shipPoint) {
+        return fieldPoints[shipPoint.letter][shipPoint.number];
     }
 
     protected void CalculateFieldPointsAndBorders() {
@@ -94,9 +93,9 @@ public class GameFieldStateController : MonoBehaviour {
         return new CellPointPos(tapCellLetter, tapCellNumber);
     }
 
-    protected int[] CalculateHitShipCellsBorder(List<CellPointPos> shipPoints) {
-        int minNumber = shipPoints[0].number, maxNumber = shipPoints[0].number;
+    protected int[] CalculateShipCellsBorder(List<CellPointPos> shipPoints) {
         char minLetter = shipPoints[0].letter, maxLetter = shipPoints[0].letter;
+        int minNumber = shipPoints[0].number, maxNumber = shipPoints[0].number;
         for(int i = 0; i < shipPoints.Count; i++) {
             char letter = shipPoints[i].letter;
             int number = shipPoints[i].number;

@@ -13,8 +13,15 @@ public class MainMenuUIController : MonoBehaviour
     }
 
     public void OnClickButton_PlayWithBot() {
-        levelTransitionPanelController.MoveToCanvasCenter();
+        levelTransitionPanelController.MoveToCanvasCenter(() => {
+            mainMenuPanel.SetActive(false);
+            selecetedShipsFieldPanel.SetActive(true);
+        });
         StartCoroutine(WaitLevelTransitionAnimCoroutine());
+    }
+
+    public void OnClickButton_Exit() {
+        Application.Quit();
     }
 
     private IEnumerator WaitLevelTransitionAnimCoroutine() {
@@ -22,9 +29,6 @@ public class MainMenuUIController : MonoBehaviour
         while(IsAnimPlaying) {
             if(levelTransitionPanelController.IsPanelInScreenCenter()) {
                 IsAnimPlaying = false;
-                mainMenuPanel.SetActive(false);
-                selecetedShipsFieldPanel.SetActive(true);
-                yield return new WaitForSeconds(0.5f);
             }
             yield return null;
         }

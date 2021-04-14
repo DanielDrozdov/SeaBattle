@@ -3,16 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class FightFieldStateController : GameFieldStateController {
+public class FightFieldStateController : GameFieldState {
 
     private SpritesFightPoolController spritesFightPoolController;
+
+    private Ship[] shipsMassive;
 
     private FightFieldStateController() { }
 
     internal override void AddStartActions() {
         spritesFightPoolController = SpritesFightPoolController.GetInstance();
+        if(IsSelfField) {
+            for(int i = 0; i < shipsMassive.Length; i++) {
+                shipsList.Add(shipsMassive[i]);
+            }
+        }
     }
 
+    public void SetShips(Ship[] ships) {
+        shipsMassive = ships;
+    }
+         
     public List<Vector2> GetAvaliableCellsToHitByVectorMassive(Vector2[] posMassive) {
         List<Vector2> avaliableCells = new List<Vector2>();
         for(int i = 0; i < posMassive.Length;i++) {
@@ -79,7 +90,7 @@ public class FightFieldStateController : GameFieldStateController {
     }
 
     private void HitShip(List<CellPointPos> shipPoints) {
-        int[] borderData = CalculateHitShipCellsBorder(shipPoints);
+        int[] borderData = CalculateShipCellsBorder(shipPoints);
         int minLetter = borderData[0], maxLetter = borderData[1];
         int minNumber = borderData[2], maxNumber = borderData[3];
         for(int i = minLetter; i <= maxLetter; i++) {
