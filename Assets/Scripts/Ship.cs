@@ -6,9 +6,9 @@ public class Ship : MonoBehaviour
 {
     [SerializeField] private bool IsEnemy;
     [SerializeField] private int cellsCount;
-    [SerializeField] private ShipAttackZoneController shipAttackZone;
     [HideInInspector] public List<CellPointPos> shipPoints;
     [HideInInspector] public List<CellPointPos> shipHitPoints;
+    private ShipAttackZoneController shipAttackZone;
     private CellPointPos[] shipPointsMassive;
     private SpriteRenderer spriteRenderer;
     private FightFieldStateController fightFieldStateController;
@@ -20,13 +20,17 @@ public class Ship : MonoBehaviour
     }
 
     private void Start() {
-        if(!IsEnemy) {
-            CalculateShipPosition();
-        }
+        shipAttackZone = ShipAttackZonesManager.GetInstance().GetShipAttackZone(cellsCount);
     }
 
     private void OnMouseUp() {
-        ServiceManager.GetInstance().SetNewShipAttackZone(shipAttackZone.gameObject, shipPoints.Count);
+        if(!IsEnemy) {
+            ServiceManager.GetInstance().SetNewShipAttackZone(shipAttackZone.gameObject, shipPoints.Count);
+        }
+    }
+
+    public int GetCellsSize() {
+        return cellsCount;
     }
 
     public void DestroyShip() {
@@ -40,6 +44,7 @@ public class Ship : MonoBehaviour
         if(shipPointsMassive.Length > 1) {
             CalculateShipRotate();
         }
+        CalculateShipPosition();
     }
 
     private void FillSecondaryMassives() {
@@ -77,7 +82,4 @@ public class Ship : MonoBehaviour
         transform.position = new Vector2(xPos,yPos);
     }
 
-    public int GetCellsSize() {
-        return cellsCount;
-    }
 }

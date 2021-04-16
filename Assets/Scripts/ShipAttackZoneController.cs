@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class ShipAttackZoneController : MonoBehaviour {
-    [SerializeField] private FightFieldStateController fightFieldStateController;
+    
+    private FightFieldStateController fightFieldStateController;
     [SerializeField] private Transform zoneMoveKeyPoint;
     [SerializeField] private Vector2 cellsCount;
     private Camera mainCamera;
@@ -14,16 +15,21 @@ public class ShipAttackZoneController : MonoBehaviour {
     private Vector3 keyPointOffSet;
     private float[] fieldBorders = { };
 
-    private void Start() {
-        mainCamera = ServiceManager.GetInstance().GetMainCamera();
+    private float xMin;
+    private float xMax;
+    private float yMin;
+    private float yMax;
+
+    private void Awake() {
         lastMovePointPos = zoneMoveKeyPoint.position;
         keyPointOffSet = zoneMoveKeyPoint.position - transform.position;
     }
 
+    private void Start() {
+        mainCamera = ServiceManager.GetInstance().GetMainCamera();  
+    }
+
     private void OnMouseDown() {
-        if(fieldBorders.Length == 0) {
-            fieldBorders = fightFieldStateController.GetFieldBorders();
-        }
         lastMovePointPos = transform.position;
     }
 
@@ -34,8 +40,8 @@ public class ShipAttackZoneController : MonoBehaviour {
             dragPosition = Input.mousePosition;
         }
         dragPosition = mainCamera.ScreenToWorldPoint(dragPosition);
-        dragPosition.x = Mathf.Clamp(dragPosition.x, fieldBorders[0] + cellsCount.x / 2, fieldBorders[1] - cellsCount.x / 2);
-        dragPosition.y = Mathf.Clamp(dragPosition.y, fieldBorders[2] + cellsCount.y / 2, fieldBorders[3] - cellsCount.y / 2);
+        dragPosition.x = Mathf.Clamp(dragPosition.x, xMin, xMax);
+        dragPosition.y = Mathf.Clamp(dragPosition.y, yMin, yMax);
 
         if(Mathf.Abs(dragPosition.x - lastMovePointPos.x) > 0.55 || Mathf.Abs(dragPosition.y - lastMovePointPos.y) > 0.55) {
             SetZonePostionOnNearestCell(dragPosition);
@@ -44,6 +50,33 @@ public class ShipAttackZoneController : MonoBehaviour {
 
     private void OnMouseUp() {
         SetZonePostionOnNearestCell(dragPosition);
+        HitPlayer();
+    }
+
+    public void HitPlayerOnRandomPos() {
+        SetRandomPosOnField();
+        StartCoroutine(OneSecondDelayAndHitPlayerCoroutine());
+    }
+
+    public void SetAnotherOpponentField(FightFieldStateController opponentField) {
+        fightFieldStateController = opponentField;
+        fieldBorders = fightFieldStateController.GetFieldBorders();
+        CalculateShipBorders();
+        SetRandomPosOnField();
+    }
+
+    private void SetRandomPosOnField() {
+        if(keyPointOffSet == new Vector3(0,0)) {
+            keyPointOffSet = zoneMoveKeyPoint.position - transform.position;
+        }
+        float xPos = Random.Range(xMin, xMax);
+        float yPos = Random.Range(yMin, yMax);
+        transform.position = new Vector2(xPos, yPos);
+        lastMovePointPos = zoneMoveKeyPoint.position;
+        SetZonePostionOnNearestCell(transform.position);
+    }
+
+    private void HitPlayer() {
         Vector2[] attackPositions = GetEnemyAttackCellsPositions();
         List<Vector2> avaliableToAttackPositions = fightFieldStateController.GetAvaliableCellsToHitByVectorMassive(attackPositions);
         if(avaliableToAttackPositions.Count == 0) {
@@ -88,14 +121,11 @@ public class ShipAttackZoneController : MonoBehaviour {
         if(choosesCellsCount > attackCellsCount) {
             choosesCellsCount = attackCellsCount;
         }
-
         for(int i = 0; i < choosesCellsCount; i++) {
-            
             int nextValue;
             do {
                 nextValue = Random.Range(0, attackCellsCount);
             } while(ContainsValue(values, i, nextValue));
-
             values[i] = nextValue;
         }
         return values;
@@ -106,5 +136,17 @@ public class ShipAttackZoneController : MonoBehaviour {
             if(values[i] == valueToFind) return true;
         }
         return false;
+    }
+
+    private void CalculateShipBorders() {
+        xMin = fieldBorders[0] + cellsCount.x / 2;
+        xMax = fieldBorders[1] - cellsCount.x / 2;
+        yMin = fieldBorders[2] + cellsCount.y / 2;
+        yMax = fieldBorders[3] - cellsCount.y / 2;
+    }
+
+    private IEnumerator OneSecondDelayAndHitPlayerCoroutine() {
+        yield return new WaitForSeconds(1);
+        HitPlayer();
     }
 }

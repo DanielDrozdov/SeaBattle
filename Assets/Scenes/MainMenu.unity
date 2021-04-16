@@ -2607,6 +2607,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1560969302}
   - component: {fileID: 1560969301}
+  - component: {fileID: 1560969303}
+  - component: {fileID: 1560969304}
+  - component: {fileID: 1560969305}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2640,6 +2643,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1560969303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560969300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bbca80808a302f4fa16192a77f3b536, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1560969304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560969300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff021bcfa04725f439ae4d7ad5bfd16f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ships:
+  - {fileID: 1773326411}
+  - {fileID: 1650662913}
+  - {fileID: 92377630}
+  - {fileID: 1766277657}
+  - {fileID: 452081652}
+  - {fileID: 247369767}
+  - {fileID: 525899967}
+  - {fileID: 669186347}
+  - {fileID: 252042912}
+  - {fileID: 1411459774}
+--- !u!114 &1560969305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560969300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf45b19cc3bdb6e4c8891e75f10d8510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nineCellsZone: {fileID: 0}
+  fourCellsZone: {fileID: 0}
+  oneCellZone: {fileID: 0}
 --- !u!1 &1612974834
 GameObject:
   m_ObjectHideFlags: 0
@@ -3931,6 +3984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0b073733dc743b43bec6142d2fea322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  generator: {fileID: 1560969304}
 --- !u!4 &3076840119566028838
 Transform:
   m_ObjectHideFlags: 0

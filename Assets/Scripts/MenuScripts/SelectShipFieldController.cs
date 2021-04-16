@@ -2,26 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipSelectFieldController : GameFieldState
+public class SelectShipFieldController : GameFieldState
 {
     [SerializeField] private SelectedShipAreaController fourCellShipArea;
     [SerializeField] private SelectedShipAreaController threeCellShipArea;
     [SerializeField] private SelectedShipAreaController twoCellShipArea;
     [SerializeField] private SelectedShipAreaController oneCellShipArea;
     private SelectShipController pressedShip;
-    private static ShipSelectFieldController Instance;
+    private static SelectShipFieldController Instance;
 
     private Dictionary<SelectShipController, CellPointPos[]> shipReservedPoints;
 
-    private ShipSelectFieldController() { }
+    private SelectShipFieldController() { }
 
     internal override void AddAwakeActions() {
         Instance = this;
         shipReservedPoints = new Dictionary<SelectShipController, CellPointPos[]>();
     }
 
-    public static ShipSelectFieldController GetInstance() {
+    public static SelectShipFieldController GetInstance() {
         return Instance;
+    }
+
+    public void ClearReservedShips() {
+        shipReservedPoints.Clear();
     }
 
     public List<CellPointPos[]> GetSelectedShips() {
@@ -119,13 +123,5 @@ public class ShipSelectFieldController : GameFieldState
             shipCellsPoints[i] = SearchTapCellData(positions[i], fieldPoints);
         }
         return shipCellsPoints;
-    }
-
-    private void ChangeShipAreaColorIfFindLocateBlock(bool IsNormal) {
-        if(IsNormal) {
-
-        } else {
-
-        }
     }
 }

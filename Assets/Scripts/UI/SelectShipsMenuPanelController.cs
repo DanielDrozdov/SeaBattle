@@ -5,16 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class SelectShipsMenuPanelController : MonoBehaviour
 {
-    private ShipSelectFieldController shipSelectFieldController;
+    private bool IsPlayButtonPressed;
+    [SerializeField] private GeneratedSelectShipLocateHelperController generator;
+    private SelectShipFieldController shipSelectFieldController;
     private LevelTransitionPanelController levelTransitionPanelController;
 
     private void Awake() {
-        shipSelectFieldController = GetComponent<ShipSelectFieldController>();
+        shipSelectFieldController = GetComponent<SelectShipFieldController>();
         levelTransitionPanelController = LevelTransitionPanelController.GetInstance();
     }
 
     public void OnClickButton_Play() {
-        if(shipSelectFieldController.IfAllShipsAreSelected()) {
+        if(shipSelectFieldController.IfAllShipsAreSelected() && !IsPlayButtonPressed) {
+            IsPlayButtonPressed = true;
             DataSceneTransitionController dataSceneTransition = DataSceneTransitionController.GetInstance();
             dataSceneTransition.SetSelectedShips(shipSelectFieldController.GetSelectedShips());
             levelTransitionPanelController.MoveToCanvasCenter(() => {
@@ -24,7 +27,7 @@ public class SelectShipsMenuPanelController : MonoBehaviour
     }
 
     public void OnClickButton_AutoShipsLocateGeneration() {
-
+        generator.LocateShipsOnField();
     }
 
     public void OnClickButton_RotateShip() {

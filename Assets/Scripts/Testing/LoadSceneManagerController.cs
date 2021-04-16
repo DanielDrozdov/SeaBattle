@@ -6,6 +6,6 @@ using UnityEngine.SceneManagement;
 public class LoadSceneManagerController : MonoBehaviour
 {
     public void OnClickButton() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("MainMenu");
     }
 }

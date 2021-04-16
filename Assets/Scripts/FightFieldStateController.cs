@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class FightFieldStateController : GameFieldState {
 
+    [SerializeField] private FightGameManager.OpponentName opponentName;
     private SpritesFightPoolController spritesFightPoolController;
 
     private Ship[] shipsMassive;
@@ -13,15 +14,17 @@ public class FightFieldStateController : GameFieldState {
 
     internal override void AddStartActions() {
         spritesFightPoolController = SpritesFightPoolController.GetInstance();
-        if(IsSelfField) {
-            for(int i = 0; i < shipsMassive.Length; i++) {
-                shipsList.Add(shipsMassive[i]);
-            }
-        }
+    }
+
+    public FightGameManager.OpponentName GetOpponentName() {
+        return opponentName;
     }
 
     public void SetShips(Ship[] ships) {
         shipsMassive = ships;
+        for(int i = 0; i < shipsMassive.Length; i++) {
+            shipsList.Add(shipsMassive[i]);
+        }
     }
          
     public List<Vector2> GetAvaliableCellsToHitByVectorMassive(Vector2[] posMassive) {
@@ -39,7 +42,14 @@ public class FightFieldStateController : GameFieldState {
     }
 
     public void HitByShipAttackZone(Vector2[] points) {
+        bool IsAvaliableHitsOver = false;
         for(int i = 0; i < points.Length; i++) {
+            if(IsAvaliableHitsOver) {
+                break;
+            }
+            if(FightGameManager.GetInstance().GetAvaliableCellsCountToHit() <= 1) {
+                IsAvaliableHitsOver = true;
+            }
             HitEnemyCellByPos(points[i]);
         }
     }
@@ -50,6 +60,7 @@ public class FightFieldStateController : GameFieldState {
         if(tapCellData.number > 0) {
             Vector2 tapCellPosition = letterPoints[tapCellData.number];
             letterPoints.Remove(tapCellData.number);
+            FightGameManager.GetInstance().DecreaseOneCell();
             bool IsHit = CheckIsShipHit(new CellPointPos(tapCellData.letter, tapCellData.number));
             if(IsHit) {
                 ActivateCellStateSprite(tapCellPosition, true);
