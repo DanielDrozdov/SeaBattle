@@ -5,8 +5,6 @@ using UnityEngine;
 public class ServiceManager : MonoBehaviour
 {
     private static ServiceManager Instance;
-    private GameObject lastActivatedShipAttackZone;
-    private float lastShipCellsCount;
     private Camera mainCamera;
 
     private ServiceManager() { }
@@ -23,18 +21,5 @@ public class ServiceManager : MonoBehaviour
 
     public Camera GetMainCamera() {
         return mainCamera;
-    }
-
-    public float GetLastActivatedShipCellsCount() {
-        return lastShipCellsCount;
-    }
-
-    public void SetNewShipAttackZone(GameObject shipAttackZone,float shipCellsCount) {
-        if(lastActivatedShipAttackZone != null) {
-            lastActivatedShipAttackZone.SetActive(false);
-        }
-        lastActivatedShipAttackZone = shipAttackZone;
-        shipAttackZone.SetActive(true);
-        lastShipCellsCount = shipCellsCount;
     }
 }

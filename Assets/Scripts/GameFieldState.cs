@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class GameFieldState : MonoBehaviour {
 
-    [SerializeField] protected bool IsSelfField;   
-
     protected Dictionary<char, Dictionary<int, Vector2>> fieldPointsToHit;
     protected Dictionary<char, Dictionary<int, Vector2>> fieldPoints;
     protected Dictionary<char, float> lettersYPos;
-    protected char[] fieldLettersMassive = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j' };
+    public readonly char[] fieldLettersMassive = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j' };
 
     protected List<Ship> shipsList;
     protected float[] bordersMassive;
@@ -24,9 +22,9 @@ public class GameFieldState : MonoBehaviour {
         AddStartActions();
     }
 
-    internal virtual void AddStartActions() { }
+    protected virtual void AddStartActions() { }
 
-    internal virtual void AddAwakeActions() { }
+    protected virtual void AddAwakeActions() { }
 
     public float[] GetFieldBorders() {
         return bordersMassive;
@@ -80,13 +78,13 @@ public class GameFieldState : MonoBehaviour {
         }
 
         foreach(char yPosLetter in lettersYPos.Keys) {
-            if(Mathf.Abs(tapPosition.y - lettersYPos[yPosLetter]) < 0.5f) {
+            if(Mathf.Abs(tapPosition.y - lettersYPos[yPosLetter]) <= 0.5f) {
                 tapCellLetter = yPosLetter;
             }
         }
         letterPoints = fieldPointsDict[tapCellLetter];
         foreach(int cellNumber in letterPoints.Keys) {
-            if(Mathf.Abs(tapPosition.x - letterPoints[cellNumber].x) < 0.5f) {
+            if(Mathf.Abs(tapPosition.x - letterPoints[cellNumber].x) <= 0.5f) {
                 tapCellNumber = cellNumber;
             }
         }

@@ -15,7 +15,7 @@ public class SelectShipFieldController : GameFieldState
 
     private SelectShipFieldController() { }
 
-    internal override void AddAwakeActions() {
+    protected override void AddAwakeActions() {
         Instance = this;
         shipReservedPoints = new Dictionary<SelectShipController, CellPointPos[]>();
     }

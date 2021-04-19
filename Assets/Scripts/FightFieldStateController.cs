@@ -10,9 +10,15 @@ public class FightFieldStateController : GameFieldState {
 
     private Ship[] shipsMassive;
 
+    private BotAttackController botAttackController;
+
     private FightFieldStateController() { }
 
-    internal override void AddStartActions() {
+    protected override void AddAwakeActions() {
+        botAttackController = GetComponent<BotAttackController>();
+    }
+
+    protected override void AddStartActions() {
         spritesFightPoolController = SpritesFightPoolController.GetInstance();
     }
 
@@ -20,13 +26,31 @@ public class FightFieldStateController : GameFieldState {
         return opponentName;
     }
 
+    public bool CheckIsCellPointFreeToHit(CellPointPos cellPoint) {
+        if(fieldPointsToHit[cellPoint.letter].ContainsKey(cellPoint.number)) {
+            return true;
+        }
+        return false;
+    }
+
+    public void SetEnemyBotAttackController(BotAttackController botAttackController) {
+        this.botAttackController = botAttackController;
+    }
+
     public void SetShips(Ship[] ships) {
         shipsMassive = ships;
         for(int i = 0; i < shipsMassive.Length; i++) {
             shipsList.Add(shipsMassive[i]);
         }
+        if(opponentName == FightGameManager.OpponentName.Bot) {
+            botAttackController.SetShipsMassive(shipsMassive);
+        }
     }
          
+    public Dictionary<char, Dictionary<int, Vector2>> GetFreeCellsPointsToHit() {
+        return fieldPointsToHit;
+    }
+
     public List<Vector2> GetAvaliableCellsToHitByVectorMassive(Vector2[] posMassive) {
         List<Vector2> avaliableCells = new List<Vector2>();
         for(int i = 0; i < posMassive.Length;i++) {
@@ -60,8 +84,8 @@ public class FightFieldStateController : GameFieldState {
         if(tapCellData.number > 0) {
             Vector2 tapCellPosition = letterPoints[tapCellData.number];
             letterPoints.Remove(tapCellData.number);
-            FightGameManager.GetInstance().DecreaseOneCell();
             bool IsHit = CheckIsShipHit(new CellPointPos(tapCellData.letter, tapCellData.number));
+            FightGameManager.GetInstance().DecreaseOneCell();
             if(IsHit) {
                 ActivateCellStateSprite(tapCellPosition, true);
             } else {
@@ -75,12 +99,19 @@ public class FightFieldStateController : GameFieldState {
             List<CellPointPos> curShipPoints = shipsList[i].shipHitPoints;
             for(int k = 0; k < curShipPoints.Count; k++) {
                 if((curShipPoints[k].letter == tapCell.letter && curShipPoints[k].number == tapCell.number)) {
-                    if(!IsSelfField) {
-                        curShipPoints.RemoveAt(k);
-                        if(curShipPoints.Count == 0) {
-                            shipsList[i].DestroyShip();
-                            HitShip(shipsList[i].shipPoints);
+                    if(botAttackController != null && opponentName != FightGameManager.OpponentName.Bot) {
+                        botAttackController.SetHitShip(shipsList[i], curShipPoints[k]);
+                    }
+                    curShipPoints.RemoveAt(k);
+                    if(curShipPoints.Count == 0) {
+                        HitShip(shipsList[i].shipPoints);
+                        if(opponentName == FightGameManager.OpponentName.Bot) {
+                            botAttackController.DecreaseOneShip(shipsList[i].shipPoints.Count);
+                        } else if(botAttackController != null && opponentName != FightGameManager.OpponentName.Bot) {
+                            botAttackController.RemoveDestroyedShip(shipsList[i]);
                         }
+                        shipsList[i].DestroyShip();
+                        shipsList.RemoveAt(i);
                     }
                     return true;
                 }

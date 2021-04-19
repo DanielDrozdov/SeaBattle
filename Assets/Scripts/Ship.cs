@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Ship : MonoBehaviour
 {
-    [SerializeField] private bool IsEnemy;
     [SerializeField] private int cellsCount;
     [HideInInspector] public List<CellPointPos> shipPoints;
     [HideInInspector] public List<CellPointPos> shipHitPoints;
@@ -13,6 +12,7 @@ public class Ship : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private FightFieldStateController fightFieldStateController;
 
+    private bool IsDestroyed;
     private bool IsRotatedOnY;
 
     private void Awake() {
@@ -24,9 +24,13 @@ public class Ship : MonoBehaviour
     }
 
     private void OnMouseUp() {
-        if(!IsEnemy) {
-            ServiceManager.GetInstance().SetNewShipAttackZone(shipAttackZone.gameObject, shipPoints.Count);
+        if(!IsDestroyed) {
+            ShipAttackZonesManager.GetInstance().SetNewShipAttackZone(shipAttackZone, shipPoints.Count);
         }
+    }
+
+    public bool IsShipDestroyed() {
+        return IsDestroyed;
     }
 
     public int GetCellsSize() {
@@ -34,6 +38,7 @@ public class Ship : MonoBehaviour
     }
 
     public void DestroyShip() {
+        IsDestroyed = true;
         spriteRenderer.enabled = true;
     }
 

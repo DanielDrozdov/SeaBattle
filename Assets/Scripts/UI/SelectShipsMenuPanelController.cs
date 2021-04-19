@@ -17,12 +17,14 @@ public class SelectShipsMenuPanelController : MonoBehaviour
 
     public void OnClickButton_Play() {
         if(shipSelectFieldController.IfAllShipsAreSelected() && !IsPlayButtonPressed) {
-            IsPlayButtonPressed = true;
             DataSceneTransitionController dataSceneTransition = DataSceneTransitionController.GetInstance();
             dataSceneTransition.SetSelectedShips(shipSelectFieldController.GetSelectedShips());
-            levelTransitionPanelController.MoveToCanvasCenter(() => {
+            bool IsDone = levelTransitionPanelController.MoveToCanvasCenter(() => {
                 SceneManager.LoadScene("FightScene");
             });
+            if(IsDone) {
+                IsPlayButtonPressed = true;
+            }
         }
     }
 

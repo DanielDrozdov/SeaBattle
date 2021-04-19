@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 10613783}
   - component: {fileID: 10613784}
   m_Layer: 0
-  m_Name: TapGameZone
+  m_Name: TapGameZone1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -173,7 +173,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d919e7462ce18324491429b4c36e0f82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsSelfField: 1
   opponentName: 0
 --- !u!114 &10613784
 MonoBehaviour:
@@ -321,7 +320,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEnemy: 1
   cellsCount: 4
   shipPoints: []
   shipHitPoints: []
@@ -539,7 +537,7 @@ GameObject:
   m_Component:
   - component: {fileID: 156280888}
   m_Layer: 0
-  m_Name: EnemyShips
+  m_Name: SecondShipsGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -580,7 +578,7 @@ GameObject:
   - component: {fileID: 240723456}
   - component: {fileID: 240723455}
   m_Layer: 0
-  m_Name: SelfSeaBattleField
+  m_Name: FirstSeaBattleField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -649,7 +647,7 @@ Transform:
   m_Children:
   - {fileID: 10613782}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &289074054
 GameObject:
@@ -696,7 +694,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &359248154
 GameObject:
@@ -729,7 +727,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEnemy: 0
   cellsCount: 4
   shipPoints: []
   shipHitPoints: []
@@ -902,7 +899,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &373836656
 GameObject:
@@ -999,7 +996,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEnemy: 0
   cellsCount: 2
   shipPoints: []
   shipHitPoints: []
@@ -1100,7 +1096,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEnemy: 0
   cellsCount: 2
   shipPoints: []
   shipHitPoints: []
@@ -1231,7 +1226,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEnemy: 0
   cellsCount: 3
   shipPoints: []
   shipHitPoints: []
@@ -1299,7 +1293,6 @@ GameObject:
   - component: {fileID: 562115122}
   - component: {fileID: 562115121}
   - component: {fileID: 562115119}
-  - component: {fileID: 562115120}
   - component: {fileID: 562115125}
   m_Layer: 0
   m_Name: TapGameZone
@@ -1356,29 +1349,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &562115120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 562115117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7f707211c22a8a4b9cc4d1328e92d96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ships:
-  - {fileID: 49195052}
-  - {fileID: 1721705182}
-  - {fileID: 658722160}
-  - {fileID: 1401490419}
-  - {fileID: 788170357}
-  - {fileID: 646544947}
-  - {fileID: 1384610740}
-  - {fileID: 911181937}
-  - {fileID: 887300431}
-  - {fileID: 1904956280}
 --- !u!114 &562115121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1391,8 +1361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d919e7462ce18324491429b4c36e0f82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsSelfField: 0
-  opponentName: 1
+  opponentName: 2
 --- !u!222 &562115122
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1451,7 +1420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 664c051228340b44690ae15823df8274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fourCellShipAttackZone: {fileID: 0}
+  firstPlayerFieldController: {fileID: 10613783}
 --- !u!1 &646544944
 GameObject:
   m_ObjectHideFlags: 0
@@ -1523,7 +1492,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEnemy: 1
   cellsCount: 2
   shipPoints: []
   shipHitPoints: []
@@ -1648,7 +1616,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEnemy: 1
   cellsCount: 3
   shipPoints: []
   shipHitPoints: []
@@ -1746,7 +1713,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &721685689
 MonoBehaviour:
@@ -1761,7 +1728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   opponentMoveArrowCursor: {fileID: 370368984}
-  ships:
+  firstShipsGroup:
   - {fileID: 359248155}
   - {fileID: 1950421016}
   - {fileID: 531981276}
@@ -1772,6 +1739,17 @@ MonoBehaviour:
   - {fileID: 1780312345}
   - {fileID: 1975323025}
   - {fileID: 1372189005}
+  secondShipsGroup:
+  - {fileID: 49195052}
+  - {fileID: 1721705182}
+  - {fileID: 658722160}
+  - {fileID: 1401490419}
+  - {fileID: 788170357}
+  - {fileID: 646544947}
+  - {fileID: 1384610740}
+  - {fileID: 911181937}
+  - {fileID: 887300431}
+  - {fileID: 1904956280}
   firstPlayerFieldStateController: {fileID: 10613783}
   secondPlayerFieldStateController: {fileID: 562115121}
   botAttackController: {fileID: 562115125}
@@ -1873,7 +1851,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEnemy: 1
   cellsCount: 2
   shipPoints: []
   shipHitPoints: []
@@ -2022,7 +1999,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEnemy: 0
   cellsCount: 1
   shipPoints: []
   shipHitPoints: []
@@ -2123,7 +2099,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEnemy: 1
   cellsCount: 1
   shipPoints: []
   shipHitPoints: []
@@ -2248,7 +2223,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEnemy: 1
   cellsCount: 1
   shipPoints: []
   shipHitPoints: []
@@ -2368,6 +2342,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1164940708
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1164940709}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1164940709
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164940708}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.38, y: 3.44, z: -22.281569}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1171394230
 GameObject:
   m_ObjectHideFlags: 0
@@ -2379,7 +2383,7 @@ GameObject:
   - component: {fileID: 1171394232}
   - component: {fileID: 1171394231}
   m_Layer: 0
-  m_Name: SeaBattleField
+  m_Name: SecondBattleField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2448,7 +2452,7 @@ Transform:
   m_Children:
   - {fileID: 562115118}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1209769933
 GameObject:
@@ -2629,7 +2633,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: 71676baa596e05546b61ad19b89f94ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2653,7 +2657,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1313006769
 GameObject:
@@ -2756,7 +2760,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEnemy: 0
   cellsCount: 1
   shipPoints: []
   shipHitPoints: []
@@ -2881,7 +2884,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEnemy: 1
   cellsCount: 1
   shipPoints: []
   shipHitPoints: []
@@ -3006,7 +3008,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEnemy: 1
   cellsCount: 2
   shipPoints: []
   shipHitPoints: []
@@ -3070,7 +3071,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1409050273}
   m_Layer: 0
-  m_Name: SelfShips
+  m_Name: FirstShipsGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3193,7 +3194,7 @@ RectTransform:
   - {fileID: 2125840084}
   - {fileID: 1782776938}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3395,7 +3396,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEnemy: 0
   cellsCount: 2
   shipPoints: []
   shipHitPoints: []
@@ -3520,7 +3520,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEnemy: 1
   cellsCount: 3
   shipPoints: []
   shipHitPoints: []
@@ -3645,7 +3644,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEnemy: 0
   cellsCount: 1
   shipPoints: []
   shipHitPoints: []
@@ -3858,7 +3856,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEnemy: 1
   cellsCount: 1
   shipPoints: []
   shipHitPoints: []
@@ -4037,7 +4034,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEnemy: 0
   cellsCount: 3
   shipPoints: []
   shipHitPoints: []
@@ -4138,7 +4134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEnemy: 0
   cellsCount: 1
   shipPoints: []
   shipHitPoints: []

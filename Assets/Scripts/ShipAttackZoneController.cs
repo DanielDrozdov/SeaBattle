@@ -12,7 +12,7 @@ public class ShipAttackZoneController : MonoBehaviour {
 
     private Vector2 dragPosition;
     private Vector2 lastMovePointPos;
-    private Vector3 keyPointOffSet;
+    private Vector2 keyPointOffSet;
     private float[] fieldBorders = { };
 
     private float xMin;
@@ -53,9 +53,12 @@ public class ShipAttackZoneController : MonoBehaviour {
         HitPlayer();
     }
 
-    public void HitPlayerOnRandomPos() {
-        SetRandomPosOnField();
-        StartCoroutine(OneSecondDelayAndHitPlayerCoroutine());
+    public void AttackByPos(Vector2 targetPos) {
+        CalculateShipBorders();
+        targetPos.x = Mathf.Clamp(targetPos.x, xMin, xMax);
+        targetPos.y = Mathf.Clamp(targetPos.y, yMin, yMax);
+        SetPos(targetPos);
+        StartCoroutine(OneSecondDelayAndHitPlayerByBotAttackCoroutine());
     }
 
     public void SetAnotherOpponentField(FightFieldStateController opponentField) {
@@ -65,18 +68,21 @@ public class ShipAttackZoneController : MonoBehaviour {
         SetRandomPosOnField();
     }
 
-    private void SetRandomPosOnField() {
-        if(keyPointOffSet == new Vector3(0,0)) {
-            keyPointOffSet = zoneMoveKeyPoint.position - transform.position;
-        }
+    private void SetRandomPosOnField() {     
         float xPos = Random.Range(xMin, xMax);
         float yPos = Random.Range(yMin, yMax);
-        transform.position = new Vector2(xPos, yPos);
-        lastMovePointPos = zoneMoveKeyPoint.position;
-        SetZonePostionOnNearestCell(transform.position);
+        SetPos(new Vector2(xPos,yPos));
     }
 
-    private void HitPlayer() {
+    private void SetPos(Vector2 targetPos) {
+        if(keyPointOffSet == new Vector2(0, 0)) {
+            keyPointOffSet = zoneMoveKeyPoint.position - transform.position;
+        }
+        transform.position = targetPos;
+        SetZonePostionOnNearestCell(targetPos);
+    }
+
+    private void HitPlayer(bool IsBotAttack = false) {
         Vector2[] attackPositions = GetEnemyAttackCellsPositions();
         List<Vector2> avaliableToAttackPositions = fightFieldStateController.GetAvaliableCellsToHitByVectorMassive(attackPositions);
         if(avaliableToAttackPositions.Count == 0) {
@@ -99,13 +105,13 @@ public class ShipAttackZoneController : MonoBehaviour {
     }
 
     private void SetZonePostionOnNearestCell(Vector2 tapDragPosition) {
-        Vector2 pos = fightFieldStateController.GetNearestCellPos(tapDragPosition + (Vector2)keyPointOffSet);
-        transform.position = new Vector3(pos.x, pos.y, transform.position.z) - keyPointOffSet;
+        Vector2 pos = fightFieldStateController.GetNearestCellPos(tapDragPosition + keyPointOffSet);
+        transform.position = new Vector3(pos.x, pos.y, transform.position.z) - (Vector3)keyPointOffSet;
         lastMovePointPos = transform.position;
     }
 
     private Vector2[] ChooseRandomHitCells(List<Vector2> attackCells) {
-        int choosesCellsCount = (int)ServiceManager.GetInstance().GetLastActivatedShipCellsCount();
+        int choosesCellsCount = ShipAttackZonesManager.GetInstance().GetLastActivatedShipCellsCount();
         Vector2[] hitCells = new Vector2[choosesCellsCount];
         Vector2[] cellsPos = new Vector2[choosesCellsCount];
         int[] randomCellsNumbers = GetRandomValues(attackCells.Count);
@@ -116,7 +122,7 @@ public class ShipAttackZoneController : MonoBehaviour {
     }
 
     private int[] GetRandomValues(int attackCellsCount) {
-        int choosesCellsCount = (int)ServiceManager.GetInstance().GetLastActivatedShipCellsCount();
+        int choosesCellsCount = ShipAttackZonesManager.GetInstance().GetLastActivatedShipCellsCount();
         int[] values = new int[choosesCellsCount];
         if(choosesCellsCount > attackCellsCount) {
             choosesCellsCount = attackCellsCount;
@@ -145,8 +151,8 @@ public class ShipAttackZoneController : MonoBehaviour {
         yMax = fieldBorders[3] - cellsCount.y / 2;
     }
 
-    private IEnumerator OneSecondDelayAndHitPlayerCoroutine() {
+    private IEnumerator OneSecondDelayAndHitPlayerByBotAttackCoroutine() {
         yield return new WaitForSeconds(1);
-        HitPlayer();
+        HitPlayer(true);
     }
 }

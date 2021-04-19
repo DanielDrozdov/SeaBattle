@@ -11,6 +11,7 @@ public class LevelTransitionPanelController : MonoBehaviour
     private static LevelTransitionPanelController Instance;
     private Image selfImage;
 
+    private bool IsCoroutineStarted;
     private bool IsPanelClosed;
     private Vector2 startPoint;
     private float ySpawnOffsetInPixels = 100f;
@@ -42,13 +43,21 @@ public class LevelTransitionPanelController : MonoBehaviour
         return Instance;
     }
 
-    public void MoveToCanvasCenter(LevelTransitionCloseMethod CloseWindowMethod = null) {
-        selfImage.enabled = true;
-        StartCoroutine(MoveToPointCoroutine(canvas.transform.position,true,CloseWindowMethod));
+    public bool MoveToCanvasCenter(LevelTransitionCloseMethod CloseWindowMethod = null) {
+        if(!IsCoroutineStarted) {
+            selfImage.enabled = true;
+            StartCoroutine(MoveToPointCoroutine(canvas.transform.position, true, CloseWindowMethod));
+            return true;
+        }
+        return false;
     }
 
-    public void MoveToStartPoint(LevelTransitionOpenMethod OpenWindowMethod = null) {
-        StartCoroutine(MoveToPointCoroutine(startPoint,false,OpenWindowDelegate:OpenWindowMethod));
+    public bool MoveToStartPoint(LevelTransitionOpenMethod OpenWindowMethod = null) {
+        if(!IsCoroutineStarted) {
+            StartCoroutine(MoveToPointCoroutine(startPoint, false, OpenWindowDelegate: OpenWindowMethod));
+            return true;
+        }
+        return false;
     }
 
     public bool IsPanelInScreenCenter() {
@@ -57,6 +66,7 @@ public class LevelTransitionPanelController : MonoBehaviour
 
     private IEnumerator MoveToPointCoroutine(Vector3 targetPos,bool IsMovingToCanvasCenter,
         LevelTransitionCloseMethod CloseWindowDelegate = null, LevelTransitionOpenMethod OpenWindowDelegate = null) {
+        IsCoroutineStarted = true;
         targetPos = new Vector3(targetPos.x, targetPos.y, transform.position.z);
         if(!IsMovingToCanvasCenter) {
             yield return new WaitForSeconds(0.5f);
@@ -64,6 +74,7 @@ public class LevelTransitionPanelController : MonoBehaviour
         while(true) {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
             if(transform.position == targetPos) {
+                IsCoroutineStarted = false;
                 if(IsMovingToCanvasCenter) {
                     IsPanelClosed = true;
                     CloseWindowDelegate?.Invoke();

@@ -6,16 +6,18 @@ public class FightGameManager : MonoBehaviour {
 
     public enum OpponentName {
         P1,
-        P2
+        P2,
+        Bot
     }
 
     [SerializeField] private SpriteRenderer opponentMoveArrowCursor;
-    [SerializeField] private Ship[] ships;
+    [SerializeField] private Ship[] firstShipsGroup;
+    [SerializeField] private Ship[] secondShipsGroup;
     [SerializeField] private FightFieldStateController firstPlayerFieldStateController;
     [SerializeField] private FightFieldStateController secondPlayerFieldStateController;
     [SerializeField] private BotAttackController botAttackController;
     private static FightGameManager Instance;
-    private Dictionary<int, List<CellPointPos[]>> shipsCellsPoints;
+    private List<Ship[]> shipsGroupList = new List<Ship[]>();
 
     private OpponentName currentOpponentName;
     private bool IsFirstOpponentAttackMove = true;
@@ -26,13 +28,13 @@ public class FightGameManager : MonoBehaviour {
         Instance = this;
         avaliableCellsCountToHitBalance = avaliableCellsCountToHit;
         currentOpponentName = OpponentName.P1;
+        shipsGroupList.Add(firstShipsGroup);
+        shipsGroupList.Add(secondShipsGroup);
     }
 
     private void Start() {
         ShipAttackZonesManager.GetInstance().ChangeOpponentAttackField(secondPlayerFieldStateController);
-        FillPlayerShipsPointsDictionary();
-        SetCellsPointsToShips();
-        firstPlayerFieldStateController.SetShips(ships);
+        LocateShipsOnFields();
     }
 
     public static FightGameManager GetInstance() {
@@ -59,33 +61,39 @@ public class FightGameManager : MonoBehaviour {
         avaliableCellsCountToHitBalance = avaliableCellsCountToHit;
         IsFirstOpponentAttackMove = !IsFirstOpponentAttackMove;
         opponentMoveArrowCursor.flipX = IsFirstOpponentAttackMove;
-        if(currentOpponentName == OpponentName.P1) {
+        if(currentOpponentName == firstPlayerFieldStateController.GetOpponentName()) {
             ShipAttackZonesManager.GetInstance().ChangeOpponentAttackField(firstPlayerFieldStateController);
-            currentOpponentName = OpponentName.P2;
+            currentOpponentName = secondPlayerFieldStateController.GetOpponentName();
             botAttackController.HitPlayer();
         } else {
             ShipAttackZonesManager.GetInstance().ChangeOpponentAttackField(secondPlayerFieldStateController);
-            currentOpponentName = OpponentName.P1;
+            currentOpponentName = firstPlayerFieldStateController.GetOpponentName();
         }
     }
 
-    private void FillPlayerShipsPointsDictionary() {
+    private void LocateShipsOnFields() {
         DataSceneTransitionController dataSceneTransition = DataSceneTransitionController.GetInstance();
         List<CellPointPos[]> allShipsPoints = dataSceneTransition.GetSelectedShipPoints();
-        shipsCellsPoints = new Dictionary<int, List<CellPointPos[]>>();
-        for(int i = 1; i <= 4;i++) {
-            shipsCellsPoints.Add(i, new List<CellPointPos[]>(i));
-        }
-        for(int i = 0;i < allShipsPoints.Count;i++) {
-            shipsCellsPoints[allShipsPoints[i].Length].Add(allShipsPoints[i]);
-        }
+        SetCellsPointsToShips(allShipsPoints, firstPlayerFieldStateController);
+        allShipsPoints = ShipFieldPositionGenerateController.GetInstance().GetGeneratedShipsPoints();
+        SetCellsPointsToShips(allShipsPoints, secondPlayerFieldStateController);
     }
 
-    private void SetCellsPointsToShips() {
+    private void SetCellsPointsToShips(List<CellPointPos[]> allShipsPoints,FightFieldStateController opponentField) {
+        Ship[] ships = shipsGroupList[0];
+        Dictionary<int, List<CellPointPos[]>> shipsCellsPoints = new Dictionary<int, List<CellPointPos[]>>();
+        for(int i = 1; i <= 4; i++) {
+            shipsCellsPoints.Add(i, new List<CellPointPos[]>(i));
+        }
+        for(int i = 0; i < allShipsPoints.Count; i++) {
+            shipsCellsPoints[allShipsPoints[i].Length].Add(allShipsPoints[i]);
+        }
         for(int i = 0;i < 10;i++) {
             List<CellPointPos[]> sameCellSizeShips = shipsCellsPoints[ships[i].GetCellsSize()];
-            ships[i].SetShipPointsMassiveAndFightFieldController(sameCellSizeShips[0], firstPlayerFieldStateController);
+            ships[i].SetShipPointsMassiveAndFightFieldController(sameCellSizeShips[0], opponentField);
             sameCellSizeShips.RemoveAt(0);
         }
+        opponentField.SetShips(ships);
+        shipsGroupList.RemoveAt(0);
     }
 }
