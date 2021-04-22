@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class ShipAttackZoneController : MonoBehaviour {
     
     private FightFieldStateController fightFieldStateController;
+    private FightGameManager fightGameManager;
     [SerializeField] private Transform zoneMoveKeyPoint;
     [SerializeField] private Vector2 cellsCount;
     private Camera mainCamera;
@@ -26,31 +27,37 @@ public class ShipAttackZoneController : MonoBehaviour {
     }
 
     private void Start() {
-        mainCamera = ServiceManager.GetInstance().GetMainCamera();  
+        mainCamera = ServiceManager.GetInstance().GetMainCamera();
+        fightGameManager = FightGameManager.GetInstance();
     }
 
     private void OnMouseDown() {
+        if(fightGameManager.GetCurrentOpponentNameToAttack()!= FightGameManager.OpponentName.Bot)
         lastMovePointPos = transform.position;
     }
 
     private void OnMouseDrag() {
-        if(Input.touchCount > 0) {
-            dragPosition = Input.GetTouch(0).position;
-        } else {
-            dragPosition = Input.mousePosition;
-        }
-        dragPosition = mainCamera.ScreenToWorldPoint(dragPosition);
-        dragPosition.x = Mathf.Clamp(dragPosition.x, xMin, xMax);
-        dragPosition.y = Mathf.Clamp(dragPosition.y, yMin, yMax);
+        if(fightGameManager.GetCurrentOpponentNameToAttack() != FightGameManager.OpponentName.Bot) {
+            if(Input.touchCount > 0) {
+                dragPosition = Input.GetTouch(0).position;
+            } else {
+                dragPosition = Input.mousePosition;
+            }
+            dragPosition = mainCamera.ScreenToWorldPoint(dragPosition);
+            dragPosition.x = Mathf.Clamp(dragPosition.x, xMin, xMax);
+            dragPosition.y = Mathf.Clamp(dragPosition.y, yMin, yMax);
 
-        if(Mathf.Abs(dragPosition.x - lastMovePointPos.x) > 0.55 || Mathf.Abs(dragPosition.y - lastMovePointPos.y) > 0.55) {
-            SetZonePostionOnNearestCell(dragPosition);
+            if(Mathf.Abs(dragPosition.x - lastMovePointPos.x) > 0.55 || Mathf.Abs(dragPosition.y - lastMovePointPos.y) > 0.55) {
+                SetZonePostionOnNearestCell(dragPosition);
+            }
         }
     }
 
     private void OnMouseUp() {
-        SetZonePostionOnNearestCell(dragPosition);
-        HitPlayer();
+        if(fightGameManager.GetCurrentOpponentNameToAttack() != FightGameManager.OpponentName.Bot) {
+            SetZonePostionOnNearestCell(dragPosition);
+            HitPlayer();
+        }
     }
 
     public void AttackByPos(Vector2 targetPos) {

@@ -12,6 +12,7 @@ public class BotAttackController : MonoBehaviour
 
     private Dictionary<int, int> shipsByCellsSize;
     private Dictionary<Ship,List<CellPointPos>> hitShips;
+    private List<char> freeLettersToHitList;
     private int currentAttackCellsCount;
 
     private Ship chaseHitShip;
@@ -20,8 +21,12 @@ public class BotAttackController : MonoBehaviour
     private void Awake() {
         chaseShipHitPoints = new List<CellPointPos>();
         selfFieldController = GetComponent<FightFieldStateController>();
-        if(selfFieldController.GetOpponentName() != FightGameManager.OpponentName.Bot) {
+        if(DataSceneTransitionController.GetInstance().GetPlayerCountWithShips() == 2) {
             Destroy(this);
+        }
+        freeLettersToHitList = new List<char>();
+        for(int i = 0; i < 10; i++) {
+            freeLettersToHitList.Add(firstPlayerFieldController.fieldLettersMassive[i]);
         }
         firstPlayerFieldController.SetEnemyBotAttackController(this);
     }
@@ -32,7 +37,7 @@ public class BotAttackController : MonoBehaviour
     }
 
     public void HitPlayer() {
-        shipAttackZonesManager.SetNewShipAttackZone(shipAttackZone, currentAttackCellsCount);
+        shipAttackZonesManager.SetNewShipAttackZone(shipAttackZone, 1);
         StartCoroutine(CheckAvaliableCellsCountToHitValueChangeCoroutine());
     }
 
@@ -73,7 +78,6 @@ public class BotAttackController : MonoBehaviour
         hitShips.Remove(destroyedShip);
         if(chaseHitShip == destroyedShip) {
             chaseShipHitPoints.Clear();
-            hitShips.Remove(chaseHitShip);
             chaseHitShip = null;
         }
     }
@@ -85,7 +89,7 @@ public class BotAttackController : MonoBehaviour
                 break;
             }
         }
-        shipAttackZone = shipAttackZonesManager.GetShipAttackZone(currentAttackCellsCount);
+        shipAttackZone = shipAttackZonesManager.GetShipAttackZone(1);
     }
 
     private IEnumerator CheckAvaliableCellsCountToHitValueChangeCoroutine() {
@@ -120,7 +124,7 @@ public class BotAttackController : MonoBehaviour
 
     private void DestroyLastHitShip() {
         Vector2 attackPos;
-        CellPointPos nextCellPoint;
+        CellPointPos nextCellPoint = new CellPointPos('a',1);
         if(chaseShipHitPoints.Count == 1) {
             nextCellPoint = GetRandomCellPointAroundHitShipPoint(hitShips[chaseHitShip][0]);
             attackPos = firstPlayerFieldController.GetPosByCellPoint(nextCellPoint);
@@ -147,10 +151,11 @@ public class BotAttackController : MonoBehaviour
 
         CellPointPos minCellPoint;
         CellPointPos maxCellPoint;
-
+        bool IsFlippedOnY = false;
         if(chaseShipHitPoints[0].number == chaseShipHitPoints[1].number) { //Y
             minCellPoint = new CellPointPos((char)(minLetter - 1), minNumber);
             maxCellPoint = new CellPointPos((char)(maxLetter + 1), maxNumber);
+            IsFlippedOnY = true;
         } else {
             minCellPoint = new CellPointPos(minLetter, minNumber - 1);
             maxCellPoint = new CellPointPos(maxLetter, maxNumber + 1);
@@ -159,10 +164,23 @@ public class BotAttackController : MonoBehaviour
         maxCellPoint.letter = (char)Mathf.Clamp(maxCellPoint.letter, 97, 106);
         minCellPoint.number = Mathf.Clamp(minCellPoint.number, 1, 10);
         maxCellPoint.number = Mathf.Clamp(maxCellPoint.number, 1, 10);
-        if(firstPlayerFieldController.CheckIsCellPointFreeToHit(minCellPoint)) {
-            nextCellPoint = minCellPoint;
+
+        int cellsDelta = 0;
+        if(IsFlippedOnY) {
+            cellsDelta = maxCellPoint.letter - minCellPoint.letter + 1;
         } else {
-            nextCellPoint = maxCellPoint;
+            cellsDelta = maxCellPoint.number - minCellPoint.number;
+        }
+
+        for(int i = 0; i <= cellsDelta;i++) {
+            if(IsFlippedOnY) {
+                nextCellPoint = new CellPointPos((char)(minCellPoint.letter + i), minCellPoint.number);
+            } else {
+                nextCellPoint = new CellPointPos(minCellPoint.letter, minCellPoint.number + i);
+            }
+            if(firstPlayerFieldController.CheckIsCellPointFreeToHit(nextCellPoint)) {
+                break;
+            }
         }
 
         attackPos = firstPlayerFieldController.GetPosByCellPoint(nextCellPoint);
@@ -195,20 +213,20 @@ public class BotAttackController : MonoBehaviour
 
     private void AttackOnRandomFreeCellOnField() {
         Dictionary<char, Dictionary<int, Vector2>> freePointsToHit = firstPlayerFieldController.GetFreeCellsPointsToHit();
-        List<char> freeLettersToHitList = new List<char>();
-        for(int i = 0; i < 10; i++) {
-            freeLettersToHitList.Add(firstPlayerFieldController.fieldLettersMassive[i]);
+        Vector2 targetFreePos = new Vector2(0,0);
+        Vector2 zeroVector = Vector2.zero;
+        while(targetFreePos == zeroVector) {
+            targetFreePos = GetRandomCellPointPosToHit(freePointsToHit);
         }
-        Vector2 targetFreePos = GetRandomCellPointPosToHit(freePointsToHit, freeLettersToHitList);
         shipAttackZone.AttackByPos(targetFreePos);
     }
 
-    private Vector2 GetRandomCellPointPosToHit(Dictionary<char, Dictionary<int, Vector2>> freePointsToHit,List<char> freeLettersList) {
-        char randomLetter = firstPlayerFieldController.fieldLettersMassive[Random.Range(0, freeLettersList.Count)];
+    private Vector2 GetRandomCellPointPosToHit(Dictionary<char, Dictionary<int, Vector2>> freePointsToHit) {
+        char randomLetter = freeLettersToHitList[Random.Range(0, freeLettersToHitList.Count)];
         Dictionary<int, Vector2> letterPoints = freePointsToHit[randomLetter];
         if(letterPoints.Keys.Count == 0) {
-            freeLettersList.Remove(randomLetter);
-            return GetRandomCellPointPosToHit(freePointsToHit, freeLettersList);
+            freeLettersToHitList.Remove(randomLetter);
+            return new Vector2(0, 0);
         }
         List<int> freePointsNumbersMassive = new List<int>();
         for(int i = 1;i <= 10;i++) {

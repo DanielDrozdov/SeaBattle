@@ -43,6 +43,11 @@ public class SelectShipController : MonoBehaviour
         keyPointOffSet = zoneMoveKeyPoint.position - transform.position;
     }
 
+    private void OnDisable() {
+        shipLastPosOnField = Vector2.zero;
+        ResetShipState();
+    }
+
     private void OnMouseDown() {
         if(IsShipFlippedOnY) {
             shipArea.transform.rotation = Quaternion.Euler(0, 0, 90);
@@ -214,7 +219,7 @@ public class SelectShipController : MonoBehaviour
         maxYPos = fieldBorders[3] - halfShipDeltaY + borderOffset;
     }
 
-    private void ResetShipState() {
+    private void ResetShipState() { 
         if(IsShipInGameField && shipLastPosOnField != Vector2.zero) {
             transform.position = shipLastPosOnField;
         } else {
@@ -222,7 +227,7 @@ public class SelectShipController : MonoBehaviour
             selectShipField.ResetSelectedShipReservedPoints(this);
         }
         if(IsShipFlippedOnY) {
-            RotateShip();
+            RotateShip(false);
         }
     }
 

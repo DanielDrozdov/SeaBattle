@@ -24,7 +24,9 @@ public class Ship : MonoBehaviour
     }
 
     private void OnMouseUp() {
-        if(!IsDestroyed) {
+        if(!IsDestroyed && FightGameManager.GetInstance().GetCurrentOpponentNameToAttack() != FightGameManager.OpponentName.Bot && 
+            DataSceneTransitionController.GetInstance().GetBattleType() != DataSceneTransitionController.BattleType.P1vsP2 &&
+            fightFieldStateController.GetOpponentName() != FightGameManager.OpponentName.Bot) {
             ShipAttackZonesManager.GetInstance().SetNewShipAttackZone(shipAttackZone, shipPoints.Count);
         }
     }
@@ -45,6 +47,10 @@ public class Ship : MonoBehaviour
     public void SetShipPointsMassiveAndFightFieldController(CellPointPos[] selectedShipPoints,FightFieldStateController fightFieldStateController) {
         shipPointsMassive = selectedShipPoints;
         this.fightFieldStateController = fightFieldStateController;
+        if(fightFieldStateController.GetOpponentName() == FightGameManager.OpponentName.Bot 
+            || DataSceneTransitionController.GetInstance().GetBattleType() == DataSceneTransitionController.BattleType.P1vsP2) {
+            spriteRenderer.enabled = false;
+        }
         FillSecondaryMassives();
         if(shipPointsMassive.Length > 1) {
             CalculateShipRotate();

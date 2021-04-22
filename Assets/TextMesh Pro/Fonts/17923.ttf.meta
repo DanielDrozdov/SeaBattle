@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5c6ed185c85e4a343b297c7a88d150de
+guid: c4cdc7e4bcad9494bb9a15ef3fbf4737
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +8,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: MonofontoRUS BY Melman
+  fontName: RF Krabuler
   fontNames:
-  - MonofontoRUS BY Melman
+  - RF Krabuler
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

@@ -22,8 +22,16 @@ public class FightFieldStateController : GameFieldState {
         spritesFightPoolController = SpritesFightPoolController.GetInstance();
     }
 
+    public List<Ship> GetAliveShipList() {
+        return shipsList;
+    }
+
     public FightGameManager.OpponentName GetOpponentName() {
         return opponentName;
+    }
+
+    public void SetOpponentName(FightGameManager.OpponentName opponentName) {
+        this.opponentName = opponentName;
     }
 
     public bool CheckIsCellPointFreeToHit(CellPointPos cellPoint) {
@@ -112,6 +120,9 @@ public class FightFieldStateController : GameFieldState {
                         }
                         shipsList[i].DestroyShip();
                         shipsList.RemoveAt(i);
+                        if(DataSceneTransitionController.GetInstance().GetBattleType() == DataSceneTransitionController.BattleType.P1vsP2) {
+                            SelectAttackZonePanelController.GetInstance().UpdateAliveShips();
+                        }
                     }
                     return true;
                 }
