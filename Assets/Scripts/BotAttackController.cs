@@ -37,8 +37,8 @@ public class BotAttackController : MonoBehaviour
     }
 
     public void HitPlayer() {
-        shipAttackZonesManager.SetNewShipAttackZone(shipAttackZone, 1);
-        StartCoroutine(CheckAvaliableCellsCountToHitValueChangeCoroutine());
+        shipAttackZonesManager.SetNewShipAttackZone(shipAttackZone, currentAttackCellsCount);
+        TryDestroyLastHitShip();
     }
 
     public void SetShipsMassive(Ship[] ships) {
@@ -89,23 +89,23 @@ public class BotAttackController : MonoBehaviour
                 break;
             }
         }
-        shipAttackZone = shipAttackZonesManager.GetShipAttackZone(1);
+        shipAttackZone = shipAttackZonesManager.GetShipAttackZone(currentAttackCellsCount);
     }
 
-    private IEnumerator CheckAvaliableCellsCountToHitValueChangeCoroutine() {
-        int lastCellsValue = fightGameManager.GetAvaliableCellsCountToHit();
-        TryDestroyLastHitShip();
-        while(true) {
-            if(selfFieldController.GetOpponentName() != fightGameManager.GetCurrentOpponentNameToAttack()) {
-                yield break;
-            }
-            if(lastCellsValue != fightGameManager.GetAvaliableCellsCountToHit()) {
-                TryDestroyLastHitShip();
-                lastCellsValue = fightGameManager.GetAvaliableCellsCountToHit();
-            }
-            yield return null;
-        }
-    }
+    //private IEnumerator CheckAvaliableCellsCountToHitValueChangeCoroutine() {
+    //    int lastCellsValue = fightGameManager.GetAvaliableCellsCountToHit();
+    //    TryDestroyLastHitShip();
+    //    while(true) {
+    //        if(selfFieldController.GetOpponentName() != fightGameManager.GetCurrentOpponentNameToAttack()) {
+    //            yield break;
+    //        }
+    //        if(lastCellsValue != fightGameManager.GetAvaliableCellsCountToHit()) {
+    //            TryDestroyLastHitShip();
+    //            lastCellsValue = fightGameManager.GetAvaliableCellsCountToHit();
+    //        }
+    //        yield return null;
+    //    }
+    //}
 
     private void TryDestroyLastHitShip() {
         foreach(Ship hitShip in hitShips.Keys) {

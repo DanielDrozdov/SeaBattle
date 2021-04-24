@@ -17,16 +17,26 @@ public class FightGameManager : MonoBehaviour {
     [SerializeField] private FightFieldStateController secondPlayerFieldStateController;
     [SerializeField] private BotAttackController botAttackController;
     private OpponentShotsBalancePanelController opponentShotsBalancePanelController;
+    private DataSceneTransitionController dataSceneTransitionController;
     private static FightGameManager Instance;
     private List<Ship[]> shipsGroupList = new List<Ship[]>();
 
     private OpponentName currentOpponentName;
+    private bool IfCanHitTwice;
     private bool IsFirstOpponentAttackMove = true;
     private int avaliableCellsCountToHit = 4;
     private int avaliableCellsCountToHitBalance;
+    private int avancedModeAvaliableCellsCountToHit = 4;
+    private int classicModeAvaliableCellsCountToHit = 1;
 
     private void Awake() {
         Instance = this;
+        dataSceneTransitionController = DataSceneTransitionController.GetInstance();
+        if(dataSceneTransitionController.GetBattleMode() == DataSceneTransitionController.BattleMode.Advanced) {
+            avaliableCellsCountToHit = avancedModeAvaliableCellsCountToHit;
+        } else {
+            avaliableCellsCountToHit = classicModeAvaliableCellsCountToHit;
+        }
         avaliableCellsCountToHitBalance = avaliableCellsCountToHit;
         currentOpponentName = OpponentName.P1;
         SetPlayerNamesToOpponents();
@@ -57,44 +67,63 @@ public class FightGameManager : MonoBehaviour {
     }
 
     public void DecreaseOneCell() {
-        avaliableCellsCountToHitBalance--;
-        if(avaliableCellsCountToHitBalance <= 0) {
-            ChangeAttackOpponent();
-            avaliableCellsCountToHitBalance = avaliableCellsCountToHit;
+        if(!IfCanHitTwice) {
+            avaliableCellsCountToHitBalance--;
+            if(avaliableCellsCountToHitBalance <= 0) {
+                ChangeAttackOpponent();
+                avaliableCellsCountToHitBalance = avaliableCellsCountToHit;
+            }
+            opponentShotsBalancePanelController.UpdatePlayerShotsBalance();
+        } else {
+            if(currentOpponentName == OpponentName.Bot) {
+                botAttackController.HitPlayer();
+            }
         }
-        opponentShotsBalancePanelController.UpdatePlayerShotsBalance();
+    }
+
+    public void SetOpponentNextHitState(bool IsShipHit) {
+        if(IsShipHit && dataSceneTransitionController.GetBattleMode() == DataSceneTransitionController.BattleMode.Classic) {
+            IfCanHitTwice = true;
+        } else {
+            IfCanHitTwice = false;
+        }
+    }
+
+    public void AttackByBotAgain() {
+        botAttackController.HitPlayer();
     }
 
     public void ChangeAttackOpponent() {
         avaliableCellsCountToHitBalance = avaliableCellsCountToHit;
         IsFirstOpponentAttackMove = !IsFirstOpponentAttackMove;
-        opponentMoveArrowCursor.flipX = IsFirstOpponentAttackMove;
-        FightFieldStateController nextFightField;
+        opponentMoveArrowCursor.transform.Rotate(new Vector3(0,0,180));
+        FightFieldStateController opponentSelfField;
         if(currentOpponentName == firstPlayerFieldStateController.GetOpponentName()) {
             ShipAttackZonesManager.GetInstance().ChangeOpponentAttackField(firstPlayerFieldStateController);
-            nextFightField = firstPlayerFieldStateController;
+            opponentSelfField = secondPlayerFieldStateController;
             currentOpponentName = secondPlayerFieldStateController.GetOpponentName();
             if(currentOpponentName == OpponentName.Bot) {
                 botAttackController.HitPlayer();
             }
         } else {
             ShipAttackZonesManager.GetInstance().ChangeOpponentAttackField(secondPlayerFieldStateController);
-            nextFightField = secondPlayerFieldStateController;
+            opponentSelfField = firstPlayerFieldStateController;
             currentOpponentName = firstPlayerFieldStateController.GetOpponentName();
         }
-        if(DataSceneTransitionController.GetInstance().GetBattleType() == DataSceneTransitionController.BattleType.P1vsP2) {
-            SelectAttackZonePanelController.GetInstance().SetNewOpponentFieldAndUpdateShipsAttackZones(nextFightField);
+        if(dataSceneTransitionController.GetBattleType() == DataSceneTransitionController.BattleType.P1vsP2 &&
+            dataSceneTransitionController.GetBattleMode() != DataSceneTransitionController.BattleMode.Classic) {
+            SelectAttackZonePanelController.GetInstance().SetNewOpponentFieldAndUpdateShipsAttackZones(opponentSelfField);
         }
+        opponentShotsBalancePanelController.UpdatePlayerShotsBalance();
     }
 
     private void LocateShipsOnFields() {
-        DataSceneTransitionController dataSceneTransition = DataSceneTransitionController.GetInstance();
-        List<CellPointPos[]> allShipsPoints = dataSceneTransition.GetSelectedShipPoints(1);
+        List<CellPointPos[]> allShipsPoints = dataSceneTransitionController.GetSelectedShipPoints(1);
         SetCellsPointsToShips(allShipsPoints, firstPlayerFieldStateController);
         if(secondPlayerFieldStateController.GetOpponentName() == OpponentName.Bot) {
             allShipsPoints = ShipFieldPositionGenerateController.GetInstance().GetGeneratedShipsPoints();
         } else {
-            allShipsPoints = dataSceneTransition.GetSelectedShipPoints(2);
+            allShipsPoints = dataSceneTransitionController.GetSelectedShipPoints(2);
         }
         SetCellsPointsToShips(allShipsPoints, secondPlayerFieldStateController);
     }

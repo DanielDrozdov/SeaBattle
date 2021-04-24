@@ -10,7 +10,9 @@ public class SelectAttackZonePanelController : MonoBehaviour {
     private FightFieldStateController currentFightFieldStateController;
 
     private void Awake() {
-        if(DataSceneTransitionController.GetInstance().GetBattleType() != DataSceneTransitionController.BattleType.P1vsP2) {
+        DataSceneTransitionController dataSceneTransitionController = DataSceneTransitionController.GetInstance();
+        if(dataSceneTransitionController.GetBattleType() != DataSceneTransitionController.BattleType.P1vsP2 ||
+            dataSceneTransitionController.GetBattleMode() == DataSceneTransitionController.BattleMode.Classic) {
             Destroy(gameObject);
         }
         Instance = this;

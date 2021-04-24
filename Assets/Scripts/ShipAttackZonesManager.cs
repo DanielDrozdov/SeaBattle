@@ -9,11 +9,17 @@ public class ShipAttackZonesManager : MonoBehaviour
     [SerializeField] private ShipAttackZoneController oneCellZone;
     private static ShipAttackZonesManager Instance;
 
+    private DataSceneTransitionController DataSceneTransitionController;
     private ShipAttackZoneController lastActivatedShipAttackZone;
     private int lastShipCellsCount;
 
     private void Awake() {
         Instance = this;
+        DataSceneTransitionController = DataSceneTransitionController.GetInstance();
+        if(DataSceneTransitionController.GetBattleMode() == DataSceneTransitionController.BattleMode.Classic &&
+            DataSceneTransitionController.GetBattleType() == DataSceneTransitionController.BattleType.P1vsP2) {
+            SetNewShipAttackZone(oneCellZone, 1);
+        }
     }
 
     public static ShipAttackZonesManager GetInstance() {
@@ -25,6 +31,12 @@ public class ShipAttackZonesManager : MonoBehaviour
     }
 
     public void SetNewShipAttackZone(ShipAttackZoneController shipAttackZone, int shipCellsCount) {
+        if(DataSceneTransitionController.GetBattleMode() == DataSceneTransitionController.BattleMode.Classic) {
+            lastActivatedShipAttackZone = oneCellZone;
+            lastShipCellsCount = 1;
+            oneCellZone.gameObject.SetActive(true);
+            return;
+        }
         if(lastActivatedShipAttackZone != null) {
             lastActivatedShipAttackZone.gameObject.SetActive(false);
         }
@@ -34,6 +46,10 @@ public class ShipAttackZonesManager : MonoBehaviour
     }
 
     public ShipAttackZoneController GetShipAttackZone(int shipCellsSize) {
+        if(DataSceneTransitionController.GetBattleMode() == DataSceneTransitionController.BattleMode.Classic) {
+            return oneCellZone;
+        }
+
         if(shipCellsSize == 4) {
             return nineCellsZone;
         } else if(shipCellsSize == 3 || shipCellsSize == 2) {

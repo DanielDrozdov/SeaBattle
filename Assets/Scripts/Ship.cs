@@ -17,6 +17,9 @@ public class Ship : MonoBehaviour
 
     private void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        if(DataSceneTransitionController.GetInstance().GetBattleType() == DataSceneTransitionController.BattleType.P1vsP2) {
+            Destroy(GetComponent<BoxCollider2D>()); // temp
+        }
     }
 
     private void Start() {

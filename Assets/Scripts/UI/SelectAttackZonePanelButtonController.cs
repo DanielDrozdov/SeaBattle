@@ -22,10 +22,6 @@ public class SelectAttackZonePanelButtonController : MonoBehaviour
         image.color = Color.black;
     }
 
-    //private void OnMouseDown() {
-    //    image.color = Color.red;
-    //}
-
     private void OnMouseUp() {
         ShipAttackZonesManager.GetInstance().SetNewShipAttackZone(shipAttackZone, shipCellsSize);
     }
