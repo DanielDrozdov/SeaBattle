@@ -1,37 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Ship : MonoBehaviour
 {
     [SerializeField] private int cellsCount;
     [HideInInspector] public List<CellPointPos> shipPoints;
     [HideInInspector] public List<CellPointPos> shipHitPoints;
-    private ShipAttackZoneController shipAttackZone;
     private CellPointPos[] shipPointsMassive;
-    private SpriteRenderer spriteRenderer;
+    private Image image;
     private FightFieldStateController fightFieldStateController;
 
     private bool IsDestroyed;
     private bool IsRotatedOnY;
 
     private void Awake() {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        if(DataSceneTransitionController.GetInstance().GetBattleType() == DataSceneTransitionController.BattleType.P1vsP2) {
-            Destroy(GetComponent<BoxCollider2D>()); // temp
-        }
-    }
-
-    private void Start() {
-        shipAttackZone = ShipAttackZonesManager.GetInstance().GetShipAttackZone(cellsCount);
-    }
-
-    private void OnMouseUp() {
-        if(!IsDestroyed && FightGameManager.GetInstance().GetCurrentOpponentNameToAttack() != FightGameManager.OpponentName.Bot && 
-            DataSceneTransitionController.GetInstance().GetBattleType() != DataSceneTransitionController.BattleType.P1vsP2 &&
-            fightFieldStateController.GetOpponentName() != FightGameManager.OpponentName.Bot) {
-            ShipAttackZonesManager.GetInstance().SetNewShipAttackZone(shipAttackZone, shipPoints.Count);
-        }
+        image = GetComponent<Image>();
     }
 
     public bool IsShipDestroyed() {
@@ -44,7 +29,7 @@ public class Ship : MonoBehaviour
 
     public void DestroyShip() {
         IsDestroyed = true;
-        spriteRenderer.enabled = true;
+        image.enabled = true;
     }
 
     public void SetShipPointsMassiveAndFightFieldController(CellPointPos[] selectedShipPoints,FightFieldStateController fightFieldStateController) {
@@ -52,7 +37,7 @@ public class Ship : MonoBehaviour
         this.fightFieldStateController = fightFieldStateController;
         if(fightFieldStateController.GetOpponentName() == FightGameManager.OpponentName.Bot 
             || DataSceneTransitionController.GetInstance().GetBattleType() == DataSceneTransitionController.BattleType.P1vsP2) {
-            spriteRenderer.enabled = false;
+            image.enabled = false;
         }
         FillSecondaryMassives();
         if(shipPointsMassive.Length > 1) {

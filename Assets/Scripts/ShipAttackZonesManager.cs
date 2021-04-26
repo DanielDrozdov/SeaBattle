@@ -16,8 +16,7 @@ public class ShipAttackZonesManager : MonoBehaviour
     private void Awake() {
         Instance = this;
         DataSceneTransitionController = DataSceneTransitionController.GetInstance();
-        if(DataSceneTransitionController.GetBattleMode() == DataSceneTransitionController.BattleMode.Classic &&
-            DataSceneTransitionController.GetBattleType() == DataSceneTransitionController.BattleType.P1vsP2) {
+        if(DataSceneTransitionController.GetBattleMode() == DataSceneTransitionController.BattleMode.Classic) {
             SetNewShipAttackZone(oneCellZone, 1);
         }
     }
@@ -63,6 +62,10 @@ public class ShipAttackZonesManager : MonoBehaviour
         nineCellsZone.SetAnotherOpponentField(fightFieldStateController);
         fourCellsZone.SetAnotherOpponentField(fightFieldStateController);
         oneCellZone.SetAnotherOpponentField(fightFieldStateController);
+    }
+
+    public void OffZones() {
+        lastActivatedShipAttackZone?.gameObject.SetActive(false);
     }
 
 }

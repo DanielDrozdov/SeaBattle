@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameFieldState : MonoBehaviour {
 
+    [SerializeField] private Transform UpFieldPoint;
     protected Dictionary<char, Dictionary<int, Vector2>> fieldPointsToHit;
     protected Dictionary<char, Dictionary<int, Vector2>> fieldPoints;
     protected Dictionary<char, float> lettersYPos;
@@ -11,6 +12,7 @@ public class GameFieldState : MonoBehaviour {
 
     protected List<Ship> shipsList;
     protected float[] bordersMassive;
+    private float cellSizeDelta;
 
     private void Awake() {    
         CalculateFieldPointsAndBorders();
@@ -46,14 +48,14 @@ public class GameFieldState : MonoBehaviour {
         lettersYPos = new Dictionary<char, float>();
         float xMin, xMax, yMax, yMin;
         float fieldXSize;
-        RectTransform rect = GetComponent<RectTransform>();
-        xMin = transform.position.x - rect.sizeDelta.x / 2;
-        xMax = transform.position.x + rect.sizeDelta.x / 2;
-        yMin = transform.position.y - rect.sizeDelta.y / 2;
-        yMax = transform.position.y + rect.sizeDelta.y / 2;
+        float fieldHalfDeltaSize = UpFieldPoint.position.y - transform.position.y;
+        xMin = transform.position.x - fieldHalfDeltaSize;
+        xMax = transform.position.x + fieldHalfDeltaSize;
+        yMin = transform.position.y - fieldHalfDeltaSize;
+        yMax = UpFieldPoint.position.y;
         bordersMassive = new float[] { xMin, xMax, yMin, yMax };
         fieldXSize = Mathf.Abs(xMax - xMin);
-        float cellSizeDelta = fieldXSize / 10;
+        cellSizeDelta = fieldXSize / 10;
         for(int i = 0; i < 10; i++) {
             float cellsYPos = yMax - (cellSizeDelta * i + cellSizeDelta / 2);
             Dictionary<int, Vector2> letterPointsToHit = new Dictionary<int, Vector2>();
@@ -78,13 +80,16 @@ public class GameFieldState : MonoBehaviour {
         }
 
         foreach(char yPosLetter in lettersYPos.Keys) {
-            if(Mathf.Abs(tapPosition.y - lettersYPos[yPosLetter]) <= 0.5f) {
+            if(Mathf.Abs(tapPosition.y - lettersYPos[yPosLetter]) <= cellSizeDelta / 2) {
                 tapCellLetter = yPosLetter;
             }
         }
+        if(!fieldPointsDict.ContainsKey(tapCellLetter)) {
+            Debug.Log(tapPosition);
+        }
         letterPoints = fieldPointsDict[tapCellLetter];
         foreach(int cellNumber in letterPoints.Keys) {
-            if(Mathf.Abs(tapPosition.x - letterPoints[cellNumber].x) <= 0.5f) {
+            if(Mathf.Abs(tapPosition.x - letterPoints[cellNumber].x) <= cellSizeDelta / 2) {
                 tapCellNumber = cellNumber;
             }
         }

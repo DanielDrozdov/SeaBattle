@@ -23,7 +23,9 @@ public class SelectAttackZonePanelButtonController : MonoBehaviour
     }
 
     private void OnMouseUp() {
-        ShipAttackZonesManager.GetInstance().SetNewShipAttackZone(shipAttackZone, shipCellsSize);
+        if(FightGameManager.GetInstance().GetCurrentOpponentNameToAttack() != FightGameManager.OpponentName.Bot) {
+            ShipAttackZonesManager.GetInstance().SetNewShipAttackZone(shipAttackZone, shipCellsSize);
+        }
     }
 
     public int GetShipCellsSize() {

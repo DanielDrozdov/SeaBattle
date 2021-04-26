@@ -10,18 +10,20 @@ public class FightGameManager : MonoBehaviour {
         Bot
     }
 
-    [SerializeField] private SpriteRenderer opponentMoveArrowCursor;
+    [SerializeField] private GameObject opponentMoveArrowCursor;
     [SerializeField] private Ship[] firstShipsGroup;
     [SerializeField] private Ship[] secondShipsGroup;
     [SerializeField] private FightFieldStateController firstPlayerFieldStateController;
     [SerializeField] private FightFieldStateController secondPlayerFieldStateController;
     [SerializeField] private BotAttackController botAttackController;
+    [SerializeField] private WinOrDiePanelController WinOrDiePanel;
     private OpponentShotsBalancePanelController opponentShotsBalancePanelController;
     private DataSceneTransitionController dataSceneTransitionController;
     private static FightGameManager Instance;
     private List<Ship[]> shipsGroupList = new List<Ship[]>();
 
     private OpponentName currentOpponentName;
+    private bool IsGameEnded;
     private bool IfCanHitTwice;
     private bool IsFirstOpponentAttackMove = true;
     private int avaliableCellsCountToHit = 4;
@@ -66,7 +68,17 @@ public class FightGameManager : MonoBehaviour {
         return avaliableCellsCountToHitBalance;
     }
 
+    public void EndGame() {
+        IsGameEnded = true;
+        ShipAttackZonesManager.GetInstance().OffZones();
+        WinOrDiePanel.ActivatePanel(currentOpponentName);
+    }
+
     public void DecreaseOneCell() {
+        if(IsGameEnded) {
+            return;
+        }
+
         if(!IfCanHitTwice) {
             avaliableCellsCountToHitBalance--;
             if(avaliableCellsCountToHitBalance <= 0) {
@@ -94,6 +106,9 @@ public class FightGameManager : MonoBehaviour {
     }
 
     public void ChangeAttackOpponent() {
+        if(IsGameEnded) {
+            return;
+        }
         avaliableCellsCountToHitBalance = avaliableCellsCountToHit;
         IsFirstOpponentAttackMove = !IsFirstOpponentAttackMove;
         opponentMoveArrowCursor.transform.Rotate(new Vector3(0,0,180));
@@ -110,8 +125,8 @@ public class FightGameManager : MonoBehaviour {
             opponentSelfField = firstPlayerFieldStateController;
             currentOpponentName = firstPlayerFieldStateController.GetOpponentName();
         }
-        if(dataSceneTransitionController.GetBattleType() == DataSceneTransitionController.BattleType.P1vsP2 &&
-            dataSceneTransitionController.GetBattleMode() != DataSceneTransitionController.BattleMode.Classic) {
+        if(dataSceneTransitionController.GetBattleMode() != DataSceneTransitionController.BattleMode.Classic &&
+            currentOpponentName != OpponentName.Bot) {
             SelectAttackZonePanelController.GetInstance().SetNewOpponentFieldAndUpdateShipsAttackZones(opponentSelfField);
         }
         opponentShotsBalancePanelController.UpdatePlayerShotsBalance();

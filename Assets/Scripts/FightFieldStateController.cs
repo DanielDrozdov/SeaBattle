@@ -7,6 +7,7 @@ public class FightFieldStateController : GameFieldState {
 
     [SerializeField] private FightGameManager.OpponentName opponentName;
     private SpritesFightPoolController spritesFightPoolController;
+    private FightGameManager fightGameManager;
 
     private Ship[] shipsMassive;
 
@@ -20,6 +21,7 @@ public class FightFieldStateController : GameFieldState {
 
     protected override void AddStartActions() {
         spritesFightPoolController = SpritesFightPoolController.GetInstance();
+        fightGameManager = FightGameManager.GetInstance();
     }
 
     public List<Ship> GetAliveShipList() {
@@ -75,7 +77,6 @@ public class FightFieldStateController : GameFieldState {
 
     public void HitByShipAttackZone(Vector2[] points) {
         bool IsAvaliableHitsOver = false;
-        FightGameManager fightGameManager = FightGameManager.GetInstance();
         for(int i = 0; i < points.Length; i++) {
             if(IsAvaliableHitsOver) {
                 break;
@@ -98,8 +99,8 @@ public class FightFieldStateController : GameFieldState {
             Vector2 tapCellPosition = letterPoints[tapCellData.number];
             letterPoints.Remove(tapCellData.number);
             bool IsHit = CheckIsShipHit(new CellPointPos(tapCellData.letter, tapCellData.number));
-            FightGameManager.GetInstance().SetOpponentNextHitState(IsHit);
-            FightGameManager.GetInstance().DecreaseOneCell();
+            fightGameManager.SetOpponentNextHitState(IsHit);
+            fightGameManager.DecreaseOneCell();
             if(IsHit) {
                 ActivateCellStateSprite(tapCellPosition, true);
             } else {
@@ -126,6 +127,9 @@ public class FightFieldStateController : GameFieldState {
                         }
                         shipsList[i].DestroyShip();
                         shipsList.RemoveAt(i);
+                        if(shipsList.Count == 0) {
+                            fightGameManager.EndGame();
+                        }
                         if(DataSceneTransitionController.GetInstance().GetBattleType() == DataSceneTransitionController.BattleType.P1vsP2 &&
                             DataSceneTransitionController.GetInstance().GetBattleMode() == DataSceneTransitionController.BattleMode.Advanced) {
                             SelectAttackZonePanelController.GetInstance().UpdateAliveShips();

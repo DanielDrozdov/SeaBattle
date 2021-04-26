@@ -11,8 +11,8 @@ public class SelectAttackZonePanelController : MonoBehaviour {
 
     private void Awake() {
         DataSceneTransitionController dataSceneTransitionController = DataSceneTransitionController.GetInstance();
-        if(dataSceneTransitionController.GetBattleType() != DataSceneTransitionController.BattleType.P1vsP2 ||
-            dataSceneTransitionController.GetBattleMode() == DataSceneTransitionController.BattleMode.Classic) {
+
+        if(dataSceneTransitionController.GetBattleMode() == DataSceneTransitionController.BattleMode.Classic) {
             Destroy(gameObject);
         }
         Instance = this;
@@ -25,6 +25,7 @@ public class SelectAttackZonePanelController : MonoBehaviour {
 
     public void SetNewOpponentFieldAndUpdateShipsAttackZones(FightFieldStateController fightFieldStateController) {        
         currentFightFieldStateController = fightFieldStateController;
+        ShipAttackZonesManager.GetInstance().OffZones();
         UpdateAliveShips();
     }
 
