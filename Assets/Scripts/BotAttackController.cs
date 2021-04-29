@@ -92,21 +92,6 @@ public class BotAttackController : MonoBehaviour
         shipAttackZone = shipAttackZonesManager.GetShipAttackZone(currentAttackCellsCount);
     }
 
-    //private IEnumerator CheckAvaliableCellsCountToHitValueChangeCoroutine() {
-    //    int lastCellsValue = fightGameManager.GetAvaliableCellsCountToHit();
-    //    TryDestroyLastHitShip();
-    //    while(true) {
-    //        if(selfFieldController.GetOpponentName() != fightGameManager.GetCurrentOpponentNameToAttack()) {
-    //            yield break;
-    //        }
-    //        if(lastCellsValue != fightGameManager.GetAvaliableCellsCountToHit()) {
-    //            TryDestroyLastHitShip();
-    //            lastCellsValue = fightGameManager.GetAvaliableCellsCountToHit();
-    //        }
-    //        yield return null;
-    //    }
-    //}
-
     private void TryDestroyLastHitShip() {
         foreach(Ship hitShip in hitShips.Keys) {
             if(chaseHitShip == null) {

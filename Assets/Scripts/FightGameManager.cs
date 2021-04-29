@@ -102,7 +102,9 @@ public class FightGameManager : MonoBehaviour {
     }
 
     public void AttackByBotAgain() {
-        botAttackController.HitPlayer();
+        if(!IsGameEnded) {
+            botAttackController.HitPlayer();
+        }
     }
 
     public void ChangeAttackOpponent() {

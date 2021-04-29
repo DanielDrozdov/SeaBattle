@@ -9,12 +9,13 @@ public class SelectShipsMenuPanelController : MonoBehaviour
     private bool IsPlayButtonPressed;
     [SerializeField] private TextMeshProUGUI playerNameText;
     [SerializeField] private GameObject SelectPlayerShipsPanel;
-    [SerializeField] private GeneratedSelectShipLocateHelperController generator;
+    private GeneratedSelectShipLocateHelperController generator;
     private SelectShipFieldController shipSelectFieldController;
     private LevelTransitionPanelController levelTransitionPanelController;
 
     private void Awake() {
         shipSelectFieldController = GetComponent<SelectShipFieldController>();
+        generator = GetComponent<GeneratedSelectShipLocateHelperController>();
         levelTransitionPanelController = LevelTransitionPanelController.GetInstance();
     }
 
@@ -52,7 +53,7 @@ public class SelectShipsMenuPanelController : MonoBehaviour
     }
 
     public void OnClickButton_AutoShipsLocateGeneration() {
-        generator.LocateShipsOnField();
+        generator.LocateShipsOnField(shipSelectFieldController);
     }
 
     public void OnClickButton_RotateShip() {

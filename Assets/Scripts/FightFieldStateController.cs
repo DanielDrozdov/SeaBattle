@@ -86,7 +86,8 @@ public class FightFieldStateController : GameFieldState {
             }
             HitEnemyCellByPos(points[i]);
         }
-        if(!IsAvaliableHitsOver && fightGameManager.GetCurrentOpponentNameToAttack() == FightGameManager.OpponentName.Bot 
+        if(fightGameManager.GetAvaliableCellsCountToHit() > 0 && fightGameManager.GetAvaliableCellsCountToHit() < 4 &&
+            fightGameManager.GetCurrentOpponentNameToAttack() == FightGameManager.OpponentName.Bot
             && DataSceneTransitionController.GetInstance().GetBattleMode() != DataSceneTransitionController.BattleMode.Classic) {
             fightGameManager.AttackByBotAgain();
         }

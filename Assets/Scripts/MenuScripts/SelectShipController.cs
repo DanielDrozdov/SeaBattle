@@ -8,12 +8,9 @@ public class SelectShipController : MonoBehaviour
 
     [SerializeField] private Transform zoneMoveKeyPoint;
     [SerializeField] private Vector2 cellsCount;
-    private SelectShipFieldController selectShipField;
+    [SerializeField] private SelectShipFieldController selectShipField;
     private SelectedShipAreaController shipArea;
     private Camera mainCamera;
-   
-    private SpriteRenderer spriteRenderer;
-    private int startOrderInLayerValue;
 
     public int shipSizeInCells { get; private set; }
     private bool IsShipFlippedOnY;
@@ -33,10 +30,7 @@ public class SelectShipController : MonoBehaviour
 
     private void Start() {
         mainCamera = ServiceManager.GetInstance().GetMainCamera();
-        selectShipField = SelectShipFieldController.GetInstance();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         fieldBorders = selectShipField.GetFieldBorders();
-        startOrderInLayerValue = spriteRenderer.sortingOrder;
         shipSizeInCells = (int)cellsCount.x;
         shipArea = selectShipField.GetShipArea(shipSizeInCells);
         startPos = transform.position;
@@ -56,7 +50,6 @@ public class SelectShipController : MonoBehaviour
         }
         shipArea.transform.position = new Vector3(transform.position.x, transform.position.y, shipArea.transform.position.z);
         CalculateShipFieldLocateBorders();
-        spriteRenderer.sortingOrder = 5;
         lastMovePointPos = transform.position;
     }
 
@@ -88,7 +81,6 @@ public class SelectShipController : MonoBehaviour
         } else {
             ResetShipState();
         }
-        spriteRenderer.sortingOrder = startOrderInLayerValue;
         shipArea.DeactivateArea();
     }
 

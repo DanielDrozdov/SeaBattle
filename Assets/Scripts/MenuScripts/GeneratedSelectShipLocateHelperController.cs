@@ -12,9 +12,9 @@ public class GeneratedSelectShipLocateHelperController : MonoBehaviour
         shipFieldPositionGenerate = ShipFieldPositionGenerateController.GetInstance();
     }
 
-    public void LocateShipsOnField() {
+    public void LocateShipsOnField(SelectShipFieldController selectShipFieldController) {
         List<CellPointPos[]> shipsGeneratedPoints = shipFieldPositionGenerate.GetGeneratedShipsPoints();
-        SelectShipFieldController.GetInstance().ClearReservedShips();
+        selectShipFieldController.ClearReservedShips();
         for(int i = 0; i < 10;i++) {
             SelectShipController ship = ships[i];
             for(int k = 0; k < 10;k++) {

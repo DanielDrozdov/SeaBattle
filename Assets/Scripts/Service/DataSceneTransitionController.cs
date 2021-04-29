@@ -19,6 +19,7 @@ public class DataSceneTransitionController : MonoBehaviour
     private List<CellPointPos[]> secondPlayerSelectedShipPoints;
     private BattleMode battleMode;
     private BattleType battleType;
+
     private DataSceneTransitionController() { }
 
     private void Awake() {

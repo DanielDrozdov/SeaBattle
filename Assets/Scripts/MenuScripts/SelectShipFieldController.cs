@@ -9,19 +9,13 @@ public class SelectShipFieldController : GameFieldState
     [SerializeField] private SelectedShipAreaController twoCellShipArea;
     [SerializeField] private SelectedShipAreaController oneCellShipArea;
     private SelectShipController pressedShip;
-    private static SelectShipFieldController Instance;
 
     private Dictionary<SelectShipController, CellPointPos[]> shipReservedPoints;
 
     private SelectShipFieldController() { }
 
     protected override void AddAwakeActions() {
-        Instance = this;
         shipReservedPoints = new Dictionary<SelectShipController, CellPointPos[]>();
-    }
-
-    public static SelectShipFieldController GetInstance() {
-        return Instance;
     }
 
     public void ClearReservedShips() {
