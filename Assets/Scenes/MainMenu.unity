@@ -645,6 +645,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 475631318}
   cellsCount: {x: 3, y: 1}
   selectShipField: {fileID: 3076840117884972212}
+  tappedShipParent: {fileID: 1339467011}
 --- !u!61 &92377631
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1179,6 +1180,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 1655859492}
   cellsCount: {x: 2, y: 1}
   selectShipField: {fileID: 3076840117884972212}
+  tappedShipParent: {fileID: 1339467011}
 --- !u!61 &247369768
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1298,6 +1300,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 107166609}
   cellsCount: {x: 1, y: 1}
   selectShipField: {fileID: 3076840117884972212}
+  tappedShipParent: {fileID: 1339467011}
 --- !u!61 &252042913
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1560,6 +1563,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 738291419}
   cellsCount: {x: 2, y: 1}
   selectShipField: {fileID: 677230498}
+  tappedShipParent: {fileID: 0}
 --- !u!61 &258045217
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2309,6 +2313,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 471882059}
   cellsCount: {x: 2, y: 1}
   selectShipField: {fileID: 677230498}
+  tappedShipParent: {fileID: 0}
 --- !u!61 &390829745
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2515,6 +2520,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 1950301981}
   cellsCount: {x: 3, y: 1}
   selectShipField: {fileID: 677230498}
+  tappedShipParent: {fileID: 0}
 --- !u!61 &451515107
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2626,6 +2632,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 1994633150}
   cellsCount: {x: 2, y: 1}
   selectShipField: {fileID: 3076840117884972212}
+  tappedShipParent: {fileID: 1339467011}
 --- !u!61 &452081653
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3149,6 +3156,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 953470679}
   cellsCount: {x: 1, y: 1}
   selectShipField: {fileID: 3076840117884972212}
+  tappedShipParent: {fileID: 1339467011}
 --- !u!61 &525899968
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3809,6 +3817,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 939186960}
   cellsCount: {x: 1, y: 1}
   selectShipField: {fileID: 3076840117884972212}
+  tappedShipParent: {fileID: 1339467011}
 --- !u!61 &669186348
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4976,6 +4985,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 1666688635}
   cellsCount: {x: 4, y: 1}
   selectShipField: {fileID: 677230498}
+  tappedShipParent: {fileID: 0}
 --- !u!61 &912412309
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7470,6 +7480,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 1844482104}
   cellsCount: {x: 1, y: 1}
   selectShipField: {fileID: 677230498}
+  tappedShipParent: {fileID: 0}
 --- !u!61 &1309414029
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7687,6 +7698,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1323054800}
   m_CullTransparentMesh: 0
+--- !u!1 &1339467011
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1339467012}
+  m_Layer: 0
+  m_Name: TappedShipParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1339467012
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339467011}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 47.675774}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3076840119566028841}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 1.3450005, y: -0.7399996}
+  m_SizeDelta: {x: -0.010000229, y: -0.020000458}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1363987321
 GameObject:
   m_ObjectHideFlags: 0
@@ -7751,6 +7797,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 1594981645}
   cellsCount: {x: 1, y: 1}
   selectShipField: {fileID: 677230498}
+  tappedShipParent: {fileID: 0}
 --- !u!61 &1363987325
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8077,6 +8124,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 1987468712}
   cellsCount: {x: 2, y: 1}
   selectShipField: {fileID: 677230498}
+  tappedShipParent: {fileID: 0}
 --- !u!61 &1408305336
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8188,6 +8236,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 2073712679}
   cellsCount: {x: 1, y: 1}
   selectShipField: {fileID: 3076840117884972212}
+  tappedShipParent: {fileID: 1339467011}
 --- !u!61 &1411459775
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8589,6 +8638,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 906278732}
   cellsCount: {x: 3, y: 1}
   selectShipField: {fileID: 677230498}
+  tappedShipParent: {fileID: 0}
 --- !u!61 &1435801645
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9333,6 +9383,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 1205313542}
   cellsCount: {x: 1, y: 1}
   selectShipField: {fileID: 677230498}
+  tappedShipParent: {fileID: 0}
 --- !u!61 &1605180171
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9770,6 +9821,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 1224384928}
   cellsCount: {x: 3, y: 1}
   selectShipField: {fileID: 3076840117884972212}
+  tappedShipParent: {fileID: 1339467011}
 --- !u!61 &1650662914
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10346,6 +10398,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 518417655}
   cellsCount: {x: 1, y: 1}
   selectShipField: {fileID: 677230498}
+  tappedShipParent: {fileID: 0}
 --- !u!61 &1725144309
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10457,6 +10510,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 1057526783}
   cellsCount: {x: 2, y: 1}
   selectShipField: {fileID: 3076840117884972212}
+  tappedShipParent: {fileID: 1339467011}
 --- !u!61 &1766277658
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10556,6 +10610,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 170221895}
   cellsCount: {x: 4, y: 1}
   selectShipField: {fileID: 3076840117884972212}
+  tappedShipParent: {fileID: 1339467011}
 --- !u!61 &1773326412
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10830,6 +10885,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 2015028484}
   cellsCount: {x: 1, y: 1}
   selectShipField: {fileID: 677230498}
+  tappedShipParent: {fileID: 0}
 --- !u!61 &1824375307
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13677,7 +13733,7 @@ RectTransform:
   m_Children:
   - {fileID: 732133865}
   m_Father: {fileID: 3076840119566028841}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -13824,6 +13880,7 @@ RectTransform:
   - {fileID: 435560805}
   - {fileID: 1388202231}
   - {fileID: 1256399284}
+  - {fileID: 1339467012}
   - {fileID: 3076840117884972208}
   m_Father: {fileID: 513391155}
   m_RootOrder: 4

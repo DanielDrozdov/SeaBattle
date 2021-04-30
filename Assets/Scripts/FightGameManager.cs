@@ -47,6 +47,8 @@ public class FightGameManager : MonoBehaviour {
     }
 
     private void Start() {
+        firstPlayerFieldStateController.InitializeField();
+        secondPlayerFieldStateController.InitializeField();
         ShipAttackZonesManager.GetInstance().ChangeOpponentAttackField(secondPlayerFieldStateController);
         opponentShotsBalancePanelController = OpponentShotsBalancePanelController.GetInstance();
         opponentShotsBalancePanelController.UpdatePlayerShotsBalance();

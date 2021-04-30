@@ -70,7 +70,9 @@ public class BotAttackController : MonoBehaviour
         }
 
         if(chaseHitShip != null) {
-            chaseShipHitPoints.Add(keyHitCell);
+            if(chaseHitShip == hitShip) {
+                chaseShipHitPoints.Add(keyHitCell);
+            }
         }
     }
 
@@ -93,16 +95,16 @@ public class BotAttackController : MonoBehaviour
     }
 
     private void TryDestroyLastHitShip() {
-        foreach(Ship hitShip in hitShips.Keys) {
-            if(chaseHitShip == null) {
+        if(hitShips.Count == 0) {
+            AttackOnRandomFreeCellOnField();
+            return;
+        }
+        if(chaseHitShip == null) {
+            foreach(Ship hitShip in hitShips.Keys) {
                 chaseHitShip = hitShip;
                 chaseShipHitPoints = hitShips[hitShip];
                 break;
             }
-        }
-        if(hitShips.Count == 0) {
-            AttackOnRandomFreeCellOnField();
-            return;
         }
         DestroyLastHitShip();
     }
@@ -150,7 +152,7 @@ public class BotAttackController : MonoBehaviour
         minCellPoint.number = Mathf.Clamp(minCellPoint.number, 1, 10);
         maxCellPoint.number = Mathf.Clamp(maxCellPoint.number, 1, 10);
 
-        int cellsDelta = 0;
+        int cellsDelta;
         if(IsFlippedOnY) {
             cellsDelta = maxCellPoint.letter - minCellPoint.letter + 1;
         } else {
@@ -167,7 +169,6 @@ public class BotAttackController : MonoBehaviour
                 break;
             }
         }
-
         attackPos = firstPlayerFieldController.GetPosByCellPoint(nextCellPoint);
         shipAttackZone.AttackByPos(attackPos);
     }
@@ -192,7 +193,6 @@ public class BotAttackController : MonoBehaviour
         if(!firstPlayerFieldController.CheckIsCellPointFreeToHit(randomCell)) {
             return GetRandomCellPointAroundHitShipPoint(hitCellPoint);
         }
-
         return randomCell;
     }
 

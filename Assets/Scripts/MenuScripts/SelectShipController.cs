@@ -9,6 +9,8 @@ public class SelectShipController : MonoBehaviour
     [SerializeField] private Transform zoneMoveKeyPoint;
     [SerializeField] private Vector2 cellsCount;
     [SerializeField] private SelectShipFieldController selectShipField;
+    [SerializeField] private GameObject tappedShipParent;
+    private Transform baseParent;
     private SelectedShipAreaController shipArea;
     private Camera mainCamera;
 
@@ -22,15 +24,23 @@ public class SelectShipController : MonoBehaviour
     private Vector3 keyPointOffSet;
     private float[] fieldBorders = { };
 
-    private float borderOffset = 0.45f; // dont increese more than 0.5(exclusive)
+    private float borderOffset; // dont increese more than half cell size
+    private float borderKOffset = 0.45f; // dont increese more than 0.5;
+    private float fieldCellSize;
     private float minXPos;
     private float maxXPos;
     private float minYPos;
     private float maxYPos;
 
+    private void Awake() {
+        baseParent = transform.parent;
+    }
+
     private void Start() {
         mainCamera = ServiceManager.GetInstance().GetMainCamera();
         fieldBorders = selectShipField.GetFieldBorders();
+        fieldCellSize = selectShipField.GetCellSizeDelta();
+        borderOffset = fieldCellSize * borderKOffset;
         shipSizeInCells = (int)cellsCount.x;
         shipArea = selectShipField.GetShipArea(shipSizeInCells);
         startPos = transform.position;
@@ -51,6 +61,7 @@ public class SelectShipController : MonoBehaviour
         shipArea.transform.position = new Vector3(transform.position.x, transform.position.y, shipArea.transform.position.z);
         CalculateShipFieldLocateBorders();
         lastMovePointPos = transform.position;
+        transform.parent = tappedShipParent.transform;
     }
 
     private void OnMouseDrag() {
@@ -81,6 +92,7 @@ public class SelectShipController : MonoBehaviour
         } else {
             ResetShipState();
         }
+        transform.parent = baseParent;
         shipArea.DeactivateArea();
     }
 
@@ -158,7 +170,7 @@ public class SelectShipController : MonoBehaviour
             shipArea.ActivateArea();
             SetShipPointsInMassive();
             ChangeAreaColorIfCantLocateShip();
-            if(Mathf.Abs(dragPosition.x - lastMovePointPos.x) > 0.45 || Mathf.Abs(dragPosition.y - lastMovePointPos.y) > 0.45) {
+            if(Mathf.Abs(dragPosition.x - lastMovePointPos.x) > borderOffset || Mathf.Abs(dragPosition.y - lastMovePointPos.y) > borderOffset) {
                 SetZonePostionOnNearestCell(dragPosition, shipArea.gameObject);
                 lastMovePointPos = shipArea.transform.position;
             }
@@ -192,19 +204,19 @@ public class SelectShipController : MonoBehaviour
         Vector2[] shipPoints = new Vector2[shipSizeInCells];
         if(IsShipFlippedOnY) {
             for(int i = 0; i < shipSizeInCells; i++) {
-                shipPoints[i] = new Vector2(transform.position.x, zoneMoveKeyPoint.position.y + i);
+                shipPoints[i] = new Vector2(transform.position.x, zoneMoveKeyPoint.position.y + fieldCellSize * i);
             }
         } else {
             for(int i = 0; i < shipSizeInCells; i++) {
-                shipPoints[i] = new Vector2(zoneMoveKeyPoint.position.x + i,transform.position.y);
+                shipPoints[i] = new Vector2(zoneMoveKeyPoint.position.x + fieldCellSize * i, transform.position.y);
             }
         }
         this.shipPoints = shipPoints;
     }
 
     private void CalculateShipFieldLocateBorders() {
-        float halfShipDeltaX = cellsCount.x / 2;
-        float halfShipDeltaY = cellsCount.y / 2;
+        float halfShipDeltaX = cellsCount.x * fieldCellSize / 2;
+        float halfShipDeltaY = cellsCount.y * fieldCellSize / 2;
         minXPos = fieldBorders[0] + halfShipDeltaX - borderOffset;
         maxXPos = fieldBorders[1] - halfShipDeltaX + borderOffset;
         minYPos = fieldBorders[2] + halfShipDeltaY - borderOffset;

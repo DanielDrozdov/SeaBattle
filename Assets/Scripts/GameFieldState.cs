@@ -15,7 +15,6 @@ public class GameFieldState : MonoBehaviour {
     private float cellSizeDelta;
 
     private void Awake() {    
-        CalculateFieldPointsAndBorders();
         shipsList = new List<Ship>();
         AddAwakeActions();
     }
@@ -40,6 +39,14 @@ public class GameFieldState : MonoBehaviour {
 
     public Vector2 GetPosByCellPoint(CellPointPos shipPoint) {
         return fieldPoints[shipPoint.letter][shipPoint.number];
+    }
+
+    public float GetCellSizeDelta() {
+        return cellSizeDelta;
+    }
+
+    public void InitializeField() {
+        CalculateFieldPointsAndBorders();
     }
 
     protected void CalculateFieldPointsAndBorders() {
@@ -80,7 +87,7 @@ public class GameFieldState : MonoBehaviour {
         }
 
         foreach(char yPosLetter in lettersYPos.Keys) {
-            if(Mathf.Abs(tapPosition.y - lettersYPos[yPosLetter]) <= cellSizeDelta / 2) {
+            if(Mathf.Abs(tapPosition.y - lettersYPos[yPosLetter]) < cellSizeDelta / 2) {
                 tapCellLetter = yPosLetter;
             }
         }
@@ -89,7 +96,7 @@ public class GameFieldState : MonoBehaviour {
         }
         letterPoints = fieldPointsDict[tapCellLetter];
         foreach(int cellNumber in letterPoints.Keys) {
-            if(Mathf.Abs(tapPosition.x - letterPoints[cellNumber].x) <= cellSizeDelta / 2) {
+            if(Mathf.Abs(tapPosition.x - letterPoints[cellNumber].x) < cellSizeDelta / 2) {
                 tapCellNumber = cellNumber;
             }
         }

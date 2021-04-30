@@ -16,6 +16,9 @@ public class ShipAttackZoneController : MonoBehaviour {
     private Vector2 keyPointOffSet;
     private float[] fieldBorders = { };
 
+    private float moveKDelta = 0.55f;
+    private float fieldCellSize;
+
     private float xMin;
     private float xMax;
     private float yMin;
@@ -47,7 +50,7 @@ public class ShipAttackZoneController : MonoBehaviour {
             dragPosition.x = Mathf.Clamp(dragPosition.x, xMin, xMax);
             dragPosition.y = Mathf.Clamp(dragPosition.y, yMin, yMax);
 
-            if(Mathf.Abs(dragPosition.x - lastMovePointPos.x) > 0.55 || Mathf.Abs(dragPosition.y - lastMovePointPos.y) > 0.55) {
+            if(Mathf.Abs(dragPosition.x - lastMovePointPos.x) > fieldCellSize * moveKDelta || Mathf.Abs(dragPosition.y - lastMovePointPos.y) > fieldCellSize * moveKDelta) {
                 SetZonePostionOnNearestCell(dragPosition);
             }
         }
@@ -71,6 +74,7 @@ public class ShipAttackZoneController : MonoBehaviour {
     public void SetAnotherOpponentField(FightFieldStateController opponentField) {
         fightFieldStateController = opponentField;
         fieldBorders = fightFieldStateController.GetFieldBorders();
+        fieldCellSize = fightFieldStateController.GetCellSizeDelta();
         CalculateShipBorders();
         SetRandomPosOnField();
     }
@@ -105,7 +109,7 @@ public class ShipAttackZoneController : MonoBehaviour {
         int curSortCellNumber = 0;
         for(int i = 0; i < cellsCount.y; i++) {
             for(int k = 0; k < cellsCount.x; k++) {
-                attackCells[curSortCellNumber++]= new Vector2(keyPos.x + k, keyPos.y - i);
+                attackCells[curSortCellNumber++]= new Vector2(keyPos.x + fieldCellSize * k, keyPos.y - fieldCellSize * i);
             }
         }
         return attackCells;
@@ -152,10 +156,10 @@ public class ShipAttackZoneController : MonoBehaviour {
     }
 
     private void CalculateShipBorders() {
-        xMin = fieldBorders[0] + cellsCount.x / 2;
-        xMax = fieldBorders[1] - cellsCount.x / 2;
-        yMin = fieldBorders[2] + cellsCount.y / 2;
-        yMax = fieldBorders[3] - cellsCount.y / 2;
+        xMin = fieldBorders[0] + (cellsCount.x * fieldCellSize) / 2;
+        xMax = fieldBorders[1] - (cellsCount.x * fieldCellSize) / 2;
+        yMin = fieldBorders[2] + (cellsCount.y * fieldCellSize) / 2;
+        yMax = fieldBorders[3] - (cellsCount.y * fieldCellSize) / 2;
     }
 
     private IEnumerator OneSecondDelayAndHitPlayerByBotAttackCoroutine() {
