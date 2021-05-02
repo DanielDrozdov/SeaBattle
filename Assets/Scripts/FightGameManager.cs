@@ -15,6 +15,7 @@ public class FightGameManager : MonoBehaviour {
     [SerializeField] private Ship[] secondShipsGroup;
     [SerializeField] private FightFieldStateController firstPlayerFieldStateController;
     [SerializeField] private FightFieldStateController secondPlayerFieldStateController;
+    [SerializeField] private MissionFieldChangeController enemyMissionFieldChangeController;
     [SerializeField] private BotAttackController botAttackController;
     [SerializeField] private WinOrDiePanelController WinOrDiePanel;
     private OpponentShotsBalancePanelController opponentShotsBalancePanelController;
@@ -26,7 +27,8 @@ public class FightGameManager : MonoBehaviour {
     private bool IsGameEnded;
     private bool IfCanHitTwice;
     private bool IsFirstOpponentAttackMove = true;
-    private int avaliableCellsCountToHit = 4;
+    //private int playersMoves;
+    private int avaliableCellsCountToHit;
     private int avaliableCellsCountToHitBalance;
     private int avancedModeAvaliableCellsCountToHit = 4;
     private int classicModeAvaliableCellsCountToHit = 1;
@@ -47,14 +49,17 @@ public class FightGameManager : MonoBehaviour {
     }
 
     private void Start() {
+        if(dataSceneTransitionController.IsCampaignGame()) {
+            enemyMissionFieldChangeController.ChangeField();
+        }
         firstPlayerFieldStateController.InitializeField();
         secondPlayerFieldStateController.InitializeField();
         ShipAttackZonesManager.GetInstance().ChangeOpponentAttackField(secondPlayerFieldStateController);
         opponentShotsBalancePanelController = OpponentShotsBalancePanelController.GetInstance();
         opponentShotsBalancePanelController.UpdatePlayerShotsBalance();
         LocateShipsOnFields();
-        if(DataSceneTransitionController.GetInstance().GetBattleType() == DataSceneTransitionController.BattleType.P1vsP2) {
-            SelectAttackZonePanelController.GetInstance().SetNewOpponentFieldAndUpdateShipsAttackZones(secondPlayerFieldStateController);
+        if(DataSceneTransitionController.GetInstance().GetBattleMode() != DataSceneTransitionController.BattleMode.Classic) {
+            SelectAttackZonePanelController.GetInstance().SetNewOpponentFieldAndUpdateShipsAttackZones(firstPlayerFieldStateController);
         }
     }
 
@@ -75,6 +80,10 @@ public class FightGameManager : MonoBehaviour {
         ShipAttackZonesManager.GetInstance().OffZones();
         WinOrDiePanel.ActivatePanel(currentOpponentName);
     }
+
+    //public int GetPlayersF() {
+    //    return playersMoves;
+    //}
 
     public void DecreaseOneCell() {
         if(IsGameEnded) {
@@ -118,6 +127,7 @@ public class FightGameManager : MonoBehaviour {
         opponentMoveArrowCursor.transform.Rotate(new Vector3(0,0,180));
         FightFieldStateController opponentSelfField;
         if(currentOpponentName == firstPlayerFieldStateController.GetOpponentName()) {
+            //playersMoves++;
             ShipAttackZonesManager.GetInstance().ChangeOpponentAttackField(firstPlayerFieldStateController);
             opponentSelfField = secondPlayerFieldStateController;
             currentOpponentName = secondPlayerFieldStateController.GetOpponentName();
@@ -125,6 +135,11 @@ public class FightGameManager : MonoBehaviour {
                 botAttackController.HitPlayer();
             }
         } else {
+            //if(playersMoves == 4) {
+            //    firstPlayerFieldStateController.ZeroPoints();
+            //    secondPlayerFieldStateController.ZeroPoints();
+            //    playersMoves = 0;
+            //}
             ShipAttackZonesManager.GetInstance().ChangeOpponentAttackField(secondPlayerFieldStateController);
             opponentSelfField = firstPlayerFieldStateController;
             currentOpponentName = firstPlayerFieldStateController.GetOpponentName();
@@ -140,15 +155,16 @@ public class FightGameManager : MonoBehaviour {
         List<CellPointPos[]> allShipsPoints = dataSceneTransitionController.GetSelectedShipPoints(1);
         SetCellsPointsToShips(allShipsPoints, firstPlayerFieldStateController);
         if(secondPlayerFieldStateController.GetOpponentName() == OpponentName.Bot) {
-            allShipsPoints = ShipFieldPositionGenerateController.GetInstance().GetGeneratedShipsPoints();
+            allShipsPoints = ShipFieldPositionGenerateController.GetInstance().GetGeneratedShipsPoints(true);
         } else {
             allShipsPoints = dataSceneTransitionController.GetSelectedShipPoints(2);
         }
         SetCellsPointsToShips(allShipsPoints, secondPlayerFieldStateController);
     }
 
-    private void SetCellsPointsToShips(List<CellPointPos[]> allShipsPoints,FightFieldStateController opponentField) {
+    private void SetCellsPointsToShips(List<CellPointPos[]> allShipsPoints, FightFieldStateController opponentField) {
         Ship[] ships = shipsGroupList[0];
+        List<Ship> selectedShips = new List<Ship>();
         Dictionary<int, List<CellPointPos[]>> shipsCellsPoints = new Dictionary<int, List<CellPointPos[]>>();
         for(int i = 1; i <= 4; i++) {
             shipsCellsPoints.Add(i, new List<CellPointPos[]>(i));
@@ -156,12 +172,17 @@ public class FightGameManager : MonoBehaviour {
         for(int i = 0; i < allShipsPoints.Count; i++) {
             shipsCellsPoints[allShipsPoints[i].Length].Add(allShipsPoints[i]);
         }
-        for(int i = 0;i < 10;i++) {
+        for(int i = 0; i < ships.Length; i++) {
             List<CellPointPos[]> sameCellSizeShips = shipsCellsPoints[ships[i].GetCellsSize()];
+            if(sameCellSizeShips.Count == 0) {
+                Destroy(ships[i].gameObject);
+                continue;
+            }
+            selectedShips.Add(ships[i]);
             ships[i].SetShipPointsMassiveAndFightFieldController(sameCellSizeShips[0], opponentField);
             sameCellSizeShips.RemoveAt(0);
         }
-        opponentField.SetShips(ships);
+        opponentField.SetShips(selectedShips);
         shipsGroupList.RemoveAt(0);
     }
 

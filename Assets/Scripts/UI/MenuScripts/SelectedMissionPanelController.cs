@@ -32,7 +32,7 @@ public class SelectedMissionPanelController : MonoBehaviour
             SelectedShipsFieldForMissionsPanel.SetActive(true);
             gameObject.SetActive(false);
             DataSceneTransitionController dataSceneTransitionController = DataSceneTransitionController.GetInstance();
-            dataSceneTransitionController.SetBattleMode(DataSceneTransitionController.BattleMode.Classic);
+            dataSceneTransitionController.SetBattleMode(DataSceneTransitionController.BattleMode.Advanced);
             dataSceneTransitionController.SetBattleType(DataSceneTransitionController.BattleType.P1vsBot);
         });
     }

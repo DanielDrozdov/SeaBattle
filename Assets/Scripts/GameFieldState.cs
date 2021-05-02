@@ -12,6 +12,7 @@ public class GameFieldState : MonoBehaviour {
 
     protected List<Ship> shipsList;
     protected float[] bordersMassive;
+    protected int fieldSizeInCells;
     private float cellSizeDelta;
 
     private void Awake() {    
@@ -62,12 +63,12 @@ public class GameFieldState : MonoBehaviour {
         yMax = UpFieldPoint.position.y;
         bordersMassive = new float[] { xMin, xMax, yMin, yMax };
         fieldXSize = Mathf.Abs(xMax - xMin);
-        cellSizeDelta = fieldXSize / 10;
-        for(int i = 0; i < 10; i++) {
+        cellSizeDelta = fieldXSize / fieldSizeInCells;
+        for(int i = 0; i < fieldSizeInCells; i++) {
             float cellsYPos = yMax - (cellSizeDelta * i + cellSizeDelta / 2);
             Dictionary<int, Vector2> letterPointsToHit = new Dictionary<int, Vector2>();
             Dictionary<int, Vector2> letterPoints = new Dictionary<int, Vector2>();
-            for(int k = 0; k < 10; k++) {
+            for(int k = 0; k < fieldSizeInCells; k++) {
                 letterPointsToHit.Add(k + 1, new Vector2(cellSizeDelta * k + cellSizeDelta / 2 + xMin, cellsYPos));
                 letterPoints.Add(k + 1, new Vector2(cellSizeDelta * k + cellSizeDelta / 2 + xMin, cellsYPos));
             }
@@ -90,9 +91,6 @@ public class GameFieldState : MonoBehaviour {
             if(Mathf.Abs(tapPosition.y - lettersYPos[yPosLetter]) < cellSizeDelta / 2) {
                 tapCellLetter = yPosLetter;
             }
-        }
-        if(!fieldPointsDict.ContainsKey(tapCellLetter)) {
-            Debug.Log(tapPosition);
         }
         letterPoints = fieldPointsDict[tapCellLetter];
         foreach(int cellNumber in letterPoints.Keys) {
@@ -121,10 +119,10 @@ public class GameFieldState : MonoBehaviour {
                 minNumber = number;
             }
         }
-        minNumber = Mathf.Clamp(minNumber - 1, 1, 10);
-        maxNumber = Mathf.Clamp(maxNumber + 1, 1, 10);
-        minLetter = (char)Mathf.Clamp(minLetter - 1, 97, 106); // 'a' byte code = 97, 'j' = 106
-        maxLetter = (char)Mathf.Clamp(maxLetter + 1, 97, 106);
+        minNumber = Mathf.Clamp(minNumber - 1, 1, fieldSizeInCells);
+        maxNumber = Mathf.Clamp(maxNumber + 1, 1, fieldSizeInCells);
+        minLetter = (char)Mathf.Clamp(minLetter - 1, 97, 106 - (10 - fieldSizeInCells)); // 'a' byte code = 97, 'j' = 106
+        maxLetter = (char)Mathf.Clamp(maxLetter + 1, 97, 106 - (10 - fieldSizeInCells));
         int[] borderDataMassive = { minLetter, maxLetter, minNumber, maxNumber };
         return borderDataMassive;
     }

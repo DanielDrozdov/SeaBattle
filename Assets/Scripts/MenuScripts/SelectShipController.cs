@@ -34,6 +34,7 @@ public class SelectShipController : MonoBehaviour
 
     private void Awake() {
         baseParent = transform.parent;
+        shipSizeInCells = (int)cellsCount.x;
     }
 
     private void Start() {
@@ -41,7 +42,6 @@ public class SelectShipController : MonoBehaviour
         fieldBorders = selectShipField.GetFieldBorders();
         fieldCellSize = selectShipField.GetCellSizeDelta();
         borderOffset = fieldCellSize * borderKOffset;
-        shipSizeInCells = (int)cellsCount.x;
         shipArea = selectShipField.GetShipArea(shipSizeInCells);
         startPos = transform.position;
         keyPointOffSet = zoneMoveKeyPoint.position - transform.position;
@@ -94,7 +94,7 @@ public class SelectShipController : MonoBehaviour
         }
         transform.parent = baseParent;
         shipArea.DeactivateArea();
-    }
+    } 
 
     public void SetGeneratedPoints(CellPointPos[] points) {
         if(IsShipFlippedOnY) {

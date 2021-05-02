@@ -16,6 +16,7 @@ public class SelectShipFieldController : GameFieldState
 
     protected override void AddAwakeActions() {
         shipReservedPoints = new Dictionary<SelectShipController, CellPointPos[]>();
+        fieldSizeInCells = 10;
         InitializeField();
     }
 
@@ -32,7 +33,12 @@ public class SelectShipFieldController : GameFieldState
     }
 
     public bool IfAllShipsAreSelected() {
-        return (shipReservedPoints.Values.Count == 10) ? true : false;
+        if(DataSceneTransitionController.GetInstance().IsCampaignGame()) {
+            return (shipReservedPoints.Values.Count == MissionPlayerShipsActivateController.GetInstance().GetShipsCountInGame())
+                ? true : false;
+        } else {
+            return (shipReservedPoints.Values.Count == 10) ? true : false;
+        }
     }
 
     public SelectedShipAreaController GetShipArea(int shipCellsCount) {

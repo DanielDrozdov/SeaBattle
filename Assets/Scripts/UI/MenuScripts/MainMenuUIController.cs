@@ -56,6 +56,7 @@ public class MainMenuUIController : MonoBehaviour
             mainMenuPanel.SetActive(true);
             lastOpenedPanel.SetActive(false);
             backToMainMenuButton.SetActive(false);
+            DataSceneTransitionController.GetInstance().SetCampaignGame(false);
         });
     }
 

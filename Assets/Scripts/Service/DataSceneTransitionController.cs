@@ -19,6 +19,8 @@ public class DataSceneTransitionController : MonoBehaviour
     private List<CellPointPos[]> secondPlayerSelectedShipPoints;
     private BattleMode battleMode;
     private BattleType battleType;
+    private SelectedMissionData missionData;
+    private bool IsCampaign;
 
     private DataSceneTransitionController() { }
 
@@ -40,6 +42,18 @@ public class DataSceneTransitionController : MonoBehaviour
         return Instance;
     }
 
+    public void SetSelectedMissionData(SelectedMissionData selectedMissionData) {
+        missionData = selectedMissionData;
+    }
+
+    public void SetCampaignGame(bool value) {
+        IsCampaign = value;
+    }
+
+    public bool IsCampaignGame() {
+        return IsCampaign;
+    }
+
     public void SetSelectedShips(int playerNumber,List<CellPointPos[]> shipPoints) {
         if(playerNumber == 1) {
             firstPlayerSelectedShipPoints = shipPoints;
@@ -54,6 +68,10 @@ public class DataSceneTransitionController : MonoBehaviour
 
     public void SetBattleType(BattleType selectedBattleType) {
         battleType = selectedBattleType;
+    }
+
+    public SelectedMissionData GetSelectedMissionData() {
+        return missionData;
     }
 
     public List<CellPointPos[]> GetSelectedShipPoints(int playerNumber) {
@@ -82,4 +100,45 @@ public class DataSceneTransitionController : MonoBehaviour
     public BattleType GetBattleType() {
         return battleType;
     }
+}
+
+[System.Serializable]
+public class SelectedMissionData {
+    [SerializeField] private int playerFieldSizeInCells;
+    [SerializeField] private int enemyFieldSizeInCells;
+
+    [Header("PlayerShipsTypeCount")]
+    [SerializeField] private OpponentShipsTypeCountInMission playerShips;
+
+    [Header("EnemyShipsTypeCount")]
+    [SerializeField] private OpponentShipsTypeCountInMission enemyShips;
+
+    public SelectedMissionData(int playerFieldSizeInCells,int enemyFieldSizeInCells) {
+        this.playerFieldSizeInCells = playerFieldSizeInCells;
+        this.enemyFieldSizeInCells = enemyFieldSizeInCells;
+    }
+
+    public int GetPlayerFieldSize() {
+        return playerFieldSizeInCells;
+    }
+
+    public int GetEnemyFieldSize() {
+        return enemyFieldSizeInCells;
+    }
+
+    public OpponentShipsTypeCountInMission GetPlayerShipsCount() {
+        return playerShips;
+    }
+
+    public OpponentShipsTypeCountInMission GetEnemyShipsCount() {
+        return enemyShips;
+    }
+}
+
+[System.Serializable]
+public struct OpponentShipsTypeCountInMission {
+    public int fourCellShipsCount;
+    public int threeCellShipsCount;
+    public int twoCellShipsCount;
+    public int oneCellShipsCount;
 }

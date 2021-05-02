@@ -292,6 +292,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 17976826}
+  - component: {fileID: 17976827}
   m_Layer: 0
   m_Name: SelectedMissionShipsField
   m_TagString: Untagged
@@ -323,6 +324,31 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -0.00012207031, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &17976827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17976825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce2bf113cae735348b0902a388f05602, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ships:
+  - {fileID: 912412308}
+  - {fileID: 451515106}
+  - {fileID: 1435801644}
+  - {fileID: 258045216}
+  - {fileID: 390829744}
+  - {fileID: 1408305335}
+  - {fileID: 1725144308}
+  - {fileID: 1605180170}
+  - {fileID: 1824375306}
+  - {fileID: 1309414028}
+  - {fileID: 1363987324}
+  GeneratedSelectShipLocateHelperController: {fileID: 677230503}
 --- !u!224 &20377413 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4274577255162783366, guid: 4ce14999d2298cb44951a71f3edac96f,
@@ -1563,7 +1589,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 738291419}
   cellsCount: {x: 2, y: 1}
   selectShipField: {fileID: 677230498}
-  tappedShipParent: {fileID: 0}
+  tappedShipParent: {fileID: 601303470}
 --- !u!61 &258045217
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1798,6 +1824,21 @@ PrefabInstance:
         \u043F\u0440\u0435\u0433\u0440\u0430\u0434\u0438\u043B\u0438 \u043F\u0438\u0440\u0430\u0442\u044B.
         \u041F\u043E\u043A\u0430\u0436\u0438\u0442\u0435 \u0441\u0432\u043E\u044E
         \u0432\u044B\u0443\u0447\u043A\u0443 \u0438 \u043F\u0440\u0435\u0432\u043E\u0441\u0445\u043E\u0434\u0441\u0442\u0432\u043E."
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyFieldSizeInCells
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.twoCellShipsCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.oneCellShipsCount
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ce14999d2298cb44951a71f3edac96f, type: 3}
@@ -2203,6 +2244,41 @@ PrefabInstance:
         \u043D\u0430\u0437\u0435\u043C\u043D\u0443\u044E \u043E\u043F\u0435\u0440\u0430\u0446\u0438\u044E
         \u043F\u0440\u043E\u0442\u0438\u0432 \u043F\u0438\u0440\u0430\u0442\u043E\u0432."
       objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyFieldSizeInCells
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.oneCellShipsCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.twoCellShipsCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.oneCellShipsCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.twoCellShipsCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.threeCellShipsCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.threeCellShipsCount
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ce14999d2298cb44951a71f3edac96f, type: 3}
 --- !u!224 &364896410 stripped
@@ -2313,7 +2389,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 471882059}
   cellsCount: {x: 2, y: 1}
   selectShipField: {fileID: 677230498}
-  tappedShipParent: {fileID: 0}
+  tappedShipParent: {fileID: 601303470}
 --- !u!61 &390829745
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2520,7 +2596,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 1950301981}
   cellsCount: {x: 3, y: 1}
   selectShipField: {fileID: 677230498}
-  tappedShipParent: {fileID: 0}
+  tappedShipParent: {fileID: 601303470}
 --- !u!61 &451515107
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3360,6 +3436,41 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 607047784}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &601303470
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 601303471}
+  m_Layer: 0
+  m_Name: TappedShipParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &601303471
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601303470}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 47.675694}
+  m_LocalScale: {x: 1, y: 1, z: 1.0000798}
+  m_Children: []
+  m_Father: {fileID: 1965503337}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 1.344986, y: -0.73999786}
+  m_SizeDelta: {x: -0.010009766, y: -0.020019531}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &604041314
 GameObject:
   m_ObjectHideFlags: 0
@@ -3636,6 +3747,31 @@ PrefabInstance:
         \u0441\u043E\u043F\u0440\u043E\u0432\u043E\u0436\u0434\u0435\u043D\u0438\u044F
         \u043F\u0435\u0440\u0435\u0445\u043E\u0434\u0438\u0442 \u043F\u043E\u0434
         \u0432\u0430\u0448\u0435 \u043A\u043E\u043C\u0430\u043D\u0434\u043E\u0432\u0430\u043D\u0438\u0435."
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyFieldSizeInCells
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.oneCellShipsCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.twoCellShipsCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.oneCellShipsCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.twoCellShipsCount
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ce14999d2298cb44951a71f3edac96f, type: 3}
@@ -3933,6 +4069,7 @@ GameObject:
   - component: {fileID: 677230499}
   - component: {fileID: 677230498}
   - component: {fileID: 677230497}
+  - component: {fileID: 677230503}
   m_Layer: 0
   m_Name: TapGameZone
   m_TagString: Untagged
@@ -3953,7 +4090,7 @@ RectTransform:
   m_Children:
   - {fileID: 1893958808}
   m_Father: {fileID: 1965503337}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4066,6 +4203,19 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &677230503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677230495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff021bcfa04725f439ae4d7ad5bfd16f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ships: []
 --- !u!224 &713584505 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4274577255162783366, guid: 4ce14999d2298cb44951a71f3edac96f,
@@ -4317,7 +4467,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &742389992
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4796,6 +4946,41 @@ PrefabInstance:
         \u043E\u0431\u043D\u0430\u0440\u0443\u0436\u0435\u043D\u0430 \u043F\u043E\u0434\u0432\u043E\u0434\u043D\u0430\u044F
         \u043B\u043E\u0434\u043A\u0430."
       objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.oneCellShipsCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.twoCellShipsCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.oneCellShipsCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.twoCellShipsCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.threeCellShipsCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.fourCellShipsCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.threeCellShipsCount
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ce14999d2298cb44951a71f3edac96f, type: 3}
 --- !u!224 &887918079 stripped
@@ -4985,7 +5170,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 1666688635}
   cellsCount: {x: 4, y: 1}
   selectShipField: {fileID: 677230498}
-  tappedShipParent: {fileID: 0}
+  tappedShipParent: {fileID: 601303470}
 --- !u!61 &912412309
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5886,6 +6071,46 @@ PrefabInstance:
         \u0438\u0437 \u043F\u043E\u0440\u0442\u0430 \u043D\u0435 \u0432\u044B\u0448\u0435\u043B
         \u043F\u0438\u0440\u0430\u0442\u0441\u043A\u0438\u0439 \u0444\u043B\u0430\u0433\u043C\u0430\u043D.
         \u0423\u043D\u0438\u0447\u0442\u043E\u0436\u044C\u0442\u0435 \u0435\u0433\u043E."
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.oneCellShipsCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.twoCellShipsCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.fourCellShipsCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.oneCellShipsCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.twoCellShipsCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.threeCellShipsCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.fourCellShipsCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.threeCellShipsCount
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ce14999d2298cb44951a71f3edac96f, type: 3}
@@ -6979,6 +7204,7 @@ MonoBehaviour:
   campaignMissionsList: {fileID: 978255727}
   campaignSelectTypePanel: {fileID: 672736687}
   warningPanel: {fileID: 974534616}
+  selectedMissionShipsField: {fileID: 17976825}
 --- !u!1 &1239758095
 GameObject:
   m_ObjectHideFlags: 0
@@ -7188,7 +7414,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 425, y: -348}
+  m_AnchoredPosition: {x: 618, y: -345}
   m_SizeDelta: {x: 300, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1263915660
@@ -7480,7 +7706,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 1844482104}
   cellsCount: {x: 1, y: 1}
   selectShipField: {fileID: 677230498}
-  tappedShipParent: {fileID: 0}
+  tappedShipParent: {fileID: 601303470}
 --- !u!61 &1309414029
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7730,7 +7956,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.3450005, y: -0.7399996}
+  m_AnchoredPosition: {x: 1.3450003, y: -0.7399998}
   m_SizeDelta: {x: -0.010000229, y: -0.020000458}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1363987321
@@ -7797,7 +8023,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 1594981645}
   cellsCount: {x: 1, y: 1}
   selectShipField: {fileID: 677230498}
-  tappedShipParent: {fileID: 0}
+  tappedShipParent: {fileID: 601303470}
 --- !u!61 &1363987325
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8124,7 +8350,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 1987468712}
   cellsCount: {x: 2, y: 1}
   selectShipField: {fileID: 677230498}
-  tappedShipParent: {fileID: 0}
+  tappedShipParent: {fileID: 601303470}
 --- !u!61 &1408305336
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8437,6 +8663,41 @@ PrefabInstance:
         \u043A \u043D\u0430\u043C \u043D\u0430\u043F\u0440\u0430\u0432\u043B\u044F\u044E\u0442\u0441\u044F
         \u043A\u043E\u0440\u0430\u0431\u043B\u0438 \u043F\u0440\u043E\u0442\u0438\u0432\u043D\u0438\u043A\u0430."
       objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyFieldSizeInCells
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.oneCellShipsCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.twoCellShipsCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.oneCellShipsCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.twoCellShipsCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.threeCellShipsCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.threeCellShipsCount
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ce14999d2298cb44951a71f3edac96f, type: 3}
 --- !u!1 &1412710593
@@ -8638,7 +8899,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 906278732}
   cellsCount: {x: 3, y: 1}
   selectShipField: {fileID: 677230498}
-  tappedShipParent: {fileID: 0}
+  tappedShipParent: {fileID: 601303470}
 --- !u!61 &1435801645
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9153,6 +9414,46 @@ PrefabInstance:
         \u043D\u0430 \u044D\u0442\u043E\u0442 \u0431\u043E\u0439 \u0443 \u043D\u0430\u0441
         \u0432\u0441\u0435\u0433\u043E 70 \u0441\u043D\u0430\u0440\u044F\u0434\u043E\u0432."
       objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.oneCellShipsCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.twoCellShipsCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.fourCellShipsCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.oneCellShipsCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.twoCellShipsCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.threeCellShipsCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.fourCellShipsCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.threeCellShipsCount
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ce14999d2298cb44951a71f3edac96f, type: 3}
 --- !u!1 &1582144010
@@ -9383,7 +9684,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 1205313542}
   cellsCount: {x: 1, y: 1}
   selectShipField: {fileID: 677230498}
-  tappedShipParent: {fileID: 0}
+  tappedShipParent: {fileID: 601303470}
 --- !u!61 &1605180171
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10398,7 +10699,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 518417655}
   cellsCount: {x: 1, y: 1}
   selectShipField: {fileID: 677230498}
-  tappedShipParent: {fileID: 0}
+  tappedShipParent: {fileID: 601303470}
 --- !u!61 &1725144309
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10737,7 +11038,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.3450003, y: -0.7399998}
+  m_AnchoredPosition: {x: -1.6300001, y: -0.7399998}
   m_SizeDelta: {x: -0.01000011, y: -0.01999998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1818779662
@@ -10885,7 +11186,7 @@ MonoBehaviour:
   zoneMoveKeyPoint: {fileID: 2015028484}
   cellsCount: {x: 1, y: 1}
   selectShipField: {fileID: 677230498}
-  tappedShipParent: {fileID: 0}
+  tappedShipParent: {fileID: 601303470}
 --- !u!61 &1824375307
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11506,6 +11807,41 @@ PrefabInstance:
         \u043E\u043F\u0435\u0440\u0430\u0446\u0438\u044F \u043D\u0430\u0447\u0430\u043B\u0430\u0441\u044C,
         \u0410\u0434\u043C\u0438\u0440\u0430\u043B."
       objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.oneCellShipsCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.twoCellShipsCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.oneCellShipsCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.twoCellShipsCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.threeCellShipsCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.fourCellShipsCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.threeCellShipsCount
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ce14999d2298cb44951a71f3edac96f, type: 3}
 --- !u!224 &1930778701 stripped
@@ -11971,6 +12307,7 @@ RectTransform:
   - {fileID: 1701518079}
   - {fileID: 811445560}
   - {fileID: 1809656309}
+  - {fileID: 601303471}
   - {fileID: 677230496}
   m_Father: {fileID: 17976826}
   m_RootOrder: 4
@@ -12643,6 +12980,41 @@ PrefabInstance:
         \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u0443 \u0432 \u0441\u0432\u043E\u0438
         \u0440\u0443\u043A\u0438."
       objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyFieldSizeInCells
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.oneCellShipsCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.twoCellShipsCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.oneCellShipsCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.twoCellShipsCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.threeCellShipsCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.threeCellShipsCount
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ce14999d2298cb44951a71f3edac96f, type: 3}
 --- !u!1 &2031251285
@@ -13135,7 +13507,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 136, y: 169}
+  m_AnchoredPosition: {x: 391, y: -344}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2075572574
@@ -14077,6 +14449,31 @@ PrefabInstance:
         \u0443\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435\u043C \u0438
         \u043D\u0430 \u0441\u0432\u044F\u0437\u0438. \u041E\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u0435
         \u043F\u0440\u043E\u0442\u0438\u0432\u043D\u0438\u043A\u0430."
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyFieldSizeInCells
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerFieldSizeInCells
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.oneCellShipsCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.playerShips.oneCellShipsCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: missionData.enemyShips.threeCellShipsCount
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ce14999d2298cb44951a71f3edac96f, type: 3}

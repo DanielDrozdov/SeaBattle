@@ -9,7 +9,7 @@ public class FightFieldStateController : GameFieldState {
     private SpritesFightPoolController spritesFightPoolController;
     private FightGameManager fightGameManager;
 
-    private Ship[] shipsMassive;
+    //private Dictionary<CellPointPos, GameObject> nullSpritesDict;
 
     private BotAttackController botAttackController;
 
@@ -17,6 +17,8 @@ public class FightFieldStateController : GameFieldState {
 
     protected override void AddAwakeActions() {
         botAttackController = GetComponent<BotAttackController>();
+        SetFieldSize();
+        //nullSpritesDict = new Dictionary<CellPointPos, GameObject>();
     }
 
     protected override void AddStartActions() {
@@ -36,6 +38,25 @@ public class FightFieldStateController : GameFieldState {
         this.opponentName = opponentName;
     }
 
+    //public void ZeroPoints() {
+    //    int i = 0;
+    //    CellPointPos[] nulls = new CellPointPos[4];
+    //    foreach(CellPointPos cell in nullSpritesDict.Keys) {
+    //        if(i >= 4) {
+    //            break;
+    //        }
+    //        fieldPointsToHit[cell.letter].Add(cell.number, fieldPoints[cell.letter][cell.number]);
+    //        GameObject sprite = nullSpritesDict[cell];
+    //        sprite.SetActive(false);
+    //        SpritesFightPoolController.GetInstance().ReturnToQue(sprite);
+    //        nulls[i] = cell;
+    //        i++;
+    //    }
+    //    for(int k = 0; k< 4; k++) {
+    //        nullSpritesDict.Remove(nulls[k]);
+    //    }
+    //}
+
     public bool CheckIsCellPointFreeToHit(CellPointPos cellPoint) {
         if(fieldPointsToHit[cellPoint.letter].ContainsKey(cellPoint.number)) {
             return true;
@@ -47,10 +68,11 @@ public class FightFieldStateController : GameFieldState {
         this.botAttackController = botAttackController;
     }
 
-    public void SetShips(Ship[] ships) {
-        shipsMassive = ships;
-        for(int i = 0; i < shipsMassive.Length; i++) {
-            shipsList.Add(shipsMassive[i]);
+    public void SetShips(List<Ship> ships) {
+        shipsList = ships;
+        Ship[] shipsMassive = new Ship[ships.Count];
+        for(int i = 0; i < ships.Count;i++) {
+            shipsMassive[i] = ships[i];
         }
         if(opponentName == FightGameManager.OpponentName.Bot) {
             botAttackController.SetShipsMassive(shipsMassive);
@@ -105,7 +127,8 @@ public class FightFieldStateController : GameFieldState {
             if(IsHit) {
                 ActivateCellStateSprite(tapCellPosition, true);
             } else {
-                ActivateCellStateSprite(tapCellPosition, false);
+                GameObject sprite = ActivateCellStateSprite(tapCellPosition, false);
+                //nullSpritesDict.Add(tapCellData, sprite);
             }
         }
     }
@@ -143,7 +166,7 @@ public class FightFieldStateController : GameFieldState {
         return false;
     }
 
-    private void ActivateCellStateSprite(Vector2 cellPos,bool IsShipHit) {
+    private GameObject ActivateCellStateSprite(Vector2 cellPos,bool IsShipHit) {
         GameObject sprite;
         if(IsShipHit) {
             sprite = spritesFightPoolController.GetHitCrossSprite();
@@ -152,6 +175,7 @@ public class FightFieldStateController : GameFieldState {
         }
         sprite.transform.position = cellPos;
         sprite.SetActive(true);
+        return sprite;
     }
 
     private void HitShip(List<CellPointPos> shipPoints) {
@@ -166,6 +190,15 @@ public class FightFieldStateController : GameFieldState {
                     fieldPointsToHit[letter].Remove(k);
                 }
             }
+        }
+    }
+
+    private void SetFieldSize() {
+        DataSceneTransitionController dataSceneTransitionController = DataSceneTransitionController.GetInstance();
+        if(dataSceneTransitionController.IsCampaignGame() && opponentName == FightGameManager.OpponentName.Bot) {
+            fieldSizeInCells = dataSceneTransitionController.GetSelectedMissionData().GetEnemyFieldSize();
+        } else {
+            fieldSizeInCells = 10;
         }
     }
 }

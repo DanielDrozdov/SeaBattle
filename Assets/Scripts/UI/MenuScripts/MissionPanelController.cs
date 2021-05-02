@@ -14,6 +14,8 @@ public class MissionPanelController : MonoBehaviour, IPointerUpHandler,IPointerD
     [SerializeField] private GameObject lockImage;
     [SerializeField] private TextMeshProUGUI missionNameText;
     [SerializeField] private TextMeshProUGUI missionNumberText;
+    [Header("MissionDataSettings")]
+    [SerializeField] private SelectedMissionData missionData;
     private bool IsMissionOpened;
 
     private void Awake() {
@@ -30,7 +32,8 @@ public class MissionPanelController : MonoBehaviour, IPointerUpHandler,IPointerD
     public void OnPointerDown(PointerEventData eventData) { }
 
     public void OnPointerUp(PointerEventData eventData) {
-        if(true) {
+        if(true /*IsMissionOpened*/) {
+            DataSceneTransitionController.GetInstance().SetSelectedMissionData(missionData);
             MainMenuUIController.GetInstance().ActivatePanelTransition(() => {
                 SelectedMissionPanelController.GetInstance().SetMissionData(missionSprite, missionNumber, missionName, missionDescription);
             });      

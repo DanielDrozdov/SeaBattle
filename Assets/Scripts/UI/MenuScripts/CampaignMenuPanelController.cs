@@ -7,6 +7,7 @@ public class CampaignMenuPanelController : MonoBehaviour, ISecondaryMenuPanelDis
     [SerializeField] private GameObject campaignMissionsList;
     [SerializeField] private GameObject campaignSelectTypePanel;
     [SerializeField] private GameObject warningPanel;
+    [SerializeField] private GameObject selectedMissionShipsField;
     private MainMenuUIController mainMenuUIController;
 
     private void Start() {
@@ -21,6 +22,7 @@ public class CampaignMenuPanelController : MonoBehaviour, ISecondaryMenuPanelDis
         campaignMissionsList.SetActive(false);
         campaignSelectTypePanel.SetActive(true);
         warningPanel.SetActive(false);
+        selectedMissionShipsField.SetActive(false);
     }
 
     public void OnClickButton_StartNewCampaign() {
@@ -47,6 +49,7 @@ public class CampaignMenuPanelController : MonoBehaviour, ISecondaryMenuPanelDis
 
     private void LoadCampaignPanel() {
         mainMenuUIController.ActivatePanelTransition(() => {
+            DataSceneTransitionController.GetInstance().SetCampaignGame(true);
             campaignSelectTypePanel.SetActive(false);
             campaignMissionsList.SetActive(true);
         });

@@ -32,6 +32,10 @@ public class SpritesFightPoolController : MonoBehaviour
         return nothingInCellSpritesPool.Dequeue();
     }
 
+    //public void ReturnToQue(GameObject sprite) {
+    //    nothingInCellSpritesPool.Enqueue(sprite);
+    //}
+
     private void FillPools() {
         hitCrossSpritesPool = new Queue<GameObject>(hitCrossSpritesCount);
         nothingInCellSpritesPool = new Queue<GameObject>(nothingInCellSpritesCount);

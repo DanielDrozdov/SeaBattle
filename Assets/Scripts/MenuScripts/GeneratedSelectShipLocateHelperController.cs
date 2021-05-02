@@ -13,11 +13,11 @@ public class GeneratedSelectShipLocateHelperController : MonoBehaviour
     }
 
     public void LocateShipsOnField(SelectShipFieldController selectShipFieldController) {
-        List<CellPointPos[]> shipsGeneratedPoints = shipFieldPositionGenerate.GetGeneratedShipsPoints();
+        List<CellPointPos[]> shipsGeneratedPoints = shipFieldPositionGenerate.GetGeneratedShipsPoints(false);
         selectShipFieldController.ClearReservedShips();
-        for(int i = 0; i < 10;i++) {
+        for(int i = 0; i < ships.Length; i++) {
             SelectShipController ship = ships[i];
-            for(int k = 0; k < 10;k++) {
+            for(int k = 0; k < shipsGeneratedPoints.Count; k++) {
                 if(ship.shipSizeInCells == shipsGeneratedPoints[k].Length) {
                     ship.SetGeneratedPoints(shipsGeneratedPoints[k]);
                     shipsGeneratedPoints.RemoveAt(k);
@@ -25,5 +25,9 @@ public class GeneratedSelectShipLocateHelperController : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void SetActivatedShips(SelectShipController[] activatedShips) {
+        ships = activatedShips;
     }
 }

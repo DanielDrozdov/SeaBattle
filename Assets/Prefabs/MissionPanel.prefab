@@ -307,6 +307,9 @@ MonoBehaviour:
   lockImage: {fileID: 7074510839541050254}
   missionNameText: {fileID: 4274577254456235486}
   missionNumberText: {fileID: 4274577255909179719}
+  missionData:
+    playerFieldSizeInCells: 10
+    enemyFieldSizeInCells: 10
 --- !u!114 &4274577255162783386
 MonoBehaviour:
   m_ObjectHideFlags: 0
