@@ -19,10 +19,6 @@ public class SelectShipsMenuPanelController : MonoBehaviour
         levelTransitionPanelController = LevelTransitionPanelController.GetInstance();
     }
 
-    private void Start() {
-        UpdatePlayerNameText();
-    }
-
     private void OnEnable() {
         UpdatePlayerNameText();
     }

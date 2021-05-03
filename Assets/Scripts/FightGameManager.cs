@@ -28,6 +28,8 @@ public class FightGameManager : MonoBehaviour {
     private bool IfCanHitTwice;
     private bool IsFirstOpponentAttackMove = true;
     //private int playersMoves;
+    private int playerShotsCount;
+    private int botStartShipsCount;
     private int avaliableCellsCountToHit;
     private int avaliableCellsCountToHitBalance;
     private int avancedModeAvaliableCellsCountToHit = 4;
@@ -58,6 +60,9 @@ public class FightGameManager : MonoBehaviour {
         opponentShotsBalancePanelController = OpponentShotsBalancePanelController.GetInstance();
         opponentShotsBalancePanelController.UpdatePlayerShotsBalance();
         LocateShipsOnFields();
+        if(secondPlayerFieldStateController.GetOpponentName() == OpponentName.Bot) {
+            botStartShipsCount = secondPlayerFieldStateController.GetAliveShipList().Count;
+        }
         if(DataSceneTransitionController.GetInstance().GetBattleMode() != DataSceneTransitionController.BattleMode.Classic) {
             SelectAttackZonePanelController.GetInstance().SetNewOpponentFieldAndUpdateShipsAttackZones(firstPlayerFieldStateController);
         }
@@ -65,6 +70,18 @@ public class FightGameManager : MonoBehaviour {
 
     public static FightGameManager GetInstance() {
         return Instance;
+    }
+
+    public int GetPlayerShotsCount() {
+        return playerShotsCount;
+    }
+
+    public int GetP1AliveShipsCount() {
+        return firstPlayerFieldStateController.GetAliveShipList().Count;
+    }
+
+    public int GetBotDestroyedShipsCount() {
+        return botStartShipsCount - secondPlayerFieldStateController.GetAliveShipList().Count;
     }
 
     public OpponentName GetCurrentOpponentNameToAttack() {
@@ -88,6 +105,11 @@ public class FightGameManager : MonoBehaviour {
     public void DecreaseOneCell() {
         if(IsGameEnded) {
             return;
+        }
+
+        if(currentOpponentName == OpponentName.P1 &&
+            dataSceneTransitionController.GetBattleType() == DataSceneTransitionController.BattleType.P1vsBot) {
+            playerShotsCount++;
         }
 
         if(!IfCanHitTwice) {
@@ -159,7 +181,7 @@ public class FightGameManager : MonoBehaviour {
         } else {
             allShipsPoints = dataSceneTransitionController.GetSelectedShipPoints(2);
         }
-        SetCellsPointsToShips(allShipsPoints, secondPlayerFieldStateController);
+        SetCellsPointsToShips(allShipsPoints, secondPlayerFieldStateController);    
     }
 
     private void SetCellsPointsToShips(List<CellPointPos[]> allShipsPoints, FightFieldStateController opponentField) {

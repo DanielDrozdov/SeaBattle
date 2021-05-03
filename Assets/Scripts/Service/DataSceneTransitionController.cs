@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DataSceneTransitionController : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class DataSceneTransitionController : MonoBehaviour
         P1vsP2
     }
 
+    public bool IsNeedLoadNextMission;
+
+
     private static DataSceneTransitionController Instance;
     private List<CellPointPos[]> firstPlayerSelectedShipPoints;
     private List<CellPointPos[]> secondPlayerSelectedShipPoints;
@@ -25,8 +29,17 @@ public class DataSceneTransitionController : MonoBehaviour
     private DataSceneTransitionController() { }
 
     private void Awake() {
-        Instance = this;
+        DataSceneTransitionController[] instancesCount = FindObjectsOfType<DataSceneTransitionController>();
+        for(int i = 0;i < instancesCount.Length;i++) {
+            if(instancesCount[i].gameObject.scene.buildIndex == -1) {
+                if(gameObject.scene.buildIndex != -1) {
+                    Destroy(gameObject);
+                    return;
+                }
+            }
+        }
         DontDestroyOnLoad(gameObject);
+        Instance = this;
     }
 
     public void ZeroSelectedShips() {
@@ -104,6 +117,7 @@ public class DataSceneTransitionController : MonoBehaviour
 
 [System.Serializable]
 public class SelectedMissionData {
+    [HideInInspector] public int missionNumber;
     [SerializeField] private int playerFieldSizeInCells;
     [SerializeField] private int enemyFieldSizeInCells;
 

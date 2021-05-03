@@ -29,14 +29,25 @@ public class MissionPanelController : MonoBehaviour, IPointerUpHandler,IPointerD
         }
     }
 
+    public int GetMissionNumber() {
+        return missionNumber;
+    }
+
+    public void LoadBrifingPanel() {
+        missionData.missionNumber = missionNumber;
+        DataSceneTransitionController.GetInstance().SetSelectedMissionData(missionData);
+        SelectedMissionPanelController.GetInstance().SetMissionData(missionSprite, missionNumber, missionName, missionDescription);
+    }
+
     public void OnPointerDown(PointerEventData eventData) { }
 
     public void OnPointerUp(PointerEventData eventData) {
-        if(true /*IsMissionOpened*/) {
+        if(IsMissionOpened) {
+            missionData.missionNumber = missionNumber;
             DataSceneTransitionController.GetInstance().SetSelectedMissionData(missionData);
             MainMenuUIController.GetInstance().ActivatePanelTransition(() => {
                 SelectedMissionPanelController.GetInstance().SetMissionData(missionSprite, missionNumber, missionName, missionDescription);
-            });      
+            });
         }
     }
 }

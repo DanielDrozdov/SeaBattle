@@ -36,7 +36,13 @@ public class CampaignMenuPanelController : MonoBehaviour, ISecondaryMenuPanelDis
         LoadCampaignPanel();
     }
 
+    public void ContinueCampaignMission() {
+        DataSceneTransitionController.GetInstance().SetCampaignGame(true);
+        campaignSelectTypePanel.SetActive(false);
+    }
+
     public void OnClickButton_WarningPanelAgree() {
+        PlayerPrefs.DeleteAll();
         PlayerPrefs.SetInt("CurrentMissionNumber", 1);
         warningPanel.SetActive(false);
         LoadCampaignPanel();

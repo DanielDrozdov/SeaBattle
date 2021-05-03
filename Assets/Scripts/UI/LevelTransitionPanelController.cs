@@ -32,12 +32,10 @@ public class LevelTransitionPanelController : MonoBehaviour
     }
 
     private void Start() {
-        if(SceneManager.GetActiveScene().name != "MainMenu") {
-            transform.position = canvas.transform.position;
-            selfImage.enabled = true;
-            IsPanelClosed = true;
-            MoveToStartPoint();
-        }
+        transform.position = canvas.transform.position;
+        selfImage.enabled = true;
+        IsPanelClosed = true;
+        MoveToStartPoint();
     }
 
     public static LevelTransitionPanelController GetInstance() {

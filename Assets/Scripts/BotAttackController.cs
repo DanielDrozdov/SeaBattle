@@ -5,10 +5,8 @@ using UnityEngine;
 public class BotAttackController : MonoBehaviour
 {
     [SerializeField] private FightFieldStateController firstPlayerFieldController;
-    private FightFieldStateController selfFieldController;
     private ShipAttackZonesManager shipAttackZonesManager;
     private ShipAttackZoneController shipAttackZone;
-    private FightGameManager fightGameManager;
 
     private Dictionary<int, int> shipsByCellsSize;
     private Dictionary<Ship,List<CellPointPos>> hitShips;
@@ -20,7 +18,6 @@ public class BotAttackController : MonoBehaviour
 
     private void Awake() {
         chaseShipHitPoints = new List<CellPointPos>();
-        selfFieldController = GetComponent<FightFieldStateController>();
         if(DataSceneTransitionController.GetInstance().GetPlayerCountWithShips() == 2) {
             Destroy(this);
         }
@@ -32,7 +29,6 @@ public class BotAttackController : MonoBehaviour
     }
 
     private void Start() {
-        fightGameManager = FightGameManager.GetInstance();
         shipAttackZonesManager = ShipAttackZonesManager.GetInstance();
     }
 

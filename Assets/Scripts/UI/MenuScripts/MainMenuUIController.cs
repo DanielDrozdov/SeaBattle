@@ -20,6 +20,7 @@ public class MainMenuUIController : MonoBehaviour
 
     private void Start() {
         levelTransitionPanelController = LevelTransitionPanelController.GetInstance();
+        DataSceneTransitionController.GetInstance().SetCampaignGame(false);
     }
 
     public static MainMenuUIController GetInstance() {
@@ -62,6 +63,13 @@ public class MainMenuUIController : MonoBehaviour
 
     public void OnClickButton_Exit() {
         Application.Quit();
+    }
+
+    public void LoadNextMissionPartActions() {
+        mainMenuPanel.SetActive(false);
+        backToMainMenuButton.SetActive(true);
+        lastOpenedPanel = campaignMenuPanel;
+        campaignMenuPanel.SetActive(true);
     }
 
     private void OpenPanel(GameObject panelToActivated) {

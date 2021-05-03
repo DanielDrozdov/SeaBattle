@@ -21,6 +21,6 @@ public class PausePanelController : MonoBehaviour
 
     public void OnClickButton_ToMainMenu() {
         Time.timeScale = 1;
-        SceneManager.LoadScene("MainMenu");
+        LevelTransitionPanelController.GetInstance().MoveToCanvasCenter(() => SceneManager.LoadScene("MainMenu"));
     }
 }

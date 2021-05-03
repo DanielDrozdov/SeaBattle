@@ -14,7 +14,7 @@ public class MissionPlayerShipsActivateController : MonoBehaviour
         Instance = this;
     }
 
-    private void Start() {
+    private void OnEnable() {
         SetPlayerShipsCountToDict();
         activatedToMissionShips = new List<SelectShipController>();
         for(int i = 0; i < ships.Length; i++) {
@@ -26,7 +26,7 @@ public class MissionPlayerShipsActivateController : MonoBehaviour
                 ships[i].gameObject.SetActive(false);
             }
         }
-        SetShipsToFeildAutoGenerator();
+        SetShipsToFieldAutoGenerator();
     }
 
     public static MissionPlayerShipsActivateController GetInstance() {
@@ -47,7 +47,7 @@ public class MissionPlayerShipsActivateController : MonoBehaviour
         shipsCountBySize.Add(4, playerShipsCount.fourCellShipsCount);
     }
 
-    private void SetShipsToFeildAutoGenerator() {
+    private void SetShipsToFieldAutoGenerator() {
         SelectShipController[] ships = new SelectShipController[activatedToMissionShips.Count];
         for(int i = 0;i < activatedToMissionShips.Count;i++) {
             ships[i] = activatedToMissionShips[i];
