@@ -23,8 +23,11 @@ public class ShipFieldPositionGenerateController : MonoBehaviour
         return Instance;
     }
 
-    public List<CellPointPos[]> GetGeneratedShipsPoints(bool IsBot) {
+    public List<CellPointPos[]> GetGeneratedShipsPoints(bool IsBot,List<CellPointPos[]> caravanPoints = null) {
         shipsPointsList.Clear();
+        if(caravanPoints != null) {
+            shipsPointsList = caravanPoints;
+        }
         if(!DataSceneTransitionController.GetInstance().IsCampaignGame()) {
             FillShipsCountForSizeDict();
             fieldSize = 10;

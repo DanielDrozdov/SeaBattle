@@ -78,6 +78,10 @@ public class FightFieldStateController : GameFieldState {
             botAttackController.SetShipsMassive(shipsMassive);
         }
     }
+
+    public void AddShipToField(Ship ship) {
+        shipsList.Add(ship);
+    }
          
     public Dictionary<char, Dictionary<int, Vector2>> GetFreeCellsPointsToHit() {
         return fieldPointsToHit;

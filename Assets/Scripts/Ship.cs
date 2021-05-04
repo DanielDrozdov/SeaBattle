@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class Ship : MonoBehaviour
 {
+    public delegate void CaravanActions();
+    public event CaravanActions OnCaravanShipDie;
+
+    [SerializeField] private bool IsCaravan;
     [SerializeField] private int cellsCount;
     [HideInInspector] public List<CellPointPos> shipPoints;
     [HideInInspector] public List<CellPointPos> shipHitPoints;
@@ -19,6 +23,10 @@ public class Ship : MonoBehaviour
         image = GetComponent<Image>();
     }
 
+    public bool IsCaravanShip() {
+        return IsCaravan;
+    }
+
     public bool IsShipDestroyed() {
         return IsDestroyed;
     }
@@ -28,6 +36,9 @@ public class Ship : MonoBehaviour
     }
 
     public void DestroyShip() {
+        if(IsCaravan) {
+            OnCaravanShipDie?.Invoke();
+        }
         IsDestroyed = true;
         image.enabled = true;
     }

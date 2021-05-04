@@ -13,8 +13,21 @@ public class GeneratedSelectShipLocateHelperController : MonoBehaviour
     }
 
     public void LocateShipsOnField(SelectShipFieldController selectShipFieldController) {
-        List<CellPointPos[]> shipsGeneratedPoints = shipFieldPositionGenerate.GetGeneratedShipsPoints(false);
+        List<CellPointPos[]> shipsGeneratedPoints;
+        List<CellPointPos[]> caravanShipsCells;
+        CaravanMissionShipAssignController caravanMissionShipAssignController = CaravanMissionShipAssignController.GetInstance();
         selectShipFieldController.ClearReservedShips();
+        if(caravanMissionShipAssignController != null) {
+            if(caravanMissionShipAssignController.IsCaravanMission()) {
+                caravanShipsCells = caravanMissionShipAssignController.GetCaravanShipsCellsPoints();
+                shipsGeneratedPoints = shipFieldPositionGenerate.GetGeneratedShipsPoints(false, caravanShipsCells);
+            } else {
+                shipsGeneratedPoints = shipFieldPositionGenerate.GetGeneratedShipsPoints(false);
+            }
+        } else {
+            shipsGeneratedPoints = shipFieldPositionGenerate.GetGeneratedShipsPoints(false);
+        }
+
         for(int i = 0; i < ships.Length; i++) {
             SelectShipController ship = ships[i];
             for(int k = 0; k < shipsGeneratedPoints.Count; k++) {

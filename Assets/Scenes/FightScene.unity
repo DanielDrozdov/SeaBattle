@@ -463,6 +463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCaravan: 0
   cellsCount: 1
   shipPoints: []
   shipHitPoints: []
@@ -700,6 +701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCaravan: 0
   cellsCount: 3
   shipPoints: []
   shipHitPoints: []
@@ -1643,6 +1645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCaravan: 0
   cellsCount: 4
   shipPoints: []
   shipHitPoints: []
@@ -1855,6 +1858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCaravan: 0
   cellsCount: 2
   shipPoints: []
   shipHitPoints: []
@@ -1945,6 +1949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCaravan: 0
   cellsCount: 2
   shipPoints: []
   shipHitPoints: []
@@ -2043,6 +2048,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCaravan: 0
   cellsCount: 2
   shipPoints: []
   shipHitPoints: []
@@ -2133,6 +2139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCaravan: 0
   cellsCount: 2
   shipPoints: []
   shipHitPoints: []
@@ -2370,6 +2377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCaravan: 0
   cellsCount: 1
   shipPoints: []
   shipHitPoints: []
@@ -2458,6 +2466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCaravan: 0
   cellsCount: 3
   shipPoints: []
   shipHitPoints: []
@@ -2909,6 +2918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCaravan: 0
   cellsCount: 1
   shipPoints: []
   shipHitPoints: []
@@ -3099,6 +3109,7 @@ GameObject:
   - component: {fileID: 721685689}
   - component: {fileID: 721685690}
   - component: {fileID: 721685691}
+  - component: {fileID: 721685692}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3201,6 +3212,30 @@ MonoBehaviour:
   nineCellsZone: {fileID: 1683232752}
   fourCellsZone: {fileID: 106236316}
   oneCellZone: {fileID: 1209769936}
+--- !u!114 &721685692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721685686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d197a169cd063fe438a1b86d89d925e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerFieldStateController: {fileID: 10613783}
+  caravanShipsThirdMission:
+  - {fileID: 1503944667}
+  - {fileID: 1654716349}
+  - {fileID: 1580710714}
+  keyPoints:
+  - letter: 97
+    number: 1
+  - letter: 98
+    number: 6
+  - letter: 100
+    number: 1
 --- !u!1 &735902081
 GameObject:
   m_ObjectHideFlags: 0
@@ -3477,6 +3512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCaravan: 0
   cellsCount: 1
   shipPoints: []
   shipHitPoints: []
@@ -4165,6 +4201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCaravan: 0
   cellsCount: 1
   shipPoints: []
   shipHitPoints: []
@@ -4255,6 +4292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCaravan: 0
   cellsCount: 3
   shipPoints: []
   shipHitPoints: []
@@ -4345,6 +4383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCaravan: 0
   cellsCount: 2
   shipPoints: []
   shipHitPoints: []
@@ -4756,6 +4795,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1213669284}
   m_CullTransparentMesh: 0
+--- !u!1 &1255251312
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1255251313}
+  m_Layer: 0
+  m_Name: CaravanShips
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1255251313
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255251312}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1503944664}
+  - {fileID: 1654716346}
+  - {fileID: 1580710711}
+  m_Father: {fileID: 1409050273}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1284817646
 GameObject:
   m_ObjectHideFlags: 0
@@ -5351,6 +5423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCaravan: 0
   cellsCount: 4
   shipPoints: []
   shipHitPoints: []
@@ -5433,6 +5506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCaravan: 0
   cellsCount: 1
   shipPoints: []
   shipHitPoints: []
@@ -5482,6 +5556,7 @@ Transform:
   - {fileID: 1975323023}
   - {fileID: 1372189003}
   - {fileID: 676210278}
+  - {fileID: 1255251313}
   m_Father: {fileID: 862304178}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5758,6 +5833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCaravan: 0
   cellsCount: 3
   shipPoints: []
   shipHitPoints: []
@@ -6011,6 +6087,97 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipCellsSize: 4
+--- !u!1 &1503944663
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1503944664}
+  - component: {fileID: 1503944667}
+  - component: {fileID: 1503944666}
+  - component: {fileID: 1503944665}
+  m_Layer: 0
+  m_Name: 3CellShip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1503944664
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503944663}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 18.53204}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1255251313}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.32, y: 5.44}
+  m_SizeDelta: {x: 3, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1503944665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503944663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.46265477, g: 0.38407794, b: 0.5943396, a: 1}
+  m_RaycastTarget: 0
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: f34cfaf2502ad4242b49a5729fc7ee5a, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1503944666
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503944663}
+  m_CullTransparentMesh: 0
+--- !u!114 &1503944667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503944663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsCaravan: 1
+  cellsCount: 3
+  shipPoints: []
+  shipHitPoints: []
 --- !u!1 &1509832083
 GameObject:
   m_ObjectHideFlags: 0
@@ -6143,6 +6310,97 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f55842ace23666409b097c46751e32e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1580710710
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1580710711}
+  - component: {fileID: 1580710714}
+  - component: {fileID: 1580710713}
+  - component: {fileID: 1580710712}
+  m_Layer: 0
+  m_Name: 3CellShip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1580710711
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1580710710}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 18.53204}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1255251313}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.32000017, y: 5.4399996}
+  m_SizeDelta: {x: 3, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1580710712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1580710710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.46265477, g: 0.38407794, b: 0.5943396, a: 1}
+  m_RaycastTarget: 0
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: f34cfaf2502ad4242b49a5729fc7ee5a, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1580710713
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1580710710}
+  m_CullTransparentMesh: 0
+--- !u!114 &1580710714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1580710710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsCaravan: 1
+  cellsCount: 3
+  shipPoints: []
+  shipHitPoints: []
 --- !u!1 &1594309773
 GameObject:
   m_ObjectHideFlags: 0
@@ -6524,7 +6782,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &1645114681
+--- !u!1 &1654716345
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6532,28 +6790,89 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1645114682}
+  - component: {fileID: 1654716346}
+  - component: {fileID: 1654716349}
+  - component: {fileID: 1654716348}
+  - component: {fileID: 1654716347}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: 3CellShip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1645114682
-Transform:
+  m_IsActive: 0
+--- !u!224 &1654716346
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1645114681}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.73, y: 4.85, z: -10.530273}
+  m_GameObject: {fileID: 1654716345}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 18.53204}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 1255251313}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.32000017, y: 5.4399996}
+  m_SizeDelta: {x: 3, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1654716347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654716345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.46265477, g: 0.38407794, b: 0.5943396, a: 1}
+  m_RaycastTarget: 0
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: f34cfaf2502ad4242b49a5729fc7ee5a, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1654716348
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654716345}
+  m_CullTransparentMesh: 0
+--- !u!114 &1654716349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654716345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsCaravan: 1
+  cellsCount: 3
+  shipPoints: []
+  shipHitPoints: []
 --- !u!1 &1672290181
 GameObject:
   m_ObjectHideFlags: 0
@@ -6996,6 +7315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCaravan: 0
   cellsCount: 2
   shipPoints: []
   shipHitPoints: []
@@ -7160,6 +7480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCaravan: 0
   cellsCount: 1
   shipPoints: []
   shipHitPoints: []
@@ -7420,6 +7741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCaravan: 0
   cellsCount: 1
   shipPoints: []
   shipHitPoints: []
@@ -7813,6 +8135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCaravan: 0
   cellsCount: 3
   shipPoints: []
   shipHitPoints: []
@@ -7903,6 +8226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19d6dacf76a7c4a803ba17d8d4ed5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCaravan: 0
   cellsCount: 1
   shipPoints: []
   shipHitPoints: []

@@ -24,17 +24,19 @@ public class SelectShipFieldController : GameFieldState
         shipReservedPoints.Clear();
     }
 
-    public List<CellPointPos[]> GetSelectedShips() {
+    public List<CellPointPos[]> GetSelectedShips(bool IfWithoutCaravanShips = true) {
         List<CellPointPos[]> selectedShips = new List<CellPointPos[]>(10);
-        foreach(CellPointPos[] shipPoints in shipReservedPoints.Values) {
-            selectedShips.Add(shipPoints);
+        foreach(SelectShipController ship in shipReservedPoints.Keys) {
+            if(!ship.IsCaravanShip || !IfWithoutCaravanShips) {
+                selectedShips.Add(shipReservedPoints[ship]);
+            }
         }
         return selectedShips;
     }
 
     public bool IfAllShipsAreSelected() {
         if(DataSceneTransitionController.GetInstance().IsCampaignGame()) {
-            return (shipReservedPoints.Values.Count == MissionPlayerShipsActivateController.GetInstance().GetShipsCountInGame())
+            return (shipReservedPoints.Values.Count >= MissionPlayerShipsActivateController.GetInstance().GetShipsCountInGame())
                 ? true : false;
         } else {
             return (shipReservedPoints.Values.Count == 10) ? true : false;

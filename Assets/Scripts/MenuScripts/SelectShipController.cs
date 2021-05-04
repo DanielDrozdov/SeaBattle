@@ -10,6 +10,7 @@ public class SelectShipController : MonoBehaviour
     [SerializeField] private Vector2 cellsCount;
     [SerializeField] private SelectShipFieldController selectShipField;
     [SerializeField] private GameObject tappedShipParent;
+    public bool IsCaravanShip;
     private Transform baseParent;
     private SelectedShipAreaController shipArea;
     private Camera mainCamera;
@@ -35,15 +36,15 @@ public class SelectShipController : MonoBehaviour
     private void Awake() {
         baseParent = transform.parent;
         shipSizeInCells = (int)cellsCount.x;
+        startPos = transform.position;
+        fieldCellSize = selectShipField.GetCellSizeDelta();
     }
 
     private void Start() {
         mainCamera = ServiceManager.GetInstance().GetMainCamera();
         fieldBorders = selectShipField.GetFieldBorders();
-        fieldCellSize = selectShipField.GetCellSizeDelta();
         borderOffset = fieldCellSize * borderKOffset;
         shipArea = selectShipField.GetShipArea(shipSizeInCells);
-        startPos = transform.position;
         keyPointOffSet = zoneMoveKeyPoint.position - transform.position;
     }
 
@@ -53,6 +54,10 @@ public class SelectShipController : MonoBehaviour
     }
 
     private void OnMouseDown() {
+        if(!enabled) {
+            return;
+        }
+
         if(IsShipFlippedOnY) {
             shipArea.transform.rotation = Quaternion.Euler(0, 0, 90);
         } else {
@@ -65,6 +70,10 @@ public class SelectShipController : MonoBehaviour
     }
 
     private void OnMouseDrag() {
+        if(!enabled) {
+            return;
+        }
+
         if(Input.touchCount > 0) {
             dragPosition = Input.GetTouch(0).position;
         } else {
@@ -76,6 +85,10 @@ public class SelectShipController : MonoBehaviour
     }
 
     private void OnMouseUp() {
+        if(!enabled) {
+            return;
+        }
+
         if(IsShipInGameField) {
             selectShipField.ChangePressedShip(shipSizeInCells, this);
             SetZonePostionOnNearestCell(dragPosition, gameObject);
@@ -95,6 +108,15 @@ public class SelectShipController : MonoBehaviour
         transform.parent = baseParent;
         shipArea.DeactivateArea();
     } 
+
+    public void AlignShipOnCells() {
+        SetZonePostionOnNearestCell(transform.position, gameObject);
+    }
+
+    public void SetShipToField() {
+        SetZonePostionOnNearestCell(transform.position, gameObject);
+        AddShipToFieldBase();
+    }
 
     public void SetGeneratedPoints(CellPointPos[] points) {
         if(IsShipFlippedOnY) {
@@ -202,6 +224,9 @@ public class SelectShipController : MonoBehaviour
 
     private void SetShipPointsInMassive() {
         Vector2[] shipPoints = new Vector2[shipSizeInCells];
+        if(fieldCellSize == 0) {
+            fieldCellSize = selectShipField.GetCellSizeDelta();
+        }
         if(IsShipFlippedOnY) {
             for(int i = 0; i < shipSizeInCells; i++) {
                 shipPoints[i] = new Vector2(transform.position.x, zoneMoveKeyPoint.position.y + fieldCellSize * i);
@@ -223,7 +248,7 @@ public class SelectShipController : MonoBehaviour
         maxYPos = fieldBorders[3] - halfShipDeltaY + borderOffset;
     }
 
-    private void ResetShipState() { 
+    private void ResetShipState() {
         if(IsShipInGameField && shipLastPosOnField != Vector2.zero) {
             transform.position = shipLastPosOnField;
         } else {

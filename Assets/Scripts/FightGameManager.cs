@@ -10,6 +10,9 @@ public class FightGameManager : MonoBehaviour {
         Bot
     }
 
+    public delegate void FightManagerAction();
+    public static FightManagerAction OnPlayerShotsValueChanging;
+
     [SerializeField] private GameObject opponentMoveArrowCursor;
     [SerializeField] private Ship[] firstShipsGroup;
     [SerializeField] private Ship[] secondShipsGroup;
@@ -66,6 +69,9 @@ public class FightGameManager : MonoBehaviour {
         if(DataSceneTransitionController.GetInstance().GetBattleMode() != DataSceneTransitionController.BattleMode.Classic) {
             SelectAttackZonePanelController.GetInstance().SetNewOpponentFieldAndUpdateShipsAttackZones(firstPlayerFieldStateController);
         }
+        if(dataSceneTransitionController.IsCampaignGame()) {
+            GetComponent<FightMissionController>().InitializeMission();
+        }
     }
 
     public static FightGameManager GetInstance() {
@@ -98,7 +104,7 @@ public class FightGameManager : MonoBehaviour {
         WinOrDiePanel.ActivatePanel(currentOpponentName);
     }
 
-    //public int GetPlayersF() {
+    //public int GetPlayersMoves() {
     //    return playersMoves;
     //}
 
@@ -107,10 +113,7 @@ public class FightGameManager : MonoBehaviour {
             return;
         }
 
-        if(currentOpponentName == OpponentName.P1 &&
-            dataSceneTransitionController.GetBattleType() == DataSceneTransitionController.BattleType.P1vsBot) {
-            playerShotsCount++;
-        }
+        IncreasePlayersShotsCount();
 
         if(!IfCanHitTwice) {
             avaliableCellsCountToHitBalance--;
@@ -171,6 +174,14 @@ public class FightGameManager : MonoBehaviour {
             SelectAttackZonePanelController.GetInstance().SetNewOpponentFieldAndUpdateShipsAttackZones(opponentSelfField);
         }
         opponentShotsBalancePanelController.UpdatePlayerShotsBalance();
+    }
+
+    private void IncreasePlayersShotsCount() {
+        if(currentOpponentName == OpponentName.P1 &&
+           dataSceneTransitionController.GetBattleType() == DataSceneTransitionController.BattleType.P1vsBot) {
+            playerShotsCount++;
+        }
+        OnPlayerShotsValueChanging?.Invoke();
     }
 
     private void LocateShipsOnFields() {
