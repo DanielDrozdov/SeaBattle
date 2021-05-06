@@ -5,24 +5,49 @@ using UnityEngine;
 public class FightMissionController : MonoBehaviour {
 
     [SerializeField] private FightFieldStateController playerFieldStateController;
+    private static FightMissionController Instance;
+    private int missionNumber;
     [Header("3 mission")]
     [SerializeField] private Ship[] caravanShipsThirdMission;
     [SerializeField] private CellPointPos[] keyPoints;
     private int caravanShipsCount;
+    [Header("7 mission")]
+    [SerializeField] private int enemySubmarineShotsBalance = 6;
+    private int shotsDecreaseDelta = 3;
+    [Header("8 mission")]
+    private bool IsShipsVulnerable;
+
+    private void Awake() {
+        if(!DataSceneTransitionController.GetInstance().IsCampaignGame()) {
+            Destroy(this);
+            return;
+        }
+        Instance = this;
+        missionNumber = DataSceneTransitionController.GetInstance().GetSelectedMissionData().missionNumber;
+        if(missionNumber == 8) {
+            IsShipsVulnerable = true;
+        }
+    }
 
     public void InitializeMission() {
         DataSceneTransitionController dataSceneTransitionController = DataSceneTransitionController.GetInstance();
-        int missionNumber = dataSceneTransitionController.GetSelectedMissionData().missionNumber;
         if(missionNumber == 10) {
             FightGameManager.OnPlayerShotsValueChanging += CheckPlayerShotsDeadline;
-        } else if(missionNumber == 8) {
-
         } else if(missionNumber == 7) {
-
+            FightGameManager.OnOpponentChanging += HitRandomCellsBySubmarine;
+            HitRandomCellsBySubmarine();
         } else if(missionNumber == 3) {
             caravanShipsCount = caravanShipsThirdMission.Length;
             AssignCaravanShipsToField();
         }
+    }
+
+    public static FightMissionController GetInstance() {
+        return Instance;
+    }
+
+    public bool IsShipsCanBeTemporarilyDeactivated() {
+        return IsShipsVulnerable;
     }
 
     private void CheckPlayerShotsDeadline() {
@@ -53,5 +78,18 @@ public class FightMissionController : MonoBehaviour {
         if(caravanShipsCount <= 0) {
             FightGameManager.GetInstance().EndGame();
         }
+    }
+
+    private void HitRandomCellsBySubmarine() {
+        if(enemySubmarineShotsBalance <= 0) {
+            FightGameManager.OnOpponentChanging -= HitRandomCellsBySubmarine;
+            return;
+        }
+
+        for(int i = 0; i < enemySubmarineShotsBalance;i++) {
+            Vector2 hitPos = playerFieldStateController.GetRandomFreePointToHit();
+            playerFieldStateController.HitEnemyByPos(hitPos,false);
+        }
+        enemySubmarineShotsBalance -= shotsDecreaseDelta;
     }
 }

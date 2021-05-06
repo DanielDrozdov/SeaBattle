@@ -5,13 +5,16 @@ using UnityEngine;
 public class BotAttackController : MonoBehaviour
 {
     [SerializeField] private FightFieldStateController firstPlayerFieldController;
+
     private ShipAttackZonesManager shipAttackZonesManager;
-    private ShipAttackZoneController shipAttackZone;
+    private ShipAttackZoneController randomHitShipAttackZone;
+    private ShipAttackZoneController aimHitShipAttackZone;
+    private int randomHitShipAttackZoneCellsCount;
+    private int aimHitShipAttackZoneCellsCount;
 
     private Dictionary<int, int> shipsByCellsSize;
     private Dictionary<Ship,List<CellPointPos>> hitShips;
     private List<char> freeLettersToHitList;
-    private int currentAttackCellsCount;
 
     private Ship chaseHitShip;
     private List<CellPointPos> chaseShipHitPoints;
@@ -33,7 +36,6 @@ public class BotAttackController : MonoBehaviour
     }
 
     public void HitPlayer() {
-        shipAttackZonesManager.SetNewShipAttackZone(shipAttackZone, currentAttackCellsCount);
         TryDestroyLastHitShip();
     }
 
@@ -48,12 +50,12 @@ public class BotAttackController : MonoBehaviour
                 shipsByCellsSize[ships[i].GetCellsSize()]++;
             }
         }
-        FindPowerfulShip();
+        UpdateAttackZones();
     }
 
     public void DecreaseOneShip(int destroyedShipCellsSize) {
         shipsByCellsSize[destroyedShipCellsSize]--;
-        FindPowerfulShip();
+        UpdateAttackZones();
     }
 
     public void SetHitShip(Ship hitShip, CellPointPos keyHitCell) {
@@ -80,14 +82,20 @@ public class BotAttackController : MonoBehaviour
         }
     }
 
-    private void FindPowerfulShip() {
+    private void UpdateAttackZones() {
+        int minShipCellSize = 4;
+        int maxShipCellSize = 0;
         for(int i = 4;i > 0;i--) {
             if(shipsByCellsSize[i] != 0) {
-                currentAttackCellsCount = i;
-                break;
+                if(i > maxShipCellSize) {
+                    maxShipCellSize = i;
+                } else if(i < minShipCellSize) {
+                    minShipCellSize = i;
+                }
             }
         }
-        shipAttackZone = shipAttackZonesManager.GetShipAttackZone(currentAttackCellsCount);
+
+        AssignBotAttackZones(minShipCellSize, maxShipCellSize);
     }
 
     private void TryDestroyLastHitShip() {
@@ -106,12 +114,13 @@ public class BotAttackController : MonoBehaviour
     }
 
     private void DestroyLastHitShip() {
+        shipAttackZonesManager.SetNewShipAttackZone(aimHitShipAttackZone, aimHitShipAttackZoneCellsCount);
         Vector2 attackPos;
         CellPointPos nextCellPoint = new CellPointPos('a',1);
         if(chaseShipHitPoints.Count == 1) {
             nextCellPoint = GetRandomCellPointAroundHitShipPoint(hitShips[chaseHitShip][0]);
             attackPos = firstPlayerFieldController.GetPosByCellPoint(nextCellPoint);
-            shipAttackZone.AttackByPos(attackPos);
+            aimHitShipAttackZone.AttackByPos(attackPos);
             return;
         }
         char minLetter = chaseShipHitPoints[0].letter;
@@ -166,7 +175,7 @@ public class BotAttackController : MonoBehaviour
             }
         }
         attackPos = firstPlayerFieldController.GetPosByCellPoint(nextCellPoint);
-        shipAttackZone.AttackByPos(attackPos);
+        aimHitShipAttackZone.AttackByPos(attackPos);
     }
 
     private CellPointPos GetRandomCellPointAroundHitShipPoint(CellPointPos hitCellPoint) {
@@ -193,13 +202,14 @@ public class BotAttackController : MonoBehaviour
     }
 
     private void AttackOnRandomFreeCellOnField() {
+        shipAttackZonesManager.SetNewShipAttackZone(randomHitShipAttackZone, randomHitShipAttackZoneCellsCount);
         Dictionary<char, Dictionary<int, Vector2>> freePointsToHit = firstPlayerFieldController.GetFreeCellsPointsToHit();
         Vector2 targetFreePos = new Vector2(0,0);
         Vector2 zeroVector = Vector2.zero;
         while(targetFreePos == zeroVector) {
             targetFreePos = GetRandomCellPointPosToHit(freePointsToHit);
         }
-        shipAttackZone.AttackByPos(targetFreePos);
+        randomHitShipAttackZone.AttackByPos(targetFreePos);
     }
 
     private Vector2 GetRandomCellPointPosToHit(Dictionary<char, Dictionary<int, Vector2>> freePointsToHit) {
@@ -218,5 +228,27 @@ public class BotAttackController : MonoBehaviour
         int randomNumber = freePointsNumbersMassive[Random.Range(0, freePointsNumbersMassive.Count)];
         CellPointPos randomCellPoint = new CellPointPos(randomLetter, randomNumber);
         return firstPlayerFieldController.GetPosByCellPoint(randomCellPoint);
+    }
+
+    private void AssignBotAttackZones(int minShipCellSize,int maxShipCellSize) {
+        DataSceneTransitionController dataSceneTransitionController = DataSceneTransitionController.GetInstance();
+        if(dataSceneTransitionController.GetBotDifficult() == DataSceneTransitionController.BotDifficulty.Easy) {
+            SetAttackZonesAndData(maxShipCellSize, maxShipCellSize);
+        } else if(dataSceneTransitionController.GetBotDifficult() == DataSceneTransitionController.BotDifficulty.Medium) {
+            SetAttackZonesAndData(minShipCellSize, maxShipCellSize);
+        } else if(dataSceneTransitionController.GetBotDifficult() == DataSceneTransitionController.BotDifficulty.Hard) {
+            SetAttackZonesAndData(minShipCellSize, minShipCellSize);
+        }
+    }
+
+    private void SetAttackZonesAndData(int minShipCellSize,int maxShipCellSize) {
+        if(DataSceneTransitionController.GetInstance().GetBattleMode() == DataSceneTransitionController.BattleMode.Classic) {
+            minShipCellSize = 1;
+            maxShipCellSize = 1;
+        }
+        aimHitShipAttackZone = shipAttackZonesManager.GetShipAttackZone(minShipCellSize);
+        randomHitShipAttackZone = shipAttackZonesManager.GetShipAttackZone(maxShipCellSize);
+        aimHitShipAttackZoneCellsCount = minShipCellSize;
+        randomHitShipAttackZoneCellsCount = maxShipCellSize;
     }
 }

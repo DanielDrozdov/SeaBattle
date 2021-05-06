@@ -21,6 +21,7 @@ public class MainMenuUIController : MonoBehaviour
     private void Start() {
         levelTransitionPanelController = LevelTransitionPanelController.GetInstance();
         DataSceneTransitionController.GetInstance().SetCampaignGame(false);
+        DataSceneTransitionController.GetInstance().ZeroSelectedShips();
     }
 
     public static MainMenuUIController GetInstance() {

@@ -33,7 +33,8 @@ public class SelectAttackZonePanelController : MonoBehaviour {
         DeactivateAllButtons();
         List<Ship> aliveShips = currentFightFieldStateController.GetAliveShipList();
         for(int i = 0; i < aliveShips.Count; i++) {
-            if(shipsButtonsSize.ContainsKey(aliveShips[i].GetCellsSize()) && !aliveShips[i].IsCaravanShip()) {
+            if(shipsButtonsSize.ContainsKey(aliveShips[i].GetCellsSize()) && !aliveShips[i].IsCaravanShip()
+                && !aliveShips[i].IsShipTemporarilyDeactivated()) {
                 shipsButtonsSize[aliveShips[i].GetCellsSize()].ActivateAttackButton();
             }
         }

@@ -16,11 +16,18 @@ public class Ship : MonoBehaviour
     private Image image;
     private FightFieldStateController fightFieldStateController;
 
+    private bool IsShipDeactivated;
+    private int playerMovesMissed = 0;
+
     private bool IsDestroyed;
     private bool IsRotatedOnY;
 
     private void Awake() {
         image = GetComponent<Image>();
+    }
+
+    public bool IsShipTemporarilyDeactivated() {
+        return IsShipDeactivated;
     }
 
     public bool IsCaravanShip() {
@@ -43,6 +50,17 @@ public class Ship : MonoBehaviour
         image.enabled = true;
     }
 
+    public void DoShipActionsAfterGetHit() {
+        if(DataSceneTransitionController.GetInstance().IsCampaignGame() && fightFieldStateController.GetOpponentName() != FightGameManager.OpponentName.Bot) {
+            if(FightMissionController.GetInstance().IsShipsCanBeTemporarilyDeactivated() && fightFieldStateController.GetAliveShipList().Count > 1) {
+                if(IsShipDeactivated) {
+                    playerMovesMissed = 0;
+                }
+                IsShipDeactivated = true;
+            }
+        }
+    }
+
     public void SetShipPointsMassiveAndFightFieldController(CellPointPos[] selectedShipPoints,FightFieldStateController fightFieldStateController) {
         shipPointsMassive = selectedShipPoints;
         this.fightFieldStateController = fightFieldStateController;
@@ -50,6 +68,7 @@ public class Ship : MonoBehaviour
             || DataSceneTransitionController.GetInstance().GetBattleType() == DataSceneTransitionController.BattleType.P1vsP2) {
             image.enabled = false;
         }
+        SubscribeOnOpponentChangeEventInNeedMission();
         FillSecondaryMassives();
         if(shipPointsMassive.Length > 1) {
             CalculateShipRotate();
@@ -90,6 +109,30 @@ public class Ship : MonoBehaviour
             xPos = (secondXPos - firstXPos) / 2 + firstXPos;
         }
         transform.position = new Vector2(xPos,yPos);
+    }
+
+    private void UpdatePlayerMovesAndShipState() {
+        if(!IsShipDeactivated || fightFieldStateController.GetOpponentName() == FightGameManager.GetInstance().GetCurrentOpponentNameToAttack()) {
+            return;
+        }
+        if(fightFieldStateController.GetAliveShipList().Count == 1) {
+            playerMovesMissed = 0;
+            IsShipDeactivated = false;
+        }
+
+        playerMovesMissed++;
+        if(playerMovesMissed > 1) {
+            playerMovesMissed = 0;
+            IsShipDeactivated = false;
+        }
+    }
+
+    private void SubscribeOnOpponentChangeEventInNeedMission() {
+        if(DataSceneTransitionController.GetInstance().IsCampaignGame() && fightFieldStateController.GetOpponentName() != FightGameManager.OpponentName.Bot) {
+            if(FightMissionController.GetInstance().IsShipsCanBeTemporarilyDeactivated()) {
+                FightGameManager.OnOpponentChanging += UpdatePlayerMovesAndShipState;
+            }
+        }
     }
 
 }

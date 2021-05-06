@@ -34,6 +34,7 @@ public class SelectedMissionPanelController : MonoBehaviour
             DataSceneTransitionController dataSceneTransitionController = DataSceneTransitionController.GetInstance();
             dataSceneTransitionController.SetBattleMode(DataSceneTransitionController.BattleMode.Advanced);
             dataSceneTransitionController.SetBattleType(DataSceneTransitionController.BattleType.P1vsBot);
+            dataSceneTransitionController.SetBotDifficulty(DataSceneTransitionController.BotDifficulty.Hard);
         });
     }
 

@@ -15,6 +15,12 @@ public class DataSceneTransitionController : MonoBehaviour
         P1vsP2
     }
 
+    public enum BotDifficulty {
+        Easy,
+        Medium,
+        Hard
+    }
+
     public bool IsNeedLoadNextMission;
 
 
@@ -23,6 +29,7 @@ public class DataSceneTransitionController : MonoBehaviour
     private List<CellPointPos[]> secondPlayerSelectedShipPoints;
     private BattleMode battleMode;
     private BattleType battleType;
+    private BotDifficulty botDifficult;
     private SelectedMissionData missionData;
     private bool IsCampaign;
 
@@ -75,6 +82,10 @@ public class DataSceneTransitionController : MonoBehaviour
         }
     }
 
+    public void SetBotDifficulty(BotDifficulty botDifficulty) {
+        botDifficult = botDifficulty;
+    }
+
     public void SetBattleMode(BattleMode selectedBattleMode) {
         battleMode = selectedBattleMode;
     }
@@ -112,6 +123,10 @@ public class DataSceneTransitionController : MonoBehaviour
 
     public BattleType GetBattleType() {
         return battleType;
+    }
+
+    public BotDifficulty GetBotDifficult() {
+        return botDifficult;
     }
 }
 

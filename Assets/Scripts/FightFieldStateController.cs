@@ -101,6 +101,19 @@ public class FightFieldStateController : GameFieldState {
         return avaliableCells;
     }
 
+    public Vector2 GetRandomFreePointToHit() {
+        char randomLetter;
+        int randomNumber;
+        while(true) {
+            randomLetter = fieldLettersMassive[Random.Range(0, fieldLettersMassive.Length)];
+            randomNumber = Random.Range(1, fieldSizeInCells + 1);
+            if(CheckIsCellPointFreeToHit(new CellPointPos(randomLetter, randomNumber))) {
+                break;
+            }
+        }
+        return GetPosByCellPoint(new CellPointPos(randomLetter, randomNumber));
+    }
+
     public void HitByShipAttackZone(Vector2[] points) {
         bool IsAvaliableHitsOver = false;
         for(int i = 0; i < points.Length; i++) {
@@ -119,15 +132,21 @@ public class FightFieldStateController : GameFieldState {
         }
     }
 
-    private void HitEnemyCellByPos(Vector2 pointPosition) {
+    public void HitEnemyByPos(Vector2 pointPosition, bool IsGameMove = true) {
+        HitEnemyCellByPos(pointPosition, IsGameMove);
+    }
+
+    private void HitEnemyCellByPos(Vector2 pointPosition,bool IsGameMove = true) {
         CellPointPos tapCellData = SearchTapCellData(pointPosition,fieldPointsToHit);
         Dictionary<int, Vector2> letterPoints = fieldPointsToHit[tapCellData.letter];
         if(tapCellData.number > 0) {
             Vector2 tapCellPosition = letterPoints[tapCellData.number];
             letterPoints.Remove(tapCellData.number);
             bool IsHit = CheckIsShipHit(new CellPointPos(tapCellData.letter, tapCellData.number));
-            fightGameManager.SetOpponentNextHitState(IsHit);
-            fightGameManager.DecreaseOneCell();
+            if(IsGameMove) {
+                fightGameManager.SetOpponentNextHitState(IsHit);
+                fightGameManager.DecreaseOneCell();
+            }
             if(IsHit) {
                 ActivateCellStateSprite(tapCellPosition, true);
             } else {
@@ -146,6 +165,7 @@ public class FightFieldStateController : GameFieldState {
                         botAttackController.SetHitShip(shipsList[i], curShipPoints[k]);
                     }
                     curShipPoints.RemoveAt(k);
+                    shipsList[i].DoShipActionsAfterGetHit();
                     if(curShipPoints.Count == 0) {
                         HitShip(shipsList[i].shipPoints);
                         if(opponentName == FightGameManager.OpponentName.Bot) {

@@ -11,7 +11,8 @@ public class FightGameManager : MonoBehaviour {
     }
 
     public delegate void FightManagerAction();
-    public static FightManagerAction OnPlayerShotsValueChanging;
+    public static event FightManagerAction OnPlayerShotsValueChanging;
+    public static event FightManagerAction OnOpponentChanging;
 
     [SerializeField] private GameObject opponentMoveArrowCursor;
     [SerializeField] private Ship[] firstShipsGroup;
@@ -146,7 +147,7 @@ public class FightGameManager : MonoBehaviour {
     public void ChangeAttackOpponent() {
         if(IsGameEnded) {
             return;
-        }
+        }       
         avaliableCellsCountToHitBalance = avaliableCellsCountToHit;
         IsFirstOpponentAttackMove = !IsFirstOpponentAttackMove;
         opponentMoveArrowCursor.transform.Rotate(new Vector3(0,0,180));
@@ -169,11 +170,12 @@ public class FightGameManager : MonoBehaviour {
             opponentSelfField = firstPlayerFieldStateController;
             currentOpponentName = firstPlayerFieldStateController.GetOpponentName();
         }
+        opponentShotsBalancePanelController.UpdatePlayerShotsBalance();
         if(dataSceneTransitionController.GetBattleMode() != DataSceneTransitionController.BattleMode.Classic &&
             currentOpponentName != OpponentName.Bot) {
             SelectAttackZonePanelController.GetInstance().SetNewOpponentFieldAndUpdateShipsAttackZones(opponentSelfField);
         }
-        opponentShotsBalancePanelController.UpdatePlayerShotsBalance();
+        OnOpponentChanging?.Invoke();
     }
 
     private void IncreasePlayersShotsCount() {
