@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Localization-Assets-Shared
+  m_EditorClassIdentifier: 
+  m_GroupName: Localization-Assets-Shared
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 484c8d9780b5e9e42b0baa2eabe07fb7
+  m_SerializeEntries:
+  - m_GUID: fa1ca6ddc93edd940a6e62196ce73e0d
+    m_Address: Assets/Localization/LocalizationNames/MainMenuBasicTable Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: ebe82f5a3dd41c9499ce4b34be5e5521
+    m_Address: Assets/Localization/LocalizationNames/BattleMenuTable Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 4aa786eaa2ad80947aea6b80e612c217
+    m_Address: Assets/Localization/LocalizationNames/CampaignTable Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: b96746784953c3f4685f9182b397b12e
+    m_Address: Assets/Localization/LocalizationNames/MissionsDataTable Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 694c5687faa8a7c44b8119a1934d772c
+    m_Address: Assets/Localization/LocalizationNames/GamePauseTable Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 2ed4806072d3f97439335eaaaba7cee0
+    m_Address: Assets/Localization/LocalizationNames/WinGamePanelTable Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  m_ReadOnly: 1
+  m_Settings: {fileID: 11400000, guid: bbb72920f446bc4419c918ce5671b117, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: b4f0d2088919a854ca3e6468b5993cfd, type: 2}
+    - {fileID: 11400000, guid: 15e72579ecaf271459bec44ead913130, type: 2}

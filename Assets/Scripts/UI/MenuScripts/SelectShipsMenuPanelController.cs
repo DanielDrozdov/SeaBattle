@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class SelectShipsMenuPanelController : MonoBehaviour
 {
+    [HideInInspector] public int playerNumber => DataSceneTransitionController.GetInstance().GetPlayerCountWithShips() + 1;
     private bool IsPlayButtonPressed;
-    [SerializeField] private TextMeshProUGUI playerNameText;
     [SerializeField] private GameObject SelectPlayerShipsPanel;
     private GeneratedSelectShipLocateHelperController generator;
     private SelectShipFieldController shipSelectFieldController;
@@ -17,10 +17,6 @@ public class SelectShipsMenuPanelController : MonoBehaviour
         shipSelectFieldController = GetComponent<SelectShipFieldController>();
         generator = GetComponent<GeneratedSelectShipLocateHelperController>();
         levelTransitionPanelController = LevelTransitionPanelController.GetInstance();
-    }
-
-    private void OnEnable() {
-        UpdatePlayerNameText();
     }
 
     public void OnClickButton_Play() {
@@ -37,7 +33,6 @@ public class SelectShipsMenuPanelController : MonoBehaviour
                 IsDone = MainMenuUIController.GetInstance().ActivatePanelTransition(() => {
                     SelectPlayerShipsPanel.SetActive(false);
                     SelectPlayerShipsPanel.SetActive(true);
-                    UpdatePlayerNameText();
                     IsPlayButtonPressed = false;
                 });
             }
@@ -54,10 +49,5 @@ public class SelectShipsMenuPanelController : MonoBehaviour
 
     public void OnClickButton_RotateShip() {
         shipSelectFieldController.RotateShip();
-    }
-
-    private void UpdatePlayerNameText() {
-        int playerNumber = DataSceneTransitionController.GetInstance().GetPlayerCountWithShips() + 1;
-        playerNameText.text = "Корабли игрока P" + playerNumber;
     }
 }

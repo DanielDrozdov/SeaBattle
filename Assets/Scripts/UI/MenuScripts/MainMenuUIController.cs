@@ -10,18 +10,24 @@ public class MainMenuUIController : MonoBehaviour
     [SerializeField] private GameObject settingsMenuPanel;
     [SerializeField] private GameObject authorsPanel;
     [SerializeField] private GameObject backToMainMenuButton;
+    [SerializeField] private GameObject languageDropDownList;
+    [SerializeField] private GameObject settingsButton;
     private static MainMenuUIController Instance;
     private LevelTransitionPanelController levelTransitionPanelController;
     private GameObject lastOpenedPanel;
 
     private void Awake() {
         Instance = this;
+        if(Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer) {
+            Destroy(settingsButton);
+        }
     }
 
     private void Start() {
         levelTransitionPanelController = LevelTransitionPanelController.GetInstance();
-        DataSceneTransitionController.GetInstance().SetCampaignGame(false);
-        DataSceneTransitionController.GetInstance().ZeroSelectedShips();
+        DataSceneTransitionController dataSceneTransitionController = DataSceneTransitionController.GetInstance();
+        dataSceneTransitionController.SetCampaignGame(false);
+        dataSceneTransitionController.ZeroSelectedShips();
     }
 
     public static MainMenuUIController GetInstance() {
@@ -56,9 +62,11 @@ public class MainMenuUIController : MonoBehaviour
     public void OnClickButton_BackToMainMenu() {
         ActivatePanelTransition(() => {
             mainMenuPanel.SetActive(true);
+            languageDropDownList.SetActive(true);
             lastOpenedPanel.SetActive(false);
             backToMainMenuButton.SetActive(false);
             DataSceneTransitionController.GetInstance().SetCampaignGame(false);
+            DataSceneTransitionController.GetInstance().ZeroSelectedShips();
         });
     }
 
@@ -76,6 +84,7 @@ public class MainMenuUIController : MonoBehaviour
     private void OpenPanel(GameObject panelToActivated) {
         ActivatePanelTransition(() => {
             mainMenuPanel.SetActive(false);
+            languageDropDownList.SetActive(false);
             backToMainMenuButton.SetActive(true);
             lastOpenedPanel = panelToActivated;
             panelToActivated.SetActive(true);

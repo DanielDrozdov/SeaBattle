@@ -8,8 +8,8 @@ using TMPro;
 public class MissionPanelController : MonoBehaviour, IPointerUpHandler,IPointerDownHandler {
 
     [SerializeField] private int missionNumber;
-    [SerializeField] private string missionName;
-    [SerializeField] [TextArea] private string missionDescription;
+    public string missionName { get; set; }
+    public string missionDescription { get; set; }
     [SerializeField] private Sprite missionSprite;
     [SerializeField] private GameObject lockImage;
     [SerializeField] private TextMeshProUGUI missionNameText;
@@ -19,7 +19,7 @@ public class MissionPanelController : MonoBehaviour, IPointerUpHandler,IPointerD
     private bool IsMissionOpened;
 
     private void Awake() {
-        missionNameText.text = $"Миссия \"{missionName}\" ";
+        missionNameText.text = missionName;
         missionNumberText.text = missionNumber.ToString();
         if(PlayerPrefs.GetInt("CurrentMissionNumber") >= missionNumber) {
             IsMissionOpened = true;
@@ -49,5 +49,9 @@ public class MissionPanelController : MonoBehaviour, IPointerUpHandler,IPointerD
                 SelectedMissionPanelController.GetInstance().SetMissionData(missionSprite, missionNumber, missionName, missionDescription);
             });
         }
+    }
+
+    public void UpdateMissionNameLanguage() {
+        missionNameText.text = missionName;
     }
 }

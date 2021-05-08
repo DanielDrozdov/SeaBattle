@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: BattleMenuTable_ru
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: ru
+  m_SharedData: {fileID: 11400000, guid: ebe82f5a3dd41c9499ce4b34be5e5521, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 15016779776
+    m_Localized: "\u041A\u043B\u0430\u0441\u0441\u0438\u0447\u0435\u0441\u043A\u0438\u0439
+      \u0440\u0435\u0436\u0438\u043C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21501173760
+    m_Localized: "\u0420\u0430\u0441\u0448\u0438\u0440\u0435\u043D\u043D\u044B\u0439
+      \u0440\u0435\u0436\u0438\u043C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 242431942656
+    m_Localized: "\u0418\u0433\u0440\u0430\u0442\u044C \u0441 \u0431\u043E\u0442\u043E\u043C"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 258890391552
+    m_Localized: "\u0418\u0433\u0440\u0430\u0442\u044C \u043D\u0430 \u043E\u0434\u043D\u043E\u043C
+      \u044D\u043A\u0440\u0430\u043D\u0435"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 815856214016
+    m_Localized: "\u042E\u043D\u0433\u0430"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 853558812672
+    m_Localized: "\u041A\u0430\u043F\u0438\u0442\u0430\u043D"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 860450054144
+    m_Localized: "\u0410\u0434\u043C\u0438\u0440\u0430\u043B"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 1

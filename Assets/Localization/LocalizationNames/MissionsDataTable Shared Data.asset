@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: MissionsDataTable Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: MissionsDataTable
+  m_TableCollectionNameGuidString: b96746784953c3f4685f9182b397b12e
+  m_Entries:
+  - m_Id: 69110718464
+    m_Key: 1MissionNameData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3943406100480
+    m_Key: 1MissionDescriptionData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4876663906304
+    m_Key: 2MissionNameData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4879969017856
+    m_Key: 2MissionDescriptionData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4885371281408
+    m_Key: 3MissionNameData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4889016131584
+    m_Key: 3MissionDescriptionData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4892853919744
+    m_Key: 4MissionNameData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4895265644544
+    m_Key: 4MissionDescriptionData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4897497014272
+    m_Key: 5MissionNameData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4899308953600
+    m_Key: 5MissionDescriptionData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4901389328384
+    m_Key: 6MissionNameData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4903239016448
+    m_Key: 6MissionDescriptionData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4907307491328
+    m_Key: 7MissionNameData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4908934881280
+    m_Key: 7MissionDescriptionData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4911610847232
+    m_Key: 8MissionNameData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4913833828352
+    m_Key: 8MissionDescriptionData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4917981995008
+    m_Key: 9MissionNameData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4920246919168
+    m_Key: 9MissionDescriptionData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5476692647936
+    m_Key: 10MissionNameData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5479192453120
+    m_Key: 10MissionDescriptionData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9884952289280
+    m_Key: SelectedMissionNumberTable
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables,
+        asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1620460176048

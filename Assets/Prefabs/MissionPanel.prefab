@@ -222,6 +222,8 @@ GameObject:
   - component: {fileID: 4274577255162783365}
   - component: {fileID: 4274577255162783387}
   - component: {fileID: 4274577255162783386}
+  - component: {fileID: 3212455693247103860}
+  - component: {fileID: 3284632180620799116}
   m_Layer: 5
   m_Name: MissionPanel
   m_TagString: Untagged
@@ -301,15 +303,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missionNumber: 1
-  missionName: 
-  missionDescription: Loladladaldaldlalsfalsflaflasflasflalsfalsflaslflasflalsfsalflaslfaslflasflaslfalsflafslalfssalflaflasflalfslaflalflaflalflslflfslllllll
   missionSprite: {fileID: 21300000, guid: a80710ad961f66f4faa6e8f311d03c80, type: 3}
   lockImage: {fileID: 7074510839541050254}
   missionNameText: {fileID: 4274577254456235486}
   missionNumberText: {fileID: 4274577255909179719}
   missionData:
+    missionNumber: 0
     playerFieldSizeInCells: 10
     enemyFieldSizeInCells: 10
+    playerShips:
+      fourCellShipsCount: 0
+      threeCellShipsCount: 0
+      twoCellShipsCount: 0
+      oneCellShipsCount: 0
+    enemyShips:
+      fourCellShipsCount: 0
+      threeCellShipsCount: 0
+      twoCellShipsCount: 0
+      oneCellShipsCount: 0
 --- !u!114 &4274577255162783386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,6 +336,85 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0.048674583, b: 1, a: 1}
   m_EffectDistance: {x: 5, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!114 &3212455693247103860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4274577255162783367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:b96746784953c3f4685f9182b397b12e
+    m_TableEntryReference:
+      m_KeyId: 69110718464
+      m_Key: 
+    m_FallbackState: 0
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4274577255162783387}
+        m_MethodName: set_missionName
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4274577255162783387}
+        m_MethodName: UpdateMissionNameLanguage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3284632180620799116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4274577255162783367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:b96746784953c3f4685f9182b397b12e
+    m_TableEntryReference:
+      m_KeyId: 3943406100480
+      m_Key: 
+    m_FallbackState: 0
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4274577255162783387}
+        m_MethodName: set_missionDescription
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4274577255909179713
 GameObject:
   m_ObjectHideFlags: 0

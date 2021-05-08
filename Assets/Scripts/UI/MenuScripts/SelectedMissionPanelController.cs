@@ -6,6 +6,7 @@ using TMPro;
 
 public class SelectedMissionPanelController : MonoBehaviour
 {
+    public int missionNum;
     private static SelectedMissionPanelController Instance;
     [SerializeField] private GameObject SelectedShipsFieldForMissionsPanel;
     [SerializeField] private GameObject missionsListPanel;
@@ -39,11 +40,13 @@ public class SelectedMissionPanelController : MonoBehaviour
     }
 
     public void SetMissionData(Sprite missionSprite,int missionNumber,string missionName,string missionDescription) {
+        missionNum = missionNumber;
         missionsListPanel.SetActive(false);
         gameObject.SetActive(true);
         missionImage.sprite = missionSprite;
-        missionNumberText.text = "Миссия номер: " + missionNumber.ToString();
         missionNameText.text = missionName.ToString();
         missionDesriptionText.text = missionDescription.ToString();
     }
+
+
 }
