@@ -3251,6 +3251,7 @@ GameObject:
   - component: {fileID: 721685690}
   - component: {fileID: 721685691}
   - component: {fileID: 721685692}
+  - component: {fileID: 721685693}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3378,6 +3379,18 @@ MonoBehaviour:
   - letter: 100
     number: 1
   enemySubmarineShotsBalance: 6
+--- !u!114 &721685693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721685686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69fa753afc1f25a45bc668272ab339c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &735902081
 GameObject:
   m_ObjectHideFlags: 0
