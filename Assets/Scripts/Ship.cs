@@ -47,6 +47,7 @@ public class Ship : MonoBehaviour
             OnCaravanShipDie?.Invoke();
         }
         IsDestroyed = true;
+        image.sprite = ShipsSpritesDataController.GetInstance().GetDestroyShipSprite(cellsCount);
         image.enabled = true;
     }
 
@@ -89,7 +90,12 @@ public class Ship : MonoBehaviour
         char firstLetter = shipPointsMassive[0].letter;
         char secondLetter = shipPointsMassive[1].letter;
         if(firstLetter != secondLetter) {
-            transform.Rotate(0, 0, 90);
+            FightGameManager.OpponentName opponentName = fightFieldStateController.GetOpponentName();
+            if(opponentName == FightGameManager.OpponentName.P1) {
+                transform.Rotate(0, 0, 90);
+            } else {
+                transform.Rotate(0, 0, -90);
+            }
             IsRotatedOnY = true;
         }
     }

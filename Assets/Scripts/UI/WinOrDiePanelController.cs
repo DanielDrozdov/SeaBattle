@@ -9,9 +9,6 @@ public class WinOrDiePanelController : MonoBehaviour {
     [SerializeField] private GameObject campaignPanelPart;
     [SerializeField] private GameObject nextMissionButton;
     [SerializeField] private GameObject resetMissionButton;
-    [SerializeField] private GameObject gamePausePanel;
-    [SerializeField] private GameObject gameAttackZoneSelectionPanel;
-    [SerializeField] private GameObject gameShotsOpponentBalancePanel;
 
     [HideInInspector] public FightGameManager.OpponentName winnerName;
 
@@ -22,9 +19,7 @@ public class WinOrDiePanelController : MonoBehaviour {
     [HideInInspector] public int campaignResult;
 
     public void ActivatePanel(FightGameManager.OpponentName winnerName) {
-        gameAttackZoneSelectionPanel.SetActive(false);
-        gamePausePanel.SetActive(false);
-        gameShotsOpponentBalancePanel.SetActive(false);
+        GameUIController.GetInstance().OffBaseUI();
         gameObject.SetActive(true);
         this.winnerName = winnerName;
         DataSceneTransitionController dataSceneTransitionController = DataSceneTransitionController.GetInstance();

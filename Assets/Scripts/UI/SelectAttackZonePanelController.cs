@@ -9,6 +9,8 @@ public class SelectAttackZonePanelController : MonoBehaviour {
     private Dictionary<int,SelectAttackZonePanelButtonController> shipsButtonsSize;
     private FightFieldStateController currentFightFieldStateController;
 
+    private bool IsStartedObjDisable = true;
+
     private void Awake() {
         DataSceneTransitionController dataSceneTransitionController = DataSceneTransitionController.GetInstance();
 
@@ -21,6 +23,14 @@ public class SelectAttackZonePanelController : MonoBehaviour {
 
     public static SelectAttackZonePanelController GetInstance() {
         return Instance;
+    }
+
+    private void OnDisable() {
+        if(IsStartedObjDisable) {
+            IsStartedObjDisable = false;
+            return;
+        }
+        ShipAttackZonesManager.GetInstance().OffZones();
     }
 
     public void SetNewOpponentFieldAndUpdateShipsAttackZones(FightFieldStateController fightFieldStateController) {        
