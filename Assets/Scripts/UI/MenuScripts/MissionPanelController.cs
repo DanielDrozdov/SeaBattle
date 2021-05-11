@@ -42,7 +42,7 @@ public class MissionPanelController : MonoBehaviour, IPointerUpHandler,IPointerD
     public void OnPointerDown(PointerEventData eventData) { }
 
     public void OnPointerUp(PointerEventData eventData) {
-        if(IsMissionOpened) {
+        if(true) {
             missionData.missionNumber = missionNumber;
             DataSceneTransitionController.GetInstance().SetSelectedMissionData(missionData);
             MainMenuUIController.GetInstance().ActivatePanelTransition(() => {

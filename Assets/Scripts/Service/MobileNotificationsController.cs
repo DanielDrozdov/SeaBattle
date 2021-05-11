@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿#if UNITY_ANDROID
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Notifications.Android;
 using System;
+using Unity.Notifications.Android;
 
 public class MobileNotificationsController : MonoBehaviour
 {
@@ -40,3 +41,4 @@ public class MobileNotificationsController : MonoBehaviour
         }
     }
 }
+#endif

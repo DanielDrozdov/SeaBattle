@@ -76,13 +76,14 @@ public class ShipAttackZoneController : MonoBehaviour {
         fieldBorders = fightFieldStateController.GetFieldBorders();
         fieldCellSize = fightFieldStateController.GetCellSizeDelta();
         CalculateShipBorders();
-        SetRandomPosOnField();
+        SetDefaultPosOnField();
     }
 
-    private void SetRandomPosOnField() {     
-        float xPos = Random.Range(xMin, xMax);
-        float yPos = Random.Range(yMin, yMax);
-        SetPos(new Vector2(xPos,yPos));
+    private void SetDefaultPosOnField() {     
+        Vector2 pos = fightFieldStateController.GetPosByCellPoint(new CellPointPos('a', 1));
+        pos.x = Mathf.Clamp(pos.x, xMin, xMax);
+        pos.y = Mathf.Clamp(pos.y, yMin, yMax);
+        SetPos(pos);
     }
 
     private void SetPos(Vector2 targetPos) {

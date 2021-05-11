@@ -30,7 +30,8 @@ public class SelectAttackZonePanelController : MonoBehaviour {
             IsStartedObjDisable = false;
             return;
         }
-        ShipAttackZonesManager.GetInstance().OffZones();
+        ShipAttackZonesManager shipAttackZonesManager = ShipAttackZonesManager.GetInstance();
+        shipAttackZonesManager?.OffZones();
     }
 
     public void SetNewOpponentFieldAndUpdateShipsAttackZones(FightFieldStateController fightFieldStateController) {        

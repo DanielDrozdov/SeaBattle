@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 579714704664289425}
   - component: {fileID: 8066322337887070134}
   - component: {fileID: 2045967263073425926}
+  - component: {fileID: 7359567971015761441}
   m_Layer: 0
   m_Name: HitCross
   m_TagString: Untagged
@@ -65,7 +66,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 904474391998235134, guid: 029dba170484a9a49b317a351f50f657, type: 3}
+  m_Sprite: {fileID: -2628399376543776924, guid: 7a943a8c148526d49b8d8d199e722fd9,
+    type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -94,3 +96,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7359567971015761441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3760636690508815425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5822f8a84f404664b9897ab0f047bc4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -31,7 +31,6 @@ public class FightGameManager : MonoBehaviour {
     private bool IsGameEnded;
     private bool IfCanHitTwice;
     private bool IsFirstOpponentAttackMove = true;
-    //private int playersMoves;
     private int playerShotsCount;
     private int botStartShipsCount;
     private int avaliableCellsCountToHit;
@@ -48,7 +47,6 @@ public class FightGameManager : MonoBehaviour {
             avaliableCellsCountToHit = classicModeAvaliableCellsCountToHit;
         }
         avaliableCellsCountToHitBalance = avaliableCellsCountToHit;
-        currentOpponentName = OpponentName.P1;
         SetPlayerNamesToOpponents();
         shipsGroupList.Add(firstShipsGroup);
         shipsGroupList.Add(secondShipsGroup);
@@ -60,19 +58,24 @@ public class FightGameManager : MonoBehaviour {
         }
         firstPlayerFieldStateController.InitializeField();
         secondPlayerFieldStateController.InitializeField();
-        ShipAttackZonesManager.GetInstance().ChangeOpponentAttackField(secondPlayerFieldStateController);
         opponentShotsBalancePanelController = OpponentShotsBalancePanelController.GetInstance();
         opponentShotsBalancePanelController.UpdatePlayerShotsBalance();
-        LocateShipsOnFields();
         if(secondPlayerFieldStateController.GetOpponentName() == OpponentName.Bot) {
             botStartShipsCount = secondPlayerFieldStateController.GetAliveShipList().Count;
         }
+        LocateShipsOnFields();
+        ShipAttackZonesManager.GetInstance().ChangeOpponentAttackField(secondPlayerFieldStateController);
+        currentOpponentName = OpponentName.P1;
         if(DataSceneTransitionController.GetInstance().GetBattleMode() != DataSceneTransitionController.BattleMode.Classic) {
             SelectAttackZonePanelController.GetInstance().SetNewOpponentFieldAndUpdateShipsAttackZones(firstPlayerFieldStateController);
+        }
+        if(DataSceneTransitionController.GetInstance().GetBattleType() != DataSceneTransitionController.BattleType.P1vsBot) {
+            RandomSelectOpponentToAttack();
         }
         if(dataSceneTransitionController.IsCampaignGame()) {
             GetComponent<FightMissionController>().InitializeMission();
         }
+        WavesControllersManager.GetInstance().Initialize();
     }
 
     public static FightGameManager GetInstance() {
@@ -104,10 +107,6 @@ public class FightGameManager : MonoBehaviour {
         ShipAttackZonesManager.GetInstance().OffZones();
         WinOrDiePanel.ActivatePanel(currentOpponentName);
     }
-
-    //public int GetPlayersMoves() {
-    //    return playersMoves;
-    //}
 
     public void DecreaseOneCell() {
         if(IsGameEnded) {
@@ -153,7 +152,6 @@ public class FightGameManager : MonoBehaviour {
         opponentMoveArrowCursor.transform.Rotate(new Vector3(0,0,180));
         FightFieldStateController opponentSelfField;
         if(currentOpponentName == firstPlayerFieldStateController.GetOpponentName()) {
-            //playersMoves++;
             ShipAttackZonesManager.GetInstance().ChangeOpponentAttackField(firstPlayerFieldStateController);
             opponentSelfField = secondPlayerFieldStateController;
             currentOpponentName = secondPlayerFieldStateController.GetOpponentName();
@@ -161,11 +159,6 @@ public class FightGameManager : MonoBehaviour {
                 botAttackController.HitPlayer();
             }
         } else {
-            //if(playersMoves == 4) {
-            //    firstPlayerFieldStateController.ZeroPoints();
-            //    secondPlayerFieldStateController.ZeroPoints();
-            //    playersMoves = 0;
-            //}
             ShipAttackZonesManager.GetInstance().ChangeOpponentAttackField(secondPlayerFieldStateController);
             opponentSelfField = firstPlayerFieldStateController;
             currentOpponentName = firstPlayerFieldStateController.GetOpponentName();
@@ -227,6 +220,15 @@ public class FightGameManager : MonoBehaviour {
             secondPlayerFieldStateController.SetOpponentName(OpponentName.P2);
         } else {
             secondPlayerFieldStateController.SetOpponentName(OpponentName.Bot);
+        }
+    }
+
+    private void RandomSelectOpponentToAttack() {
+        int randomValue = Random.Range(0, 2);
+        if(randomValue == 0) {
+            currentOpponentName = firstPlayerFieldStateController.GetOpponentName();
+        } else {
+            ChangeAttackOpponent();
         }
     }
 }

@@ -6,25 +6,20 @@ using UnityEngine.UI;
 public class SelectAttackZonePanelButtonController : MonoBehaviour
 {
     [SerializeField] private int shipCellsSize;
+    [SerializeField] private AnimationClip clip;
     private ShipAttackZoneController shipAttackZone;
-    private Image image;
+    private Animator animator;
 
     private void Start() {
-        image = GetComponent<Image>();
         shipAttackZone = ShipAttackZonesManager.GetInstance().GetShipAttackZone(shipCellsSize);
-    }
-
-    private void OnMouseEnter() {
-        image.color = Color.red;
-    }
-
-    private void OnMouseExit() {
-        image.color = Color.black;
+        animator = GetComponent<Animator>();
+        clip.wrapMode = WrapMode.Once;
     }
 
     private void OnMouseUp() {
         if(FightGameManager.GetInstance().GetCurrentOpponentNameToAttack() != FightGameManager.OpponentName.Bot) {
             ShipAttackZonesManager.GetInstance().SetNewShipAttackZone(shipAttackZone, shipCellsSize);
+            animator.Play(shipCellsSize + "CellAttackZoneAnimation");
         }
     }
 

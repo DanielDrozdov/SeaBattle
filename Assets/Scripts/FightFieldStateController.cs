@@ -9,8 +9,6 @@ public class FightFieldStateController : GameFieldState {
     private SpritesFightPoolController spritesFightPoolController;
     private FightGameManager fightGameManager;
 
-    //private Dictionary<CellPointPos, GameObject> nullSpritesDict;
-
     private BotAttackController botAttackController;
 
     private FightFieldStateController() { }
@@ -18,7 +16,6 @@ public class FightFieldStateController : GameFieldState {
     protected override void AddAwakeActions() {
         botAttackController = GetComponent<BotAttackController>();
         SetFieldSize();
-        //nullSpritesDict = new Dictionary<CellPointPos, GameObject>();
     }
 
     protected override void AddStartActions() {
@@ -37,25 +34,6 @@ public class FightFieldStateController : GameFieldState {
     public void SetOpponentName(FightGameManager.OpponentName opponentName) {
         this.opponentName = opponentName;
     }
-
-    //public void ZeroPoints() {
-    //    int i = 0;
-    //    CellPointPos[] nulls = new CellPointPos[4];
-    //    foreach(CellPointPos cell in nullSpritesDict.Keys) {
-    //        if(i >= 4) {
-    //            break;
-    //        }
-    //        fieldPointsToHit[cell.letter].Add(cell.number, fieldPoints[cell.letter][cell.number]);
-    //        GameObject sprite = nullSpritesDict[cell];
-    //        sprite.SetActive(false);
-    //        SpritesFightPoolController.GetInstance().ReturnToQue(sprite);
-    //        nulls[i] = cell;
-    //        i++;
-    //    }
-    //    for(int k = 0; k< 4; k++) {
-    //        nullSpritesDict.Remove(nulls[k]);
-    //    }
-    //}
 
     public bool CheckIsCellPointFreeToHit(CellPointPos cellPoint) {
         if(fieldPointsToHit[cellPoint.letter].ContainsKey(cellPoint.number)) {
@@ -105,13 +83,40 @@ public class FightFieldStateController : GameFieldState {
         char randomLetter;
         int randomNumber;
         while(true) {
-            randomLetter = fieldLettersMassive[Random.Range(0, fieldLettersMassive.Length)];
+            randomLetter = fieldLettersMassive[Random.Range(0, fieldLettersMassive.Length - (10 - fieldSizeInCells))];
             randomNumber = Random.Range(1, fieldSizeInCells + 1);
             if(CheckIsCellPointFreeToHit(new CellPointPos(randomLetter, randomNumber))) {
                 break;
             }
         }
         return GetPosByCellPoint(new CellPointPos(randomLetter, randomNumber));
+    }
+
+    public CellPointPos GetRandomCellWithoutShip() {
+        char randomLetter;
+        int randomNumber;
+        bool IsShipPoint = false;
+        List<CellPointPos> shipsPoints = new List<CellPointPos>();
+        for(int i = 0; i < shipsList.Count; i++) {
+            Ship ship = shipsList[i];
+            for(int k = 0; k < ship.shipPoints.Count; k++) {
+                shipsPoints.Add(ship.shipPoints[k]);
+            }
+        }
+        while(true) {
+            IsShipPoint = false;
+            randomLetter = fieldLettersMassive[Random.Range(0, fieldLettersMassive.Length - (10 - fieldSizeInCells))];
+            randomNumber = Random.Range(1, fieldSizeInCells + 1);
+            for(int i = 0; i < shipsPoints.Count; i++) {
+                if(shipsPoints[i].letter == randomLetter && shipsPoints[i].number == randomNumber) {
+                    IsShipPoint = true;
+                }
+            }
+            if(!IsShipPoint) {
+                break;
+            }
+        }
+        return new CellPointPos(randomLetter, randomNumber);
     }
 
     public void HitByShipAttackZone(Vector2[] points) {
