@@ -35,7 +35,8 @@ MonoBehaviour:
       \u0441\u0432\u044F\u0437\u0438. \u041E\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u0435
       \u043F\u0440\u043E\u0442\u0438\u0432\u043D\u0438\u043A\u0430."
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - id: 0
   - m_Id: 4876663906304
     m_Localized: "\u041C\u0438\u0441\u0441\u0438\u044F \"\u0411\u0440\u0438\u0437\""
     m_Metadata:
@@ -186,4 +187,4 @@ MonoBehaviour:
     00000000:
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 00e011a17a04000000e0d1fe7a04000000e051037c04000000e0117c7c04000000e01185fd080000
+        m_Entries: 00e011a17a04000000e0d1fe7a04000000e051037c04000000e0117c7c04000000e01185fd08000000e0512596030000

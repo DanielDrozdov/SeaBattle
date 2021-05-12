@@ -1344,6 +1344,30 @@ Transform:
   m_Father: {fileID: 1773326413}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &183886357 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3284632180620799116, guid: 4ce14999d2298cb44951a71f3edac96f,
+    type: 3}
+  m_PrefabInstance: {fileID: 280237057}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &183886358 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3212455693247103860, guid: 4ce14999d2298cb44951a71f3edac96f,
+    type: 3}
+  m_PrefabInstance: {fileID: 280237057}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &247369765
 GameObject:
   m_ObjectHideFlags: 0
@@ -1596,7 +1620,6 @@ GameObject:
   m_Component:
   - component: {fileID: 257094939}
   - component: {fileID: 257094941}
-  - component: {fileID: 257094943}
   - component: {fileID: 257094940}
   - component: {fileID: 257094942}
   m_Layer: 0
@@ -1758,18 +1781,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &257094943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 257094938}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67342ce68c3d5094f8674e2e6715098d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &258045213
 GameObject:
   m_ObjectHideFlags: 0
@@ -2083,6 +2094,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
         type: 3}
+      propertyPath: localizeStringEvent
+      value: 
+      objectReference: {fileID: 183886358}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: localizeStringEventName
+      value: 
+      objectReference: {fileID: 183886358}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: localizeStringEventDescription
+      value: 
+      objectReference: {fileID: 183886357}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: lol.m_TableEntryReference.m_KeyId
+      value: 4876663906304
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
       propertyPath: missionData.enemyFieldSizeInCells
       value: 7
       objectReference: {fileID: 0}
@@ -2095,6 +2126,11 @@ PrefabInstance:
         type: 3}
       propertyPath: missionData.playerShips.oneCellShipsCount
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: lol.m_TableReference.m_TableCollectionName
+      value: GUID:b96746784953c3f4685f9182b397b12e
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ce14999d2298cb44951a71f3edac96f, type: 3}
@@ -4745,6 +4781,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 608681938}
   m_CullTransparentMesh: 0
+--- !u!114 &633411565 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3284632180620799116, guid: 4ce14999d2298cb44951a71f3edac96f,
+    type: 3}
+  m_PrefabInstance: {fileID: 4274577255950483147}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &651324750
 GameObject:
   m_ObjectHideFlags: 0
@@ -6078,6 +6126,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 742389991}
   m_CullTransparentMesh: 0
+--- !u!114 &753062170 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3212455693247103860, guid: 4ce14999d2298cb44951a71f3edac96f,
+    type: 3}
+  m_PrefabInstance: {fileID: 4274577255950483147}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &799150275
 GameObject:
   m_ObjectHideFlags: 0
@@ -18065,6 +18125,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 53999691}
     m_Modifications:
+    - target: {fileID: 3284632180620799116, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: m_UpdateString.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3284632180620799116, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: m_UpdateString.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3284632180620799116, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: m_UpdateString.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4274577255162783365, guid: 4ce14999d2298cb44951a71f3edac96f,
         type: 3}
       propertyPath: m_Color.b
@@ -18211,6 +18286,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
         type: 3}
+      propertyPath: localizeStringEvent
+      value: 
+      objectReference: {fileID: 753062170}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: localizeStringEventName
+      value: 
+      objectReference: {fileID: 753062170}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: localizeStringEventDescription
+      value: 
+      objectReference: {fileID: 633411565}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: lol.m_TableEntryReference.m_KeyId
+      value: 69110718464
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
       propertyPath: missionData.enemyFieldSizeInCells
       value: 7
       objectReference: {fileID: 0}
@@ -18228,6 +18323,11 @@ PrefabInstance:
         type: 3}
       propertyPath: missionData.playerShips.oneCellShipsCount
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
+        type: 3}
+      propertyPath: lol.m_TableReference.m_TableCollectionName
+      value: GUID:b96746784953c3f4685f9182b397b12e
       objectReference: {fileID: 0}
     - target: {fileID: 4274577255162783387, guid: 4ce14999d2298cb44951a71f3edac96f,
         type: 3}

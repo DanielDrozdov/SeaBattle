@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.Localization;
 using TMPro;
+
+using UnityEngine.Localization.Components;
+using UnityEngine.Localization.Settings;
 
 public class MissionPanelController : MonoBehaviour, IPointerUpHandler,IPointerDownHandler {
 
@@ -18,9 +22,13 @@ public class MissionPanelController : MonoBehaviour, IPointerUpHandler,IPointerD
     [SerializeField] private SelectedMissionData missionData;
     private bool IsMissionOpened;
 
+    [SerializeField] private LocalizeStringEvent localizeStringEventName;
+    [SerializeField] private LocalizeStringEvent localizeStringEventDescription;
+
     private void Awake() {
         missionNameText.text = missionName;
         missionNumberText.text = missionNumber.ToString();
+
         if(PlayerPrefs.GetInt("CurrentMissionNumber") >= missionNumber) {
             IsMissionOpened = true;
         } else {
@@ -37,12 +45,13 @@ public class MissionPanelController : MonoBehaviour, IPointerUpHandler,IPointerD
         missionData.missionNumber = missionNumber;
         DataSceneTransitionController.GetInstance().SetSelectedMissionData(missionData);
         SelectedMissionPanelController.GetInstance().SetMissionData(missionSprite, missionNumber, missionName, missionDescription);
+        //StartCoroutine(WaitLocalizatorInitialize());
     }
 
     public void OnPointerDown(PointerEventData eventData) { }
 
     public void OnPointerUp(PointerEventData eventData) {
-        if(true) {
+        if(IsMissionOpened) {
             missionData.missionNumber = missionNumber;
             DataSceneTransitionController.GetInstance().SetSelectedMissionData(missionData);
             MainMenuUIController.GetInstance().ActivatePanelTransition(() => {
@@ -54,4 +63,16 @@ public class MissionPanelController : MonoBehaviour, IPointerUpHandler,IPointerD
     public void UpdateMissionNameLanguage() {
         missionNameText.text = missionName;
     }
+
+    //private IEnumerator WaitLocalizatorInitialize() {
+    //    while(!localizeStringEventName.StringReference.GetLocalizedString().IsDone && !localizeStringEventDescription.StringReference.GetLocalizedString().IsDone) {
+    //        yield return null;
+    //    }
+    //    gameObject.SetActive(false);
+    //    missionName = localizeStringEventName.StringReference.GetLocalizedString().Result;
+    //    missionDescription = localizeStringEventDescription.StringReference.GetLocalizedString().Result;
+    //    missionData.missionNumber = missionNumber;
+    //    DataSceneTransitionController.GetInstance().SetSelectedMissionData(missionData);
+    //    SelectedMissionPanelController.GetInstance().SetMissionData(missionSprite, missionNumber, missionName, missionDescription);
+    //}
 }

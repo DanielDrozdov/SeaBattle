@@ -83,16 +83,33 @@ public class BotAttackController : MonoBehaviour
     }
 
     private void UpdateAttackZones() {
-        int minShipCellSize = 4;
+        int minShipCellSize = 0;
         int maxShipCellSize = 0;
+
         for(int i = 4;i > 0;i--) {
             if(shipsByCellsSize[i] != 0) {
+                if(i == 0) {
+                    minShipCellSize = shipsByCellsSize[0];
+                    maxShipCellSize = shipsByCellsSize[0];
+                }
                 if(i > maxShipCellSize) {
                     maxShipCellSize = i;
                 } else if(i < minShipCellSize) {
                     minShipCellSize = i;
                 }
             }
+        }
+
+        DataSceneTransitionController dataSceneTransitionController = DataSceneTransitionController.GetInstance();
+        if(dataSceneTransitionController.GetBotDifficult() == DataSceneTransitionController.BotDifficulty.Easy) {
+            minShipCellSize = Mathf.Clamp(minShipCellSize, 1, 4);
+            maxShipCellSize = Mathf.Clamp(maxShipCellSize, 1, 4);
+        } else if(dataSceneTransitionController.GetBotDifficult() == DataSceneTransitionController.BotDifficulty.Medium) {
+            minShipCellSize = 1;
+            maxShipCellSize = Mathf.Clamp(maxShipCellSize, 1, 4);
+        } else if(dataSceneTransitionController.GetBotDifficult() == DataSceneTransitionController.BotDifficulty.Hard) {
+            minShipCellSize = 1;
+            maxShipCellSize = 1;
         }
 
         AssignBotAttackZones(minShipCellSize, maxShipCellSize);

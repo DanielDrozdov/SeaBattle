@@ -16,10 +16,4 @@ public class ChangeLanguageDropDownController : MonoBehaviour {
     public void ChangeLanguage() {
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[dropdown.value];
     }
-
-    //private IEnumerator SetLanguageCoroutine() {
-    //    while(LocalizationSettings.InitializationOperation == null) {
-
-    //    }
-    //}
 }

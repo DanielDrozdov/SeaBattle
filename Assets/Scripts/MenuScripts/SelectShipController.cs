@@ -253,6 +253,7 @@ public class SelectShipController : MonoBehaviour
             transform.position = shipLastPosOnField;
         } else {
             transform.position = new Vector3(startPos.x, startPos.y, transform.position.z);
+            shipLastPosOnField = startPos;
             selectShipField.ResetSelectedShipReservedPoints(this);
         }
         if(IsShipFlippedOnY) {
