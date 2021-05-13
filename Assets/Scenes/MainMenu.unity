@@ -978,6 +978,7 @@ MonoBehaviour:
       m_KeyId: 9884952289280
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments:
   - {fileID: 845010188}
   m_UpdateString:
@@ -1299,6 +1300,7 @@ MonoBehaviour:
       m_KeyId: 242431942656
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -1765,6 +1767,7 @@ MonoBehaviour:
       m_KeyId: 24080792281088
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments:
   - {fileID: 3076840117884972213}
   m_UpdateString:
@@ -3445,6 +3448,7 @@ MonoBehaviour:
       m_KeyId: 218969006080
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -3674,6 +3678,7 @@ MonoBehaviour:
       m_KeyId: 21501173760
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -4138,6 +4143,7 @@ MonoBehaviour:
       m_KeyId: 23153729536
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -4500,6 +4506,7 @@ MonoBehaviour:
       m_KeyId: 15016779776
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -6292,6 +6299,7 @@ MonoBehaviour:
       m_KeyId: 853558812672
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -9521,6 +9529,7 @@ MonoBehaviour:
       m_KeyId: 212308451328
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -10080,6 +10089,7 @@ MonoBehaviour:
       m_KeyId: 860450054144
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -10249,6 +10259,7 @@ MonoBehaviour:
       m_KeyId: 20880416768
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -11568,6 +11579,7 @@ MonoBehaviour:
       m_KeyId: 3984409616384
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments:
   - {fileID: 677230497}
   m_UpdateString:
@@ -11871,6 +11883,7 @@ MonoBehaviour:
       m_KeyId: 216368537600
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -12563,6 +12576,7 @@ MonoBehaviour:
       m_KeyId: 17487224832
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -13076,6 +13090,7 @@ MonoBehaviour:
       m_KeyId: 258890391552
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -13588,6 +13603,7 @@ MonoBehaviour:
       m_KeyId: 224924917760
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -15570,6 +15586,7 @@ MonoBehaviour:
       m_KeyId: 25955524608
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -15739,6 +15756,7 @@ MonoBehaviour:
       m_KeyId: 815856214016
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -17071,6 +17089,7 @@ MonoBehaviour:
       m_KeyId: 13477470208
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -17851,6 +17870,7 @@ MonoBehaviour:
       m_KeyId: 8582717440
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:

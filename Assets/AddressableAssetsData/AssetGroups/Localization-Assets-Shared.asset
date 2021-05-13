@@ -21,38 +21,26 @@ MonoBehaviour:
     m_Address: Assets/Localization/LocalizationNames/MainMenuBasicTable Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: ebe82f5a3dd41c9499ce4b34be5e5521
     m_Address: Assets/Localization/LocalizationNames/BattleMenuTable Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 4aa786eaa2ad80947aea6b80e612c217
     m_Address: Assets/Localization/LocalizationNames/CampaignTable Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: b96746784953c3f4685f9182b397b12e
     m_Address: Assets/Localization/LocalizationNames/MissionsDataTable Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 694c5687faa8a7c44b8119a1934d772c
     m_Address: Assets/Localization/LocalizationNames/GamePauseTable Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 2ed4806072d3f97439335eaaaba7cee0
     m_Address: Assets/Localization/LocalizationNames/WinGamePanelTable Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: bbb72920f446bc4419c918ce5671b117, type: 2}
   m_SchemaSet:
