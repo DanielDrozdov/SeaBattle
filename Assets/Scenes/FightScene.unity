@@ -913,6 +913,7 @@ MonoBehaviour:
       m_KeyId: 15285215232
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -1532,6 +1533,7 @@ MonoBehaviour:
       m_KeyId: 78518542336
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments:
   - {fileID: 886201803}
   m_UpdateString:
@@ -1823,6 +1825,7 @@ MonoBehaviour:
       m_KeyId: 11627782144
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -2907,10 +2910,10 @@ RectTransform:
   m_Father: {fileID: 1332702218}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 631, y: -90.777084}
-  m_SizeDelta: {x: 200, y: 200}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!58 &629263267
 CircleCollider2D:
@@ -3243,6 +3246,7 @@ MonoBehaviour:
       m_KeyId: 89541173248
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -3804,6 +3808,7 @@ MonoBehaviour:
       m_KeyId: 82360524800
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -4152,6 +4157,7 @@ MonoBehaviour:
       m_KeyId: 101994552483840
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments:
   - {fileID: 886201803}
   m_UpdateString:
@@ -4424,6 +4430,7 @@ MonoBehaviour:
       m_KeyId: 102144289136640
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments:
   - {fileID: 886201803}
   m_UpdateString:
@@ -4708,6 +4715,7 @@ MonoBehaviour:
       m_KeyId: 86718406656
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -6165,6 +6173,7 @@ MonoBehaviour:
       m_KeyId: 102135707590656
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments:
   - {fileID: 886201803}
   m_UpdateString:
@@ -6216,10 +6225,10 @@ RectTransform:
   m_Father: {fileID: 1332702218}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 412, y: -90.777084}
-  m_SizeDelta: {x: 200, y: 200}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!58 &1309437574
 CircleCollider2D:
@@ -6349,6 +6358,7 @@ GameObject:
   - component: {fileID: 1332702221}
   - component: {fileID: 1332702220}
   - component: {fileID: 1332702219}
+  - component: {fileID: 1332702222}
   m_Layer: 5
   m_Name: ShipAttackZonesList
   m_TagString: Untagged
@@ -6433,6 +6443,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332702217}
   m_CullTransparentMesh: 0
+--- !u!114 &1332702222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332702217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 20
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 200, y: 200}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &1361126622
 GameObject:
   m_ObjectHideFlags: 0
@@ -6877,10 +6911,10 @@ RectTransform:
   m_Father: {fileID: 1332702218}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 869, y: -90.777084}
-  m_SizeDelta: {x: 200, y: 200}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!58 &1469964918
 CircleCollider2D:
@@ -7348,6 +7382,7 @@ MonoBehaviour:
       m_KeyId: 18032484352
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -7398,10 +7433,10 @@ RectTransform:
   m_Father: {fileID: 1332702218}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 163, y: -90.777084}
-  m_SizeDelta: {x: 200, y: 200}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!58 &1491992754
 CircleCollider2D:
@@ -8242,6 +8277,7 @@ MonoBehaviour:
       m_KeyId: 8482054144
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -9439,6 +9475,7 @@ MonoBehaviour:
       m_KeyId: 102142267482112
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments:
   - {fileID: 886201803}
   m_UpdateString:
@@ -9968,6 +10005,7 @@ MonoBehaviour:
       m_KeyId: 102140115804160
       m_Key: 
     m_FallbackState: 0
+    m_WaitForCompletion: 1
   m_FormatArguments:
   - {fileID: 886201803}
   m_UpdateString:

@@ -38,6 +38,7 @@ public class CampaignMenuPanelController : MonoBehaviour, ISecondaryMenuPanelDis
 
     public void ContinueCampaignMission() {
         DataSceneTransitionController.GetInstance().SetCampaignGame(true);
+        campaignMissionsList.SetActive(true);
         campaignSelectTypePanel.SetActive(false);
     }
 

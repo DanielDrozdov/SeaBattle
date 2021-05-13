@@ -155,8 +155,7 @@ public class FightFieldStateController : GameFieldState {
             if(IsHit) {
                 ActivateCellStateSprite(tapCellPosition, true);
             } else {
-                GameObject sprite = ActivateCellStateSprite(tapCellPosition, false);
-                //nullSpritesDict.Add(tapCellData, sprite);
+                ActivateCellStateSprite(tapCellPosition, false);
             }
         }
     }
@@ -211,15 +210,17 @@ public class FightFieldStateController : GameFieldState {
         int[] borderData = CalculateShipCellsBorder(shipPoints);
         int minLetter = borderData[0], maxLetter = borderData[1];
         int minNumber = borderData[2], maxNumber = borderData[3];
+        List<CellPointPos> hitPointsAroundShips = new List<CellPointPos>();
         for(int i = minLetter; i <= maxLetter; i++) {
             char letter = (char)i;
             for(int k = 1; k <= 10; k++) {
                 if(fieldPointsToHit[letter].ContainsKey(k) && k >= minNumber && k <= maxNumber) {
-                    ActivateCellStateSprite(fieldPointsToHit[letter][k], false);
+                    hitPointsAroundShips.Add(new CellPointPos(letter, k));
                     fieldPointsToHit[letter].Remove(k);
                 }
             }
         }
+        StartCoroutine(TimeDelayAndSpawnHitShipNullCellsSpritesCoroutine(hitPointsAroundShips));
     }
 
     private void SetFieldSize() {
@@ -228,6 +229,13 @@ public class FightFieldStateController : GameFieldState {
             fieldSizeInCells = dataSceneTransitionController.GetSelectedMissionData().GetEnemyFieldSize();
         } else {
             fieldSizeInCells = 10;
+        }
+    }
+
+    private IEnumerator TimeDelayAndSpawnHitShipNullCellsSpritesCoroutine(List<CellPointPos> hitPointsAroundShip) {
+        yield return new WaitForSeconds(0.6f);
+        for(int i = 0;i < hitPointsAroundShip.Count;i++) {
+            ActivateCellStateSprite(fieldPoints[hitPointsAroundShip[i].letter][hitPointsAroundShip[i].number], false);
         }
     }
 }

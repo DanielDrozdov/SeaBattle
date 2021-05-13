@@ -76,6 +76,7 @@ public class MainMenuUIController : MonoBehaviour
 
     public void LoadNextMissionPartActions() {
         mainMenuPanel.SetActive(false);
+        languageDropDownList.SetActive(false);
         backToMainMenuButton.SetActive(true);
         lastOpenedPanel = campaignMenuPanel;
         campaignMenuPanel.SetActive(true);
