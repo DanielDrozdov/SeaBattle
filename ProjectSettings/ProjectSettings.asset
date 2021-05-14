@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: DanielDrozdov
   productName: SeaBattle
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -712,6 +712,10 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
+    Build: 0
+    Collab: 0
+    ErrorHub: 0
+    Hub: 0
     UNet: 1
   luminIcon:
     m_Name: 
@@ -725,10 +729,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: 1a6bb114-3285-44f1-bd2d-fbcb68acc24b
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: SeaBattle
+  organizationId: danieldrozdov
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
