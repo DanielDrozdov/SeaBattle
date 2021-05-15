@@ -32,6 +32,7 @@ public class DataSceneTransitionController : MonoBehaviour
     private BotDifficulty botDifficult;
     private SelectedMissionData missionData;
     private bool IsCampaign;
+    private bool IsMutliplayer;
 
     private DataSceneTransitionController() { }
 
@@ -68,6 +69,14 @@ public class DataSceneTransitionController : MonoBehaviour
 
     public void SetCampaignGame(bool value) {
         IsCampaign = value;
+    }
+
+    public void SetMultiplayerStateGame(bool value) {
+        IsMutliplayer = value;
+    }
+
+    public bool IsMultiplayerGame() {
+        return IsMutliplayer;
     }
 
     public bool IsCampaignGame() {

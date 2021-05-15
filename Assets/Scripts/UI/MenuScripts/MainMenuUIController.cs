@@ -27,6 +27,7 @@ public class MainMenuUIController : MonoBehaviour
         levelTransitionPanelController = LevelTransitionPanelController.GetInstance();
         DataSceneTransitionController dataSceneTransitionController = DataSceneTransitionController.GetInstance();
         dataSceneTransitionController.SetCampaignGame(false);
+        dataSceneTransitionController.SetMultiplayerStateGame(false);
         dataSceneTransitionController.ZeroSelectedShips();
     }
 
@@ -66,6 +67,7 @@ public class MainMenuUIController : MonoBehaviour
             lastOpenedPanel.SetActive(false);
             backToMainMenuButton.SetActive(false);
             DataSceneTransitionController.GetInstance().SetCampaignGame(false);
+            DataSceneTransitionController.GetInstance().SetMultiplayerStateGame(false);
             DataSceneTransitionController.GetInstance().ZeroSelectedShips();
         });
     }

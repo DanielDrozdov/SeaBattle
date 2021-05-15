@@ -31,7 +31,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 258890391552
-    m_Localized: Play on one screen
+    m_Localized: P1vsP2 on one screen
     m_Metadata:
       m_Items: []
   - m_Id: 815856214016
@@ -44,6 +44,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 860450054144
     m_Localized: Admiral
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2877217089642496
+    m_Localized: Online with a friend
     m_Metadata:
       m_Items: []
   references:

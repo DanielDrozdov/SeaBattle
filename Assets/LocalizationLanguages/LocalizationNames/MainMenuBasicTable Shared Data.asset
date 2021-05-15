@@ -31,10 +31,6 @@ MonoBehaviour:
     m_Key: AuthorsNameButton
     m_Metadata:
       m_Items: []
-  - m_Id: 224924917760
-    m_Key: ExitNameButton
-    m_Metadata:
-      m_Items: []
   - m_Id: 24080792281088
     m_Key: PlayerName
     m_Metadata:

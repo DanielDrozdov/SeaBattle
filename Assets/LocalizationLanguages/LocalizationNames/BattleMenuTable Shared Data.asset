@@ -43,6 +43,10 @@ MonoBehaviour:
     m_Key: HardBotDifficultName
     m_Metadata:
       m_Items: []
+  - m_Id: 2877217089642496
+    m_Key: FightWithFriendMultiplayerName
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

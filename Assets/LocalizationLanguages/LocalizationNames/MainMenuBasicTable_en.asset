@@ -35,10 +35,6 @@ MonoBehaviour:
     m_Localized: Authors
     m_Metadata:
       m_Items: []
-  - m_Id: 224924917760
-    m_Localized: Exit
-    m_Metadata:
-      m_Items: []
   - m_Id: 24080792281088
     m_Localized: Player P{playerNumber} ships
     m_Metadata:
