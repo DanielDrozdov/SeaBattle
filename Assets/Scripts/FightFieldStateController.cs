@@ -186,11 +186,14 @@ public class FightFieldStateController : GameFieldState {
                             DataSceneTransitionController.GetInstance().GetBattleMode() == DataSceneTransitionController.BattleMode.Advanced) {
                             SelectAttackZonePanelController.GetInstance().UpdateAliveShips();
                         }
+                    } else {
+                        FightGameSoundsController.GetInstance().PlayHitShotSound();
                     }
                     return true;
                 }
             }
         }
+        FightGameSoundsController.GetInstance().PlayMissShotSound();
         return false;
     }
 

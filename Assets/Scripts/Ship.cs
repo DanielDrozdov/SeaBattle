@@ -46,6 +46,7 @@ public class Ship : MonoBehaviour
         if(IsCaravan) {
             OnCaravanShipDie?.Invoke();
         }
+        FightGameSoundsController.GetInstance().PlayDestroyShipSound();
         IsDestroyed = true;
         image.sprite = ShipsSpritesDataController.GetInstance().GetDestroyShipSprite(cellsCount);
         image.enabled = true;

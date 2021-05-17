@@ -17,6 +17,13 @@ public class AdvertismentController : MonoBehaviour
         return Instance;
     }
 
+    private void OnDisable() {
+        if(!Application.isFocused) {
+            return;
+        }
+        Advertisement.Banner.Hide();
+    }
+
     private IEnumerator ShowBannerWhenReady() {
         while(!Advertisement.IsReady("bannerPlacement")) {
             yield return new WaitForSeconds(0.5f);

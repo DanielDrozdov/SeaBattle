@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class OpponentShotsBalancePanelController : MonoBehaviour
 {
+    [SerializeField] private Animator animator;
+    [SerializeField] private AnimationClip animClip;
     private static OpponentShotsBalancePanelController Instance;
     private FightGameManager fightGameManager;
     private TextMeshProUGUI text;
@@ -13,6 +15,7 @@ public class OpponentShotsBalancePanelController : MonoBehaviour
     private void Awake() {
         Instance = this;
         text = GetComponent<TextMeshProUGUI>();
+        animClip.wrapMode = WrapMode.Once;
     }
 
     private void Start() {
@@ -25,5 +28,9 @@ public class OpponentShotsBalancePanelController : MonoBehaviour
 
     public void UpdatePlayerShotsBalance() {
         text.text = fightGameManager.GetAvaliableCellsCountToHit().ToString();
+    }
+
+    public void PlayShotBalanceImageAnimation() {
+        animator.Play(animClip.name);
     }
 }

@@ -57,7 +57,9 @@ public class BattlesMenuPanelController : MonoBehaviour, ISecondaryMenuPanelDisa
     public void OnClickButton_PlayWithFriendMultiplayer() {
         dataSceneTransitionController.SetBattleType(DataSceneTransitionController.BattleType.P1vsP2);
         dataSceneTransitionController.SetMultiplayerStateGame(true);
-        CloseFightSelectionMenuAndOpenSelectShipsFieldPanel();
+        mainMenuUIController.ActivatePanelTransition(() => {
+            fightTypeSelectionMenu.SetActive(false);
+        });
     }
 
     public void OnClickButton_EasyBotDifficultyChoice() {

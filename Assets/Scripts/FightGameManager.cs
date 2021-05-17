@@ -112,7 +112,7 @@ public class FightGameManager : MonoBehaviour {
         if(IsGameEnded) {
             return;
         }
-
+        opponentShotsBalancePanelController.PlayShotBalanceImageAnimation();
         IncreasePlayersShotsCount();
 
         if(!IfCanHitTwice) {
