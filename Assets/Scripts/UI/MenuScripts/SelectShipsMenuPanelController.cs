@@ -25,9 +25,14 @@ public class SelectShipsMenuPanelController : MonoBehaviour
             int playerNumber = dataSceneTransition.GetPlayerCountWithShips() + 1;         
             bool IsDone;
             if((dataSceneTransition.GetBattleType() == DataSceneTransitionController.BattleType.P1vsBot && playerNumber == 1) ||
-                (dataSceneTransition.GetBattleType() == DataSceneTransitionController.BattleType.P1vsP2 && playerNumber == 2)) {
+                (dataSceneTransition.GetBattleType() == DataSceneTransitionController.BattleType.P1vsP2 && playerNumber == 2) ||
+                (dataSceneTransition.GetBattleType() == DataSceneTransitionController.BattleType.P1vsP2 && playerNumber == 1 && dataSceneTransition.IsMultiplayerGame())) {
                 IsDone = levelTransitionPanelController.MoveToCanvasCenter(() => {
-                    SceneManager.LoadScene("FightScene");
+                    if(!dataSceneTransition.IsMultiplayerGame()) {
+                        SceneManager.LoadScene("FightScene");
+                    } else {
+                        WaitPlayerPanelController.GetInstance().OpenWaitPanel();
+                    }
                 });
             } else {
                 IsDone = MainMenuUIController.GetInstance().ActivatePanelTransition(() => {

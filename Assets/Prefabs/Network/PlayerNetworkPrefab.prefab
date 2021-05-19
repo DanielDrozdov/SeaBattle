@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7084659674082939949}
   - component: {fileID: 4668382435736584492}
+  - component: {fileID: -5266225442832114623}
   m_Layer: 0
   m_Name: PlayerNetworkPrefab
   m_TagString: Untagged
@@ -45,6 +46,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneId: 0
   serverOnly: 0
-  visible: 2
+  visible: 0
   m_AssetId: 
   hasSpawned: 0
+--- !u!114 &-5266225442832114623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7884153756392761562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b4afd5ad805097458f7a1ed6569a9d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1

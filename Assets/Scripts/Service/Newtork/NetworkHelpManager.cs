@@ -17,23 +17,11 @@ public class NetworkHelpManager : MonoBehaviour {
     private NetworkDiscovery networkDiscovery;
     readonly Dictionary<long, ServerResponse> discoveredServers = new Dictionary<long, ServerResponse>();
 
-    public delegate void NetworkAction();
-
     private void Awake() {
         Instance = this;
         networkManager = NetworkManager.singleton;
         networkDiscovery = GetComponent<NetworkDiscovery>();
     }
-
-    //#if UNITY_EDITOR
-    //    void OnValidate() {
-    //        if(networkDiscovery == null) {
-    //            networkDiscovery = GetComponent<NetworkDiscovery>();
-    //            UnityEditor.Events.UnityEventTools.AddPersistentListener(networkDiscovery.OnServerFound, AddServerToList);
-    //            UnityEditor.Undo.RecordObjects(new Object[] { this, networkDiscovery }, "Set NetworkDiscovery");
-    //        }
-    //    }
-    //#endif
 
     public static NetworkHelpManager GetInstance() {
         return Instance;
@@ -53,8 +41,8 @@ public class NetworkHelpManager : MonoBehaviour {
     }
 
     public void CreateGameAndBecomeHost() {
-        UpdateServers();
         IsHost = true;
+        discoveredServers.Clear();
         NetworkManager.singleton.StartHost();
         networkDiscovery.AdvertiseServer();
     }
@@ -91,20 +79,5 @@ public class NetworkHelpManager : MonoBehaviour {
             Connect(info);
             break;
         }
-    }
-
-    [Command]
-    public void CmdAction(NetworkAction action) {
-        ServerAction(action);
-    }
-
-    [ClientRpc]
-    private void RpcAction(NetworkAction action) {
-        action?.Invoke();
-    }
-
-    [Server]
-    public void ServerAction(NetworkAction action) {
-        RpcAction(action);
     }
 }
