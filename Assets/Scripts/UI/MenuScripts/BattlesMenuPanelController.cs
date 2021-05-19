@@ -8,6 +8,7 @@ public class BattlesMenuPanelController : MonoBehaviour, ISecondaryMenuPanelDisa
     [SerializeField] private GameObject fightModeSelectionMenu;
     [SerializeField] private GameObject botFightDifficultSelectionMenu;
     [SerializeField] private GameObject selecetedShipsFieldPanel;
+    [SerializeField] private GameObject multiplayerSelectActionPanel;
     private MainMenuUIController mainMenuUIController;
     private DataSceneTransitionController dataSceneTransitionController;
 
@@ -25,6 +26,7 @@ public class BattlesMenuPanelController : MonoBehaviour, ISecondaryMenuPanelDisa
         fightModeSelectionMenu.SetActive(true);
         fightTypeSelectionMenu.SetActive(false);
         botFightDifficultSelectionMenu.SetActive(false);
+        multiplayerSelectActionPanel.SetActive(false);
         if(selecetedShipsFieldPanel != null) {
             selecetedShipsFieldPanel.SetActive(false);
         }
@@ -59,6 +61,7 @@ public class BattlesMenuPanelController : MonoBehaviour, ISecondaryMenuPanelDisa
         dataSceneTransitionController.SetMultiplayerStateGame(true);
         mainMenuUIController.ActivatePanelTransition(() => {
             fightTypeSelectionMenu.SetActive(false);
+            multiplayerSelectActionPanel.SetActive(true);
         });
     }
 

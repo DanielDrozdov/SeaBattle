@@ -62,13 +62,17 @@ public class MainMenuUIController : MonoBehaviour
 
     public void OnClickButton_BackToMainMenu() {
         ActivatePanelTransition(() => {
+            DataSceneTransitionController dataSceneTransitionController = DataSceneTransitionController.GetInstance();
             mainMenuPanel.SetActive(true);
             languageDropDownList.SetActive(true);
             lastOpenedPanel.SetActive(false);
             backToMainMenuButton.SetActive(false);
-            DataSceneTransitionController.GetInstance().SetCampaignGame(false);
-            DataSceneTransitionController.GetInstance().SetMultiplayerStateGame(false);
-            DataSceneTransitionController.GetInstance().ZeroSelectedShips();
+            if(dataSceneTransitionController.IsMultiplayerGame()) {
+                NetworkHelpManager.GetInstance().CancelConnecting();
+                dataSceneTransitionController.SetMultiplayerStateGame(false);
+            }
+            dataSceneTransitionController.SetCampaignGame(false);
+            dataSceneTransitionController.ZeroSelectedShips();
         });
     }
 

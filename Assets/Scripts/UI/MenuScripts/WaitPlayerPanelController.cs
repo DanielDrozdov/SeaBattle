@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class WaitPlayerPanelController : MonoBehaviour
-{
-    [SerializeField] private string[] searchPlayerStrings;
+public class WaitPlayerPanelController : MonoBehaviour {
+    [SerializeField] private string[] waitPlayerStrings;
     [SerializeField] private TextMeshProUGUI text;
 
     private bool IsFirstStart = true;
@@ -15,6 +14,7 @@ public class WaitPlayerPanelController : MonoBehaviour
     }
 
     private void OnDisable() {
+        gameObject.SetActive(false);
         if(IsFirstStart) {
             IsFirstStart = false;
             return;
@@ -28,8 +28,17 @@ public class WaitPlayerPanelController : MonoBehaviour
             if(stringNumber > 2) {
                 stringNumber = 0;
             }
-            text.text = searchPlayerStrings[stringNumber++];
+            if(NetworkHelpManager.GetInstance().IsAllPlayerConnected()) {
+                NetworkHelpManager.NetworkAction networkAction = () => gameObject.SetActive(false);
+                if(NetworkHelpManager.GetInstance().IsServerCall()) {
+                    NetworkHelpManager.GetInstance().ServerAction(networkAction);
+                } else {
+                    NetworkHelpManager.GetInstance().ServerAction(networkAction);
+                }
+                yield break;
+            }
+            text.text = waitPlayerStrings[stringNumber++];
             yield return new WaitForSeconds(0.5f);
         }
-    } 
+    }
 }
