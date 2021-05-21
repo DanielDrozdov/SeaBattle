@@ -18,6 +18,10 @@ public class NetworkHelpManager : MonoBehaviour {
     private MainMenuPlayerNetworkController mainMenuPlayerNetworkController;
     readonly Dictionary<long, ServerResponse> discoveredServers = new Dictionary<long, ServerResponse>();
 
+    private FightGamePlayerNetworkController firstFightPlayerNetworkController;
+    private FightGamePlayerNetworkController secondFightPlayerNetworkController;
+    private FightGamePlayerNetworkController playerFightPlayerNetworkController;
+
     private void Awake() {
         Instance = this;
         networkManager = NetworkManager.singleton;
@@ -30,6 +34,29 @@ public class NetworkHelpManager : MonoBehaviour {
 
     public void SetPlayerNetworkController(MainMenuPlayerNetworkController mainMenuPlayerNetworkController) {
         this.mainMenuPlayerNetworkController = mainMenuPlayerNetworkController;
+    }
+
+    public void InitializePlayersObjects() {
+        FightGamePlayerNetworkController[] players = FindObjectsOfType<FightGamePlayerNetworkController>();
+        foreach(FightGamePlayerNetworkController player in players) {
+            if(player.isLocalPlayer) {
+                playerFightPlayerNetworkController = player;
+            }
+        }
+        firstFightPlayerNetworkController = players[0];
+        secondFightPlayerNetworkController = players[1];
+    }
+
+    public FightGamePlayerNetworkController GetPlayerFightNetworkComponent(int playerNumber) {
+        if(playerNumber == 1) {
+            return firstFightPlayerNetworkController;
+        } else {
+            return secondFightPlayerNetworkController;
+        }
+    }
+
+    public FightGamePlayerNetworkController GetCurrentPlayerFightNetworkController() {
+        return playerFightPlayerNetworkController;
     }
 
     public MainMenuPlayerNetworkController GetPlayerMenuNetworkController() {

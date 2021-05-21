@@ -15,6 +15,7 @@ public class FightGameManager : MonoBehaviour {
     public static event FightManagerAction OnOpponentChanging;
 
     [SerializeField] private GameObject opponentMoveArrowCursor;
+    [SerializeField] private GameObject pausePanel;
     [SerializeField] private Ship[] firstShipsGroup;
     [SerializeField] private Ship[] secondShipsGroup;
     [SerializeField] private FightFieldStateController firstPlayerFieldStateController;
@@ -40,6 +41,7 @@ public class FightGameManager : MonoBehaviour {
 
     private void Awake() {
         Instance = this;
+        pausePanel.SetActive(true);
         dataSceneTransitionController = DataSceneTransitionController.GetInstance();
         if(dataSceneTransitionController.GetBattleMode() == DataSceneTransitionController.BattleMode.Advanced) {
             avaliableCellsCountToHit = avancedModeAvaliableCellsCountToHit;
@@ -66,10 +68,10 @@ public class FightGameManager : MonoBehaviour {
         LocateShipsOnFields();
         ShipAttackZonesManager.GetInstance().ChangeOpponentAttackField(secondPlayerFieldStateController);
         currentOpponentName = OpponentName.P1;
-        if(DataSceneTransitionController.GetInstance().GetBattleMode() != DataSceneTransitionController.BattleMode.Classic) {
+        if(dataSceneTransitionController.GetBattleMode() != DataSceneTransitionController.BattleMode.Classic) {
             SelectAttackZonePanelController.GetInstance().SetNewOpponentFieldAndUpdateShipsAttackZones(firstPlayerFieldStateController);
         }
-        if(DataSceneTransitionController.GetInstance().GetBattleType() != DataSceneTransitionController.BattleType.P1vsBot) {
+        if(dataSceneTransitionController.GetBattleType() != DataSceneTransitionController.BattleType.P1vsBot) {
             RandomSelectOpponentToAttack();
         }
         if(dataSceneTransitionController.IsCampaignGame()) {
@@ -100,6 +102,12 @@ public class FightGameManager : MonoBehaviour {
 
     public int GetAvaliableCellsCountToHit() {
         return avaliableCellsCountToHitBalance;
+    }
+
+    public void SetOpponentMove(OpponentName opponentName) {
+        if(opponentName != currentOpponentName) {
+            ChangeAttackOpponent();
+        }
     }
 
     public void EndGame() {
@@ -216,7 +224,7 @@ public class FightGameManager : MonoBehaviour {
 
     private void SetPlayerNamesToOpponents() {
         firstPlayerFieldStateController.SetOpponentName(OpponentName.P1);
-        if(DataSceneTransitionController.GetInstance().GetPlayerCountWithShips() == 2) {
+        if(dataSceneTransitionController.GetPlayerCountWithShips() == 2) {
             secondPlayerFieldStateController.SetOpponentName(OpponentName.P2);
         } else {
             secondPlayerFieldStateController.SetOpponentName(OpponentName.Bot);

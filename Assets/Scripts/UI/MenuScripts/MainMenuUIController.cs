@@ -15,6 +15,7 @@ public class MainMenuUIController : MonoBehaviour
     private static MainMenuUIController Instance;
     private LevelTransitionPanelController levelTransitionPanelController;
     private GameObject lastOpenedPanel;
+    private bool IsBackButtonPressed;
 
     private void Awake() {
         Instance = this;
@@ -43,6 +44,10 @@ public class MainMenuUIController : MonoBehaviour
         return IsDone;
     }
 
+    public bool GetIsBackButtonPressed() {
+        return IsBackButtonPressed;
+    }
+
     public void OnClickButton_CampaignPlay() {
         OpenPanel(campaignMenuPanel);
     }
@@ -61,6 +66,15 @@ public class MainMenuUIController : MonoBehaviour
     }
 
     public void OnClickButton_BackToMainMenu() {
+        BackToMainMenu();
+    }
+
+    public void OnClickButton_Exit() {
+        Application.Quit();
+    }
+
+    public void BackToMainMenu() {
+        IsBackButtonPressed = true;
         ActivatePanelTransition(() => {
             DataSceneTransitionController dataSceneTransitionController = DataSceneTransitionController.GetInstance();
             mainMenuPanel.SetActive(true);
@@ -73,11 +87,8 @@ public class MainMenuUIController : MonoBehaviour
             }
             dataSceneTransitionController.SetCampaignGame(false);
             dataSceneTransitionController.ZeroSelectedShips();
+            IsBackButtonPressed = false;
         });
-    }
-
-    public void OnClickButton_Exit() {
-        Application.Quit();
     }
 
     public void LoadNextMissionPartActions() {

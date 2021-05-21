@@ -15,6 +15,8 @@ public class WaitPlayerPanelController : MonoBehaviour {
     private static WaitPlayerPanelController Instance;
     private bool IsConnectState = true;
 
+    private delegate void WaitPanelActionDelegate();
+
     private bool IsFirstStart = true;
 
     private void Awake() {
@@ -64,7 +66,10 @@ public class WaitPlayerPanelController : MonoBehaviour {
     }
 
     public void CloseWaitPanelAndContinue() {
-        StartCoroutine(WaitTransitionPanelEndAndContinueCoroutine());
+        StartCoroutine(WaitTransitionPanelEndAndContinueCoroutine( () => {
+            gameObject.SetActive(false);
+            selectionShipsField.SetActive(true);
+        }));
     }
 
     private void SetSecondPlayerNetworkMenuController() {
@@ -92,6 +97,9 @@ public class WaitPlayerPanelController : MonoBehaviour {
                 mainMenuPlayerNetworkController.SendShipsData(DataSceneTransitionController.GetInstance().GetSelectedShipPoints(1));
                 mainMenuPlayerNetworkController.SendGameModeData(DataSceneTransitionController.GetInstance().GetBattleMode());
                 mainMenuPlayerNetworkController.Load();
+                StartCoroutine(WaitTransitionPanelEndAndContinueCoroutine(() => {
+                    mainMenuPlayerNetworkController.Load();
+                }));
                 yield break;
             }
             text.text = waitPlayerStrings[stringNumber++];
@@ -99,12 +107,12 @@ public class WaitPlayerPanelController : MonoBehaviour {
         }
     }
 
-    private IEnumerator WaitTransitionPanelEndAndContinueCoroutine() {
+    private IEnumerator WaitTransitionPanelEndAndContinueCoroutine(WaitPanelActionDelegate action) {
         bool IsDone = false;
+        yield return new WaitForSeconds(0.5f);
         while(!IsDone) {
-            IsDone = MainMenuUIController.GetInstance().ActivatePanelTransition(() => {
-                gameObject.SetActive(false);
-                selectionShipsField.SetActive(true);
+            IsDone = MainMenuUIController.GetInstance().ActivatePanelTransition(() => {            
+                action?.Invoke();
             });
             yield return new WaitForSeconds(0.75f);
         }

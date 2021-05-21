@@ -3482,6 +3482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   opponentMoveArrowCursor: {fileID: 370368983}
+  pausePanel: {fileID: 1512637740}
   firstShipsGroup:
   - {fileID: 359248155}
   - {fileID: 1950421016}

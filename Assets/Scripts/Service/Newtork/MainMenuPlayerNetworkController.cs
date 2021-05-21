@@ -1,9 +1,7 @@
 ﻿using System.Collections;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Mirror;
-using UnityEngine.SceneManagement;
 
 public class MainMenuPlayerNetworkController : NetworkBehaviour
 {
@@ -55,8 +53,10 @@ public class MainMenuPlayerNetworkController : NetworkBehaviour
 
     [ClientRpc]
     private void RpcSendShipsData(List<CellPointPos[]> shipsPoints) {
-        if(isLocalPlayer) { return; }
-        DataSceneTransitionController.GetInstance().SetSelectedShips(2, shipsPoints);
+        DataSceneTransitionController dataSceneTransitionController = DataSceneTransitionController.GetInstance();
+        if(isLocalPlayer && dataSceneTransitionController.GetPlayerCountWithShips() == 2) { return; }
+        CmdSendShipsData(dataSceneTransitionController.GetSelectedShipPoints(1));
+        dataSceneTransitionController.SetSelectedShips(2, shipsPoints);
     }
 
     [ClientRpc]
@@ -87,34 +87,31 @@ public class MainMenuPlayerNetworkController : NetworkBehaviour
     }
 
 
+
     public void Load() {
         if(isServer) {
-            LoadServerScene();
+            StartCoroutine(LoadServerSceneCoroutine());
+        } else {
+            ReadyPlayer();
         }
     }
 
-    public void LoadServerScene() {
-        //AsyncOperation asyncOperation = new AsyncOperation();
-        //if(!isLocalPlayer) {
-        //    asyncOperation = SceneManager.LoadSceneAsync("FightScene", LoadSceneMode.Additive);
-        //}
+    [Server]
+    public IEnumerator LoadServerSceneCoroutine() {
         if(!NetworkClient.ready) {
             NetworkClient.Ready();
         }
-        if(isServer) {
-            NetworkManager.singleton.ServerChangeScene("FightScene");
+        while(!NetworkClient.ready) {
+            yield return null;
         }
-        //yield return null;
-        //if(!isLocalPlayer) {
-        //    while(true) {
-        //        if(NetworkClient.ready && asyncOperation.isDone) {
-        //            serverLoadPuzzel();
-        //            SceneManager.MoveGameObjectToScene(WaitPlayerPanelController.GetInstance().GetFirstPlayerObj(), SceneManager.GetSceneByName("FightScene"));
-        //            SceneManager.MoveGameObjectToScene(WaitPlayerPanelController.GetInstance().GetSecondPlayerObj(), SceneManager.GetSceneByName("FightScene"));
-        //            yield break;
-        //        }
-        //        yield return null;
-        //    }
-        //}
+        NetworkManager.singleton.ServerChangeScene("FightScene");
+
+    }
+
+    [Client]
+    private void ReadyPlayer() {
+        if(!NetworkClient.ready) {
+            NetworkClient.Ready();
+        }
     }
 }
