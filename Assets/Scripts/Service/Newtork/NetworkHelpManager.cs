@@ -15,6 +15,7 @@ public class NetworkHelpManager : MonoBehaviour {
     private static NetworkHelpManager Instance;
     private NetworkManager networkManager;
     private NetworkDiscovery networkDiscovery;
+    private MainMenuPlayerNetworkController mainMenuPlayerNetworkController;
     readonly Dictionary<long, ServerResponse> discoveredServers = new Dictionary<long, ServerResponse>();
 
     private void Awake() {
@@ -25,6 +26,14 @@ public class NetworkHelpManager : MonoBehaviour {
 
     public static NetworkHelpManager GetInstance() {
         return Instance;
+    }
+
+    public void SetPlayerNetworkController(MainMenuPlayerNetworkController mainMenuPlayerNetworkController) {
+        this.mainMenuPlayerNetworkController = mainMenuPlayerNetworkController;
+    }
+
+    public MainMenuPlayerNetworkController GetPlayerMenuNetworkController() {
+        return mainMenuPlayerNetworkController;
     }
 
     public bool IsServerCall() {

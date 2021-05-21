@@ -31,7 +31,7 @@ public class SelectShipsMenuPanelController : MonoBehaviour
                     if(!dataSceneTransition.IsMultiplayerGame()) {
                         SceneManager.LoadScene("FightScene");
                     } else {
-                        WaitPlayerPanelController.GetInstance().OpenWaitPanel();
+                        WaitPlayerPanelController.GetInstance().OpenWaitPanelWhenShipsAreSelected();
                     }
                 });
             } else {

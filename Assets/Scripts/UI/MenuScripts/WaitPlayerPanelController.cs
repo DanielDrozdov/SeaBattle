@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Mirror;
+using UnityEngine.SceneManagement;
 
 public class WaitPlayerPanelController : MonoBehaviour {
     [SerializeField] private GameObject selectionShipsField;
     [SerializeField] private string[] waitPlayerStrings;
     [SerializeField] private TextMeshProUGUI text;
 
+    private MainMenuPlayerNetworkController mainMenuPlayerNetworkController;
+    private MainMenuPlayerNetworkController secondPlayerMainMenuPlayerNetworkController;
     private static WaitPlayerPanelController Instance;
     private bool IsConnectState = true;
 
@@ -21,8 +25,15 @@ public class WaitPlayerPanelController : MonoBehaviour {
         return Instance;
     }
 
+    public GameObject GetSecondPlayerObj() {
+        return secondPlayerMainMenuPlayerNetworkController.gameObject;
+    }
+
+    public GameObject GetFirstPlayerObj() {
+        return mainMenuPlayerNetworkController.gameObject;
+    }
+
     private void OnEnable() {
-        Debug.Log("ad");
         StartCoroutine(AnimCoroutine());
     }
 
@@ -36,9 +47,17 @@ public class WaitPlayerPanelController : MonoBehaviour {
         StopAllCoroutines();
     }
 
-    public void OpenWaitPanel() {
+    public void OpenWaitPanelWhenShipsAreSelected() {
+        if(mainMenuPlayerNetworkController == null) {
+            mainMenuPlayerNetworkController = NetworkHelpManager.GetInstance().GetPlayerMenuNetworkController();
+        }
+
+        if(secondPlayerMainMenuPlayerNetworkController == null) {
+            SetSecondPlayerNetworkMenuController();
+        }
         MainMenuUIController.GetInstance().ActivatePanelTransition(() => {
             IsConnectState = false;
+            mainMenuPlayerNetworkController.SetCurrentPlayerReadyToPlay();
             gameObject.SetActive(true);
             selectionShipsField.SetActive(false);
         });
@@ -48,18 +67,31 @@ public class WaitPlayerPanelController : MonoBehaviour {
         StartCoroutine(WaitTransitionPanelEndAndContinueCoroutine());
     }
 
+    private void SetSecondPlayerNetworkMenuController() {
+        NetworkIdentity[] players = FindObjectsOfType<NetworkIdentity>();
+        foreach(NetworkIdentity player in players) {
+            if(!player.isLocalPlayer) {
+                secondPlayerMainMenuPlayerNetworkController = player.GetComponent<MainMenuPlayerNetworkController>();
+            }
+        }
+    }
+
     private IEnumerator AnimCoroutine() {
-        Debug.Log("asdasdadsdasdasdada");
         int stringNumber = 0;
+        if(mainMenuPlayerNetworkController == null) {
+            mainMenuPlayerNetworkController = NetworkHelpManager.GetInstance().GetPlayerMenuNetworkController();
+        }
         while(true) {
             if(stringNumber > 2) {
                 stringNumber = 0;
             }
             if(NetworkHelpManager.GetInstance().IsAllPlayerConnected() && IsConnectState) {
-                MainMenuPlayerNetworkUIController.GetInstance().CloseWaitPanel();
+                mainMenuPlayerNetworkController.CloseWaitPanel();
                 yield break;
-            } else if(!IsConnectState) {
-                Debug.Log("123");
+            } else if(!IsConnectState && secondPlayerMainMenuPlayerNetworkController.GetIsSecondPlayerReady()) {
+                mainMenuPlayerNetworkController.SendShipsData(DataSceneTransitionController.GetInstance().GetSelectedShipPoints(1));
+                mainMenuPlayerNetworkController.SendGameModeData(DataSceneTransitionController.GetInstance().GetBattleMode());
+                mainMenuPlayerNetworkController.Load();
                 yield break;
             }
             text.text = waitPlayerStrings[stringNumber++];
