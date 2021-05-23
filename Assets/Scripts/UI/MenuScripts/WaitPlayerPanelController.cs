@@ -94,6 +94,9 @@ public class WaitPlayerPanelController : MonoBehaviour {
                 stringNumber = 0;
             }
             if(NetworkHelpManager.GetInstance().IsAllPlayerConnected() && IsConnectState) {
+                if(mainMenuPlayerNetworkController == null) {
+                    mainMenuPlayerNetworkController = NetworkHelpManager.GetInstance().GetPlayerMenuNetworkController();
+                }
                 mainMenuPlayerNetworkController.CloseWaitPanel();
                 yield break;
             } else if(!IsConnectState && secondPlayerMainMenuPlayerNetworkController.GetIsSecondPlayerReady()) {

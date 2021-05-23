@@ -15,7 +15,7 @@ public class LevelTransitionPanelController : MonoBehaviour
     private bool IsPanelClosed;
     private Vector2 startPoint;
     private float ySpawnOffsetInPixels = 25f;
-    private float speed = 40f;
+    private float speed = 60f;
 
     public delegate void LevelTransitionCloseMethod();
     public delegate void LevelTransitionOpenMethod();
@@ -27,7 +27,7 @@ public class LevelTransitionPanelController : MonoBehaviour
         selfImage = GetComponent<Image>();
         float yAddedPos = Camera.main.ScreenToWorldPoint(new Vector3(0, canvas.sizeDelta.y + ySpawnOffsetInPixels, 0)).y
             - Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0)).y;
-        startPoint = new Vector3(canvas.transform.position.x,canvas.transform.position.y,0) + new Vector3(0, Mathf.Abs(yAddedPos), 0);
+        startPoint = new Vector3(canvas.transform.position.x, canvas.transform.position.y, 0) + new Vector3(0, Mathf.Abs(yAddedPos), 0);
         transform.position = startPoint;
     }
 
@@ -43,6 +43,8 @@ public class LevelTransitionPanelController : MonoBehaviour
     }
 
     public bool MoveToCanvasCenter(LevelTransitionCloseMethod CloseWindowMethod = null) {
+        //CloseWindowMethod?.Invoke();
+        //return true;
         if(!IsCoroutineStarted) {
             selfImage.enabled = true;
             StartCoroutine(MoveToPointCoroutine(canvas.transform.position, true, CloseWindowMethod));
@@ -52,6 +54,8 @@ public class LevelTransitionPanelController : MonoBehaviour
     }
 
     public bool MoveToStartPoint(LevelTransitionOpenMethod OpenWindowMethod = null) {
+        //OpenWindowMethod?.Invoke();
+        //return true;
         if(!IsCoroutineStarted) {
             StartCoroutine(MoveToPointCoroutine(startPoint, false, OpenWindowDelegate: OpenWindowMethod));
             return true;
@@ -68,7 +72,7 @@ public class LevelTransitionPanelController : MonoBehaviour
         IsCoroutineStarted = true;
         targetPos = new Vector3(targetPos.x, targetPos.y, transform.position.z);
         if(!IsMovingToCanvasCenter) {
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.15f);
         }
         while(true) {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
