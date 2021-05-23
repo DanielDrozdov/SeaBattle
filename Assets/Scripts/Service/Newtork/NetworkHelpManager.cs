@@ -18,6 +18,7 @@ public class NetworkHelpManager : MonoBehaviour {
     private MainMenuPlayerNetworkController mainMenuPlayerNetworkController;
     readonly Dictionary<long, ServerResponse> discoveredServers = new Dictionary<long, ServerResponse>();
 
+    [HideInInspector] public int opponentNumberOnFightField;
     private FightGamePlayerNetworkController firstFightPlayerNetworkController;
     private FightGamePlayerNetworkController secondFightPlayerNetworkController;
     private FightGamePlayerNetworkController playerFightPlayerNetworkController;

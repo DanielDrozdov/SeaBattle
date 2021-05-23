@@ -84,6 +84,14 @@ public class FightGameManager : MonoBehaviour {
         return Instance;
     }
 
+    public FightFieldStateController GetFightFieldByOpponentName(OpponentName opponentName) {
+        if(opponentName == OpponentName.P1) {
+            return firstPlayerFieldStateController;
+        } else {
+            return secondPlayerFieldStateController;
+        }
+    }
+
     public int GetPlayerShotsCount() {
         return playerShotsCount;
     }

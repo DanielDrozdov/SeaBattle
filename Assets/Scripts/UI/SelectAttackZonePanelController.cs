@@ -37,7 +37,18 @@ public class SelectAttackZonePanelController : MonoBehaviour {
     public void SetNewOpponentFieldAndUpdateShipsAttackZones(FightFieldStateController fightFieldStateController) {        
         currentFightFieldStateController = fightFieldStateController;
         ShipAttackZonesManager.GetInstance().OffZones();
-        UpdateAliveShips();
+        if(DataSceneTransitionController.GetInstance().IsMultiplayerGame()) {
+            FightGameManager.OpponentName opponentNameToAttack = FightGameManager.GetInstance().GetCurrentOpponentNameToAttack();
+            FightGamePlayerNetworkController currentPlayer = NetworkHelpManager.GetInstance().GetCurrentPlayerFightNetworkController();
+            FightGameManager.OpponentName currentPlayerOpponentName = currentPlayer.GetPlayerOpponentName();
+            if(opponentNameToAttack == currentPlayerOpponentName) {
+                UpdateAliveShips();
+            } else {
+                DeactivateAllButtons();
+            }
+        } else {
+            UpdateAliveShips();
+        }
     }
 
     public void UpdateAliveShips() {

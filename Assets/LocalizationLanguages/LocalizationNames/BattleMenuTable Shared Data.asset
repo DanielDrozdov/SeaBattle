@@ -47,6 +47,18 @@ MonoBehaviour:
     m_Key: FightWithFriendMultiplayerName
     m_Metadata:
       m_Items: []
+  - m_Id: 5748030704836608
+    m_Key: WaitFriendPanelName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5748565956747264
+    m_Key: CreateMultiplayerGameName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5748655123456000
+    m_Key: JoinToMultiplayerGameName
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

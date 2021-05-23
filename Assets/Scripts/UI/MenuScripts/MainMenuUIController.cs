@@ -7,11 +7,8 @@ public class MainMenuUIController : MonoBehaviour
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject campaignMenuPanel;
     [SerializeField] private GameObject battlesMenuPanel;
-    [SerializeField] private GameObject settingsMenuPanel;
-    [SerializeField] private GameObject authorsPanel;
     [SerializeField] private GameObject backToMainMenuButton;
     [SerializeField] private GameObject languageDropDownList;
-    [SerializeField] private GameObject settingsButton;
     private static MainMenuUIController Instance;
     private LevelTransitionPanelController levelTransitionPanelController;
     private GameObject lastOpenedPanel;
@@ -19,9 +16,6 @@ public class MainMenuUIController : MonoBehaviour
 
     private void Awake() {
         Instance = this;
-        if(Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer) {
-            Destroy(settingsButton);
-        }
     }
 
     private void Start() {
@@ -55,14 +49,6 @@ public class MainMenuUIController : MonoBehaviour
     public void OnClickButton_BattlesPlay() {
         DataSceneTransitionController.GetInstance().ZeroSelectedShips();
         OpenPanel(battlesMenuPanel);
-    }
-
-    public void OnClickButton_OpenSettings() {
-        OpenPanel(settingsMenuPanel);
-    }
-
-    public void OnClickButton_ShowAuthors() {
-        OpenPanel(authorsPanel);
     }
 
     public void OnClickButton_BackToMainMenu() {

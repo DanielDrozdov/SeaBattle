@@ -50,5 +50,17 @@ MonoBehaviour:
     m_Localized: Online with a friend
     m_Metadata:
       m_Items: []
+  - m_Id: 5748030704836608
+    m_Localized: Wait player
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5748565956747264
+    m_Localized: Create game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5748655123456000
+    m_Localized: Join the game
+    m_Metadata:
+      m_Items: []
   references:
     version: 1

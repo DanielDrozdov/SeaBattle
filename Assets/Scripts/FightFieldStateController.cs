@@ -121,6 +121,9 @@ public class FightFieldStateController : GameFieldState {
 
     public void HitByShipAttackZone(Vector2[] points) {
         bool IsAvaliableHitsOver = false;
+        if(DataSceneTransitionController.GetInstance().IsMultiplayerGame()) {
+            NetworkHelpManager.GetInstance().GetCurrentPlayerFightNetworkController().SendCurrentPlayerHitsMove(points);
+        }
         for(int i = 0; i < points.Length; i++) {
             if(IsAvaliableHitsOver) {
                 break;

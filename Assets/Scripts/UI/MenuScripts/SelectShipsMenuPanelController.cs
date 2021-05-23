@@ -6,7 +6,7 @@ using TMPro;
 
 public class SelectShipsMenuPanelController : MonoBehaviour
 {
-    [HideInInspector] public int playerNumber => DataSceneTransitionController.GetInstance().GetPlayerCountWithShips() + 1;
+    [HideInInspector] public int playerNumber => GetPlayerShipsNumber();
     private bool IsPlayButtonPressed;
     [SerializeField] private GameObject SelectPlayerShipsPanel;
     private GeneratedSelectShipLocateHelperController generator;
@@ -22,7 +22,12 @@ public class SelectShipsMenuPanelController : MonoBehaviour
     public void OnClickButton_Play() {
         if(shipSelectFieldController.IfAllShipsAreSelected() && !IsPlayButtonPressed) {
             DataSceneTransitionController dataSceneTransition = DataSceneTransitionController.GetInstance();
-            int playerNumber = dataSceneTransition.GetPlayerCountWithShips() + 1;         
+            int playerNumber;
+            if(dataSceneTransition.IsMultiplayerGame()) {
+                playerNumber = NetworkHelpManager.GetInstance().opponentNumberOnFightField;
+            } else {
+                playerNumber = dataSceneTransition.GetPlayerCountWithShips() + 1;
+            }
             bool IsDone;
             if((dataSceneTransition.GetBattleType() == DataSceneTransitionController.BattleType.P1vsBot && playerNumber == 1) ||
                 (dataSceneTransition.GetBattleType() == DataSceneTransitionController.BattleType.P1vsP2 && playerNumber == 2) ||
@@ -54,5 +59,16 @@ public class SelectShipsMenuPanelController : MonoBehaviour
 
     public void OnClickButton_RotateShip() {
         shipSelectFieldController.RotateShip();
+    }
+
+    public int GetPlayerShipsNumber() {
+        int number;
+        if(DataSceneTransitionController.GetInstance().IsMultiplayerGame()) {
+            bool IsServer = NetworkHelpManager.GetInstance().IsServerCall();
+            number = (IsServer) ? 1 : 2;
+        } else {
+            number = DataSceneTransitionController.GetInstance().GetPlayerCountWithShips() + 1;
+        }
+        return number;
     }
 }

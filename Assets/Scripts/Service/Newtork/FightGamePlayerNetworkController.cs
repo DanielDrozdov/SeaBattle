@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class FightGamePlayerNetworkController : NetworkBehaviour {
 
     private bool IsSecondPlayerReadyToPlay;
+    private FightGameManager.OpponentName playerOpponentName;
 
     public override void OnStartAuthority() {
         base.OnStartAuthority();
@@ -18,6 +19,10 @@ public class FightGamePlayerNetworkController : NetworkBehaviour {
         } else if(isServer && isLocalPlayer && SceneManager.GetActiveScene().name == "FightScene") {
             StartCoroutine(WaitAllPlayersAuthorityAndChangeOpponentToAttackCoroutine());
         }
+    }
+
+    public FightGameManager.OpponentName GetPlayerOpponentName() {
+        return playerOpponentName;
     }
 
     public void SetStateToPausePanel(bool value) {
@@ -38,14 +43,36 @@ public class FightGamePlayerNetworkController : NetworkBehaviour {
 
     public override void OnStopClient() {
         base.OnStopClient();
-        if(SceneManager.GetActiveScene().name == "FightScene") {
-            SceneManager.LoadScene("MainMenu");
-        } else if(!MainMenuUIController.GetInstance().GetIsBackButtonPressed()) {
-            MainMenuUIController.GetInstance().BackToMainMenu();
-        }
-        if(NetworkServer.connections.Count == 1) {
+        if(NetworkServer.connections.Count == 1 && !isLocalPlayer && !isServer) {
             NetworkHelpManager.GetInstance().CancelConnecting();
+        }   
+    }
+
+    public override void OnStartClient() {
+        base.OnStartClient();
+        SetCurPlayerOppponentName();
+    }
+
+    public void SendCurrentPlayerHitsMove(Vector2[] hitPoints) {
+        if(playerOpponentName != FightGameManager.GetInstance().GetCurrentOpponentNameToAttack()) {
+            return;
         }
+        if(isServer) {
+            RpcSendCurrentPlayerHitsMove(hitPoints);
+        } else {
+            CmdSendCurrentPlayerHitsMove(hitPoints);
+        }
+    }
+
+    [Command]
+    private void CmdSendCurrentPlayerHitsMove(Vector2[] hitPoints) {
+        RpcSendCurrentPlayerHitsMove(hitPoints);
+    }
+
+    [ClientRpc]
+    private void RpcSendCurrentPlayerHitsMove(Vector2[] hitPoints) {
+        if(isLocalPlayer) { return; }
+        FightGameManager.GetInstance().GetFightFieldByOpponentName(playerOpponentName).HitByShipAttackZone(hitPoints);
     }
 
     [Command]
@@ -101,5 +128,23 @@ public class FightGamePlayerNetworkController : NetworkBehaviour {
         }
         FightGameManager.OpponentName hostOpponentNameToAttack = FightGameManager.GetInstance().GetCurrentOpponentNameToAttack();
         ChangePlayerToAttack(hostOpponentNameToAttack);
+    }
+
+    private void SetCurPlayerOppponentName() {
+        if(isServer) {
+            playerOpponentName = FightGameManager.OpponentName.P1;
+            NetworkHelpManager.GetInstance().opponentNumberOnFightField = 1;
+        } else {
+            playerOpponentName = FightGameManager.OpponentName.P2;
+            NetworkHelpManager.GetInstance().opponentNumberOnFightField = 2;
+        }
+    }
+
+    private IEnumerator TransferToMainScene() {
+        float waitTime = 1f;
+        float waitTimeBalance = waitTime;
+        while(true) {
+            waitTimeBalance -= Time.deltaTime;
+        }
     }
 }

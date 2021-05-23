@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Mirror;
+using UnityEngine;
 
 public class MainMenuPlayerNetworkController : NetworkBehaviour
 {
@@ -55,8 +56,13 @@ public class MainMenuPlayerNetworkController : NetworkBehaviour
     private void RpcSendShipsData(List<CellPointPos[]> shipsPoints) {
         DataSceneTransitionController dataSceneTransitionController = DataSceneTransitionController.GetInstance();
         if(isLocalPlayer && dataSceneTransitionController.GetPlayerCountWithShips() == 2) { return; }
-        CmdSendShipsData(dataSceneTransitionController.GetSelectedShipPoints(1));
-        dataSceneTransitionController.SetSelectedShips(2, shipsPoints);
+        if(NetworkHelpManager.GetInstance().opponentNumberOnFightField == 2) {
+            CmdSendShipsData(dataSceneTransitionController.GetSelectedShipPoints(2));
+            dataSceneTransitionController.SetSelectedShips(1, shipsPoints);
+        } else {
+            CmdSendShipsData(dataSceneTransitionController.GetSelectedShipPoints(1));
+            dataSceneTransitionController.SetSelectedShips(2, shipsPoints);
+        }
     }
 
     [ClientRpc]
@@ -85,8 +91,6 @@ public class MainMenuPlayerNetworkController : NetworkBehaviour
         if(isLocalPlayer) { return; }
         IsSecondPlayerReadyToPlay = true;
     }
-
-
 
     public void Load() {
         if(isServer) {

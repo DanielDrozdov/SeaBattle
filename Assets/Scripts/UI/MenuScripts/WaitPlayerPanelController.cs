@@ -14,6 +14,7 @@ public class WaitPlayerPanelController : MonoBehaviour {
     private MainMenuPlayerNetworkController secondPlayerMainMenuPlayerNetworkController;
     private static WaitPlayerPanelController Instance;
     private bool IsConnectState = true;
+    private string startStringName;
 
     private delegate void WaitPanelActionDelegate();
 
@@ -36,10 +37,12 @@ public class WaitPlayerPanelController : MonoBehaviour {
     }
 
     private void OnEnable() {
+        startStringName = text.text;
         StartCoroutine(AnimCoroutine());
     }
 
     private void OnDisable() {
+        text.text = startStringName;
         gameObject.SetActive(false);
         if(IsFirstStart) {
             IsFirstStart = false;
@@ -94,15 +97,15 @@ public class WaitPlayerPanelController : MonoBehaviour {
                 mainMenuPlayerNetworkController.CloseWaitPanel();
                 yield break;
             } else if(!IsConnectState && secondPlayerMainMenuPlayerNetworkController.GetIsSecondPlayerReady()) {
-                mainMenuPlayerNetworkController.SendShipsData(DataSceneTransitionController.GetInstance().GetSelectedShipPoints(1));
+                int playerNumberOnFightField = NetworkHelpManager.GetInstance().opponentNumberOnFightField;
+                mainMenuPlayerNetworkController.SendShipsData(DataSceneTransitionController.GetInstance().GetSelectedShipPoints(playerNumberOnFightField));
                 mainMenuPlayerNetworkController.SendGameModeData(DataSceneTransitionController.GetInstance().GetBattleMode());
-                mainMenuPlayerNetworkController.Load();
                 StartCoroutine(WaitTransitionPanelEndAndContinueCoroutine(() => {
                     mainMenuPlayerNetworkController.Load();
                 }));
                 yield break;
             }
-            text.text = waitPlayerStrings[stringNumber++];
+            text.text = startStringName + waitPlayerStrings[stringNumber++];
             yield return new WaitForSeconds(0.5f);
         }
     }
