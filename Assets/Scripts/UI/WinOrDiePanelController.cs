@@ -20,13 +20,13 @@ public class WinOrDiePanelController : MonoBehaviour {
 
     public void ActivatePanel(FightGameManager.OpponentName winnerName) {
         GameUIController.GetInstance().OffBaseUI();
-        gameObject.SetActive(true);
         this.winnerName = winnerName;
         DataSceneTransitionController dataSceneTransitionController = DataSceneTransitionController.GetInstance();
         if(dataSceneTransitionController.IsCampaignGame()) {
             GetComponent<RectTransform>().sizeDelta = new Vector2(920, 780);
             OnCampaignPartPanel();
         }
+        gameObject.SetActive(true);
     }
 
     public void OnClickButton_ToMainMenu() {

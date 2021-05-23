@@ -62,10 +62,10 @@ public class FightGameManager : MonoBehaviour {
         secondPlayerFieldStateController.InitializeField();
         opponentShotsBalancePanelController = OpponentShotsBalancePanelController.GetInstance();
         opponentShotsBalancePanelController.UpdatePlayerShotsBalance();
+        LocateShipsOnFields();
         if(secondPlayerFieldStateController.GetOpponentName() == OpponentName.Bot) {
             botStartShipsCount = secondPlayerFieldStateController.GetAliveShipList().Count;
         }
-        LocateShipsOnFields();
         ShipAttackZonesManager.GetInstance().ChangeOpponentAttackField(secondPlayerFieldStateController);
         currentOpponentName = OpponentName.P1;
         if(dataSceneTransitionController.GetBattleMode() != DataSceneTransitionController.BattleMode.Classic) {
@@ -118,10 +118,24 @@ public class FightGameManager : MonoBehaviour {
         }
     }
 
-    public void EndGame() {
+    public void EndGame(OpponentName looserName) {
+        OpponentName winnerName;
+        if(DataSceneTransitionController.GetInstance().GetBattleType() == DataSceneTransitionController.BattleType.P1vsBot) {
+            if(looserName == OpponentName.Bot) {
+                winnerName = OpponentName.P1;
+            } else {
+                winnerName = OpponentName.Bot;
+            }
+        } else {
+            if(looserName == OpponentName.P1) {
+                winnerName = OpponentName.P2;
+            } else {
+                winnerName = OpponentName.P1;
+            }
+        }
         IsGameEnded = true;
         ShipAttackZonesManager.GetInstance().OffZones();
-        WinOrDiePanel.ActivatePanel(currentOpponentName);
+        WinOrDiePanel.ActivatePanel(winnerName);
     }
 
     public void DecreaseOneCell() {

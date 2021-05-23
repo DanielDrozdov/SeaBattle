@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class Ship : MonoBehaviour
 {
-    public delegate void CaravanActions();
-    public event CaravanActions OnCaravanShipDie;
+    public delegate void ShipActions();
+    public event ShipActions OnCaravanShipDie;
+    public event ShipActions OnShipDestroy;
 
     [SerializeField] private bool IsCaravan;
     [SerializeField] private int cellsCount;
@@ -46,6 +47,7 @@ public class Ship : MonoBehaviour
         if(IsCaravan) {
             OnCaravanShipDie?.Invoke();
         }
+        OnShipDestroy?.Invoke();
         FightGameSoundsController.GetInstance().PlayDestroyShipSound();
         IsDestroyed = true;
         image.sprite = ShipsSpritesDataController.GetInstance().GetDestroyShipSprite(cellsCount);

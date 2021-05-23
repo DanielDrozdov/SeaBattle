@@ -16,6 +16,8 @@ public class FightMissionController : MonoBehaviour {
     private int shotsDecreaseDelta = 3;
     [Header("8 mission")]
     private bool IsShipsVulnerable;
+    [Header("10 mission")]
+    [SerializeField] private Ship playerFlagmanShip;
 
     private void Awake() {
         if(!DataSceneTransitionController.GetInstance().IsCampaignGame()) {
@@ -33,6 +35,7 @@ public class FightMissionController : MonoBehaviour {
         DataSceneTransitionController dataSceneTransitionController = DataSceneTransitionController.GetInstance();
         if(missionNumber == 10) {
             FightGameManager.OnPlayerShotsValueChanging += CheckPlayerShotsDeadline;
+            playerFlagmanShip.OnShipDestroy += PlayerEndGame;
         } else if(missionNumber == 7) {
             FightGameManager.OnOpponentChanging += HitRandomCellsBySubmarine;
             HitRandomCellsBySubmarine();
@@ -53,7 +56,7 @@ public class FightMissionController : MonoBehaviour {
     private void CheckPlayerShotsDeadline() {
         FightGameManager fightGameManager = FightGameManager.GetInstance();
         if(fightGameManager.GetPlayerShotsCount() > 70) {
-            fightGameManager.EndGame();
+            PlayerEndGame();
         }
     }
 
@@ -76,7 +79,7 @@ public class FightMissionController : MonoBehaviour {
     private void DeacreaseOneCaravanShip() {
         caravanShipsCount--;
         if(caravanShipsCount <= 0) {
-            FightGameManager.GetInstance().EndGame();
+            PlayerEndGame();
         }
     }
 
@@ -91,5 +94,9 @@ public class FightMissionController : MonoBehaviour {
             playerFieldStateController.HitEnemyByPos(hitPos,false);
         }
         enemySubmarineShotsBalance -= shotsDecreaseDelta;
+    }
+
+    private void PlayerEndGame() {
+        FightGameManager.GetInstance().EndGame(FightGameManager.OpponentName.P1);
     }
 }
