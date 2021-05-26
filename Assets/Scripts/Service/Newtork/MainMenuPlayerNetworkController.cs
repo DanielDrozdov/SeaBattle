@@ -55,14 +55,10 @@ public class MainMenuPlayerNetworkController : NetworkBehaviour
     [ClientRpc]
     private void RpcSendShipsData(List<CellPointPos[]> shipsPoints) {
         DataSceneTransitionController dataSceneTransitionController = DataSceneTransitionController.GetInstance();
+        if(isLocalPlayer) { return; }
         if(isLocalPlayer && dataSceneTransitionController.GetPlayerCountWithShips() == 2) { return; }
-        if(NetworkHelpManager.GetInstance().opponentNumberOnFightField == 2) {
-            CmdSendShipsData(dataSceneTransitionController.GetSelectedShipPoints(2));
-            dataSceneTransitionController.SetSelectedShips(1, shipsPoints);
-        } else {
-            CmdSendShipsData(dataSceneTransitionController.GetSelectedShipPoints(1));
-            dataSceneTransitionController.SetSelectedShips(2, shipsPoints);
-        }
+        dataSceneTransitionController.SetSelectedShips(2, shipsPoints);
+        CmdSendShipsData(dataSceneTransitionController.GetSelectedShipPoints(1));
     }
 
     [ClientRpc]

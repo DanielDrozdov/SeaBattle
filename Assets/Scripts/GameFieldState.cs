@@ -38,6 +38,10 @@ public class GameFieldState : MonoBehaviour {
         return letterPoints[tapCellPoint.number];
     }
 
+    public CellPointPos GetCellPointByPos(Vector2 cellVectorPos) {
+        return SearchTapCellData(cellVectorPos, fieldPoints);
+    }
+
     public Vector2 GetPosByCellPoint(CellPointPos shipPoint) {
         return fieldPoints[shipPoint.letter][shipPoint.number];
     }

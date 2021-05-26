@@ -53,26 +53,29 @@ public class FightGamePlayerNetworkController : NetworkBehaviour {
         SetCurPlayerOppponentName();
     }
 
-    public void SendCurrentPlayerHitsMove(Vector2[] hitPoints) {
-        if(playerOpponentName != FightGameManager.GetInstance().GetCurrentOpponentNameToAttack()) {
-            return;
-        }
+    public void SendCurrentPlayerHitsMove(CellPointPos[] hitCells) {
         if(isServer) {
-            RpcSendCurrentPlayerHitsMove(hitPoints);
+            RpcSendCurrentPlayerHitsMove(hitCells);
         } else {
-            CmdSendCurrentPlayerHitsMove(hitPoints);
+            CmdSendCurrentPlayerHitsMove(hitCells);
         }
     }
 
     [Command]
-    private void CmdSendCurrentPlayerHitsMove(Vector2[] hitPoints) {
-        RpcSendCurrentPlayerHitsMove(hitPoints);
+    private void CmdSendCurrentPlayerHitsMove(CellPointPos[] hitCells) {
+        RpcSendCurrentPlayerHitsMove(hitCells);
     }
 
     [ClientRpc]
-    private void RpcSendCurrentPlayerHitsMove(Vector2[] hitPoints) {
+    private void RpcSendCurrentPlayerHitsMove(CellPointPos[] hitCells) {
         if(isLocalPlayer) { return; }
-        FightGameManager.GetInstance().GetFightFieldByOpponentName(playerOpponentName).HitByShipAttackZone(hitPoints);
+        FightGameManager.OpponentName selfOpponentName = FightGameManager.OpponentName.P1;
+        FightFieldStateController fightFieldStateController = FightGameManager.GetInstance().GetFightFieldByOpponentName(selfOpponentName);
+        Vector2[] hitPoints = new Vector2[hitCells.Length];
+        for(int i = 0;i < hitPoints.Length;i++) {
+            hitPoints[i] = fightFieldStateController.GetPosByCellPoint(hitCells[i]);
+        }
+        fightFieldStateController.HitByShipAttackZone(hitPoints, true);
     }
 
     [Command]
@@ -108,7 +111,7 @@ public class FightGamePlayerNetworkController : NetworkBehaviour {
     [ClientRpc]
     private void RpcChangeEnemyPlayerCurrentOpponentToAttack(FightGameManager.OpponentName opponentName) {
         if(isLocalPlayer) { return; }
-        FightGameManager.GetInstance().SetOpponentMove(opponentName);
+        FightGameManager.GetInstance().SetMultiplayerOpponentMove(opponentName);
     }
 
     [Command]
@@ -137,14 +140,6 @@ public class FightGamePlayerNetworkController : NetworkBehaviour {
         } else {
             playerOpponentName = FightGameManager.OpponentName.P2;
             NetworkHelpManager.GetInstance().opponentNumberOnFightField = 2;
-        }
-    }
-
-    private IEnumerator TransferToMainScene() {
-        float waitTime = 1f;
-        float waitTimeBalance = waitTime;
-        while(true) {
-            waitTimeBalance -= Time.deltaTime;
         }
     }
 }

@@ -100,8 +100,7 @@ public class WaitPlayerPanelController : MonoBehaviour {
                 mainMenuPlayerNetworkController.CloseWaitPanel();
                 yield break;
             } else if(!IsConnectState && secondPlayerMainMenuPlayerNetworkController.GetIsSecondPlayerReady()) {
-                int playerNumberOnFightField = NetworkHelpManager.GetInstance().opponentNumberOnFightField;
-                mainMenuPlayerNetworkController.SendShipsData(DataSceneTransitionController.GetInstance().GetSelectedShipPoints(playerNumberOnFightField));
+                mainMenuPlayerNetworkController.SendShipsData(DataSceneTransitionController.GetInstance().GetSelectedShipPoints(1));
                 mainMenuPlayerNetworkController.SendGameModeData(DataSceneTransitionController.GetInstance().GetBattleMode());
                 StartCoroutine(WaitTransitionPanelEndAndContinueCoroutine(() => {
                     mainMenuPlayerNetworkController.Load();

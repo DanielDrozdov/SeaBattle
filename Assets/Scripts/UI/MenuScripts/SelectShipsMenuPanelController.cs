@@ -24,7 +24,7 @@ public class SelectShipsMenuPanelController : MonoBehaviour
             DataSceneTransitionController dataSceneTransition = DataSceneTransitionController.GetInstance();
             int playerNumber;
             if(dataSceneTransition.IsMultiplayerGame()) {
-                playerNumber = NetworkHelpManager.GetInstance().opponentNumberOnFightField;
+                playerNumber = 1;
             } else {
                 playerNumber = dataSceneTransition.GetPlayerCountWithShips() + 1;
             }

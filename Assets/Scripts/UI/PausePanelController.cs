@@ -29,14 +29,12 @@ public class PausePanelController : MonoBehaviour
         ReturnToGame();
     }
 
-    public void OnClickButton_Settings() {
-
-    }
-
     public void OnClickButton_ToMainMenu() {
         Time.timeScale = 1;
         LevelTransitionPanelController.GetInstance().MoveToCanvasCenter(() => SceneManager.LoadScene("MainMenu"));
-        NetworkHelpManager.GetInstance().CancelConnecting();
+        if(DataSceneTransitionController.GetInstance().IsMultiplayerGame()) {
+            NetworkHelpManager.GetInstance().CancelConnecting();
+        }
     }
 
     public void ActivatePausePanel() {

@@ -112,8 +112,8 @@ public class FightGameManager : MonoBehaviour {
         return avaliableCellsCountToHitBalance;
     }
 
-    public void SetOpponentMove(OpponentName opponentName) {
-        if(opponentName != currentOpponentName) {
+    public void SetMultiplayerOpponentMove(OpponentName hostOpponentName) {
+        if(hostOpponentName == currentOpponentName) {
             ChangeAttackOpponent();
         }
     }

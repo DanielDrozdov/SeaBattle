@@ -10,7 +10,7 @@ public class FightFieldStateController : GameFieldState {
     private FightGameManager fightGameManager;
 
     private BotAttackController botAttackController;
-    private float botShotDelayTimeInSecond = 0.25f;
+    private float shotDelayTimeInSecond = 0.25f;
 
     private FightFieldStateController() { }
 
@@ -93,6 +93,14 @@ public class FightFieldStateController : GameFieldState {
         return GetPosByCellPoint(new CellPointPos(randomLetter, randomNumber));
     }
 
+    public CellPointPos[] ConvertPosesToPoints(Vector2[] points) {
+        CellPointPos[] poses = new CellPointPos[points.Length];
+        for(int i = 0; i < poses.Length; i++) {
+            poses[i] = GetCellPointByPos(points[i]);
+        }
+        return poses;
+    }
+
     public CellPointPos GetRandomCellWithoutShip() {
         char randomLetter;
         int randomNumber;
@@ -120,15 +128,12 @@ public class FightFieldStateController : GameFieldState {
         return new CellPointPos(randomLetter, randomNumber);
     }
 
-    public void HitByShipAttackZone(Vector2[] points) {
-        if(DataSceneTransitionController.GetInstance().IsMultiplayerGame()) {
-            NetworkHelpManager.GetInstance().GetCurrentPlayerFightNetworkController().SendCurrentPlayerHitsMove(points);
+    public void HitByShipAttackZone(Vector2[] points,bool IsMultiplayerCall = false) {
+        if(DataSceneTransitionController.GetInstance().IsMultiplayerGame() && !IsMultiplayerCall) {
+            CellPointPos[] cells = ConvertPosesToPoints(points);
+            NetworkHelpManager.GetInstance().GetCurrentPlayerFightNetworkController().SendCurrentPlayerHitsMove(cells);
         }
-        if(FightGameManager.GetInstance().GetCurrentOpponentNameToAttack() == FightGameManager.OpponentName.Bot) {
-            StartCoroutine(HitShipByAttackZoneCoroutine(points, botShotDelayTimeInSecond));
-        } else {
-            StartCoroutine(HitShipByAttackZoneCoroutine(points));
-        }
+        StartCoroutine(HitShipByAttackZoneCoroutine(points));
     }
 
     public void HitEnemyByPos(Vector2 pointPosition, bool IsGameMove = true) {
@@ -236,7 +241,7 @@ public class FightFieldStateController : GameFieldState {
         }
     }
 
-    private IEnumerator HitShipByAttackZoneCoroutine(Vector2[] points,float shotDelayInSeconds = 0) {
+    private IEnumerator HitShipByAttackZoneCoroutine(Vector2[] points) {
         bool IsAvaliableHitsOver = false;
         for(int i = 0; i < points.Length; i++) {
             if(IsAvaliableHitsOver) {
@@ -246,11 +251,7 @@ public class FightFieldStateController : GameFieldState {
                 IsAvaliableHitsOver = true;
             }
             HitEnemyCellByPos(points[i]);
-            if(FightGameManager.GetInstance().GetCurrentOpponentNameToAttack() == FightGameManager.OpponentName.Bot) {
-                yield return new WaitForSeconds(shotDelayInSeconds);
-            } else {
-                yield return null;
-            }
+            yield return new WaitForSeconds(shotDelayTimeInSecond);
         }
         if(fightGameManager.GetAvaliableCellsCountToHit() > 0 && fightGameManager.GetAvaliableCellsCountToHit() < 4 &&
             fightGameManager.GetCurrentOpponentNameToAttack() == FightGameManager.OpponentName.Bot

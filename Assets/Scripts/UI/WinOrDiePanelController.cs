@@ -31,6 +31,9 @@ public class WinOrDiePanelController : MonoBehaviour {
 
     public void OnClickButton_ToMainMenu() {
         LevelTransitionPanelController.GetInstance().MoveToCanvasCenter(() => SceneManager.LoadScene("MainMenu"));
+        if(DataSceneTransitionController.GetInstance().IsMultiplayerGame()) {
+            NetworkHelpManager.GetInstance().CancelConnecting();
+        }
     }
 
     public void OnClickButton_ResetMission() {
