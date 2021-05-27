@@ -63,16 +63,4 @@ public class MissionPanelController : MonoBehaviour, IPointerUpHandler,IPointerD
     public void UpdateMissionNameLanguage() {
         missionNameText.text = missionName;
     }
-
-    //private IEnumerator WaitLocalizatorInitialize() {
-    //    while(!localizeStringEventName.StringReference.GetLocalizedString().IsDone && !localizeStringEventDescription.StringReference.GetLocalizedString().IsDone) {
-    //        yield return null;
-    //    }
-    //    gameObject.SetActive(false);
-    //    missionName = localizeStringEventName.StringReference.GetLocalizedString().Result;
-    //    missionDescription = localizeStringEventDescription.StringReference.GetLocalizedString().Result;
-    //    missionData.missionNumber = missionNumber;
-    //    DataSceneTransitionController.GetInstance().SetSelectedMissionData(missionData);
-    //    SelectedMissionPanelController.GetInstance().SetMissionData(missionSprite, missionNumber, missionName, missionDescription);
-    //}
 }

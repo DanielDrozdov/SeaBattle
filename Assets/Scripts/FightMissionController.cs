@@ -17,7 +17,7 @@ public class FightMissionController : MonoBehaviour {
     [Header("8 mission")]
     private bool IsShipsVulnerable;
     [Header("10 mission")]
-    [SerializeField] private Ship playerFlagmanShip;
+    [SerializeField] private Ship botFlagmanShip;
 
     private void Awake() {
         if(!DataSceneTransitionController.GetInstance().IsCampaignGame()) {
@@ -35,7 +35,7 @@ public class FightMissionController : MonoBehaviour {
         DataSceneTransitionController dataSceneTransitionController = DataSceneTransitionController.GetInstance();
         if(missionNumber == 10) {
             FightGameManager.OnPlayerShotsValueChanging += CheckPlayerShotsDeadline;
-            playerFlagmanShip.OnShipDestroy += PlayerEndGame;
+            botFlagmanShip.OnShipDestroy += PlayerEndGame;
         } else if(missionNumber == 7) {
             FightGameManager.OnOpponentChanging += HitRandomCellsBySubmarine;
             HitRandomCellsBySubmarine();
@@ -97,6 +97,6 @@ public class FightMissionController : MonoBehaviour {
     }
 
     private void PlayerEndGame() {
-        FightGameManager.GetInstance().EndGame(FightGameManager.OpponentName.P1);
+        FightGameManager.GetInstance().EndGame(FightGameManager.OpponentName.Bot);
     }
 }
